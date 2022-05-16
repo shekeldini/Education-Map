@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from db.roles import roles
 from models.roles import Roles
 from .base import BaseRepository
@@ -9,13 +9,19 @@ class RolesRepository(BaseRepository):
         query = roles.select().limit(limit).offset(skip)
         return [Roles.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id_role: int) -> Roles:
+    async def get_by_id(self, id_role: int) -> Optional[Roles]:
         query = roles.select().where(roles.c.id_role == id_role)
-        return Roles.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return Roles.parse_obj(res)
 
-    async def get_by_name(self, role: str) -> Roles:
+    async def get_by_name(self, role: str) -> Optional[Roles]:
         query = roles.select().where(roles.c.role == role)
-        return Roles.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return Roles.parse_obj(res)
 
     async def create(self, role: str) -> Roles:
         new_role = Roles(

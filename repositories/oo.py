@@ -49,7 +49,7 @@ class OORepository(BaseRepository):
         );"""
 
         res = await self.database.fetch_one(query, {"year": year,
-                                                    "district": district})
+                                                    "district": district_name})
         if res is None:
             return None
         return OO.parse_obj(res)

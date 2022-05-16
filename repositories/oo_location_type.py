@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from db.oo_location_type import oo_location_type
 from models.oo_location_type import OOLocationType
 from .base import BaseRepository
@@ -9,13 +9,19 @@ class OOLocationTypeRepository(BaseRepository):
         query = oo_location_type.select().limit(limit).offset(skip)
         return [OOLocationType.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id_oo_location_type: int) -> OOLocationType:
+    async def get_by_id(self, id_oo_location_type: int) -> Optional[OOLocationType]:
         query = oo_location_type.select().where(oo_location_type.c.id_oo_location_type == id_oo_location_type)
-        return OOLocationType.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return OOLocationType.parse_obj(res)
 
-    async def get_by_name(self, location_type: str) -> OOLocationType:
+    async def get_by_name(self, location_type: str) -> Optional[OOLocationType]:
         query = oo_location_type.select().where(oo_location_type.c.location_type == location_type)
-        return OOLocationType.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return OOLocationType.parse_obj(res)
 
     async def create(self, location_type: str) -> OOLocationType:
         new_oo_location_type = OOLocationType(

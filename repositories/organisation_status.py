@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from db.organisation_status import organisation_status
 from models.organisation_status import OrganisationStatus
 from .base import BaseRepository
@@ -9,11 +9,14 @@ class OrganisationStatusRepository(BaseRepository):
         query = organisation_status.select().limit(limit).offset(skip)
         return [OrganisationStatus.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id_organisation_status: int) -> OrganisationStatus:
+    async def get_by_id(self, id_organisation_status: int) -> Optional[OrganisationStatus]:
         query = organisation_status.select().where(
             organisation_status.c.id_organisation_status == id_organisation_status
         )
-        return OrganisationStatus.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return OrganisationStatus.parse_obj(res)
 
     async def create(self, status: str) -> OrganisationStatus:
         new_organisation_status = OrganisationStatus(

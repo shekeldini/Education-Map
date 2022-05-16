@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from db.population_of_the_settlement import population_of_the_settlement
 from models.population_of_the_settlement import PopulationOfTheSettlement
 from .base import BaseRepository
@@ -9,17 +9,23 @@ class PopulationOfTheSettlementRepository(BaseRepository):
         query = population_of_the_settlement.select().limit(limit).offset(skip)
         return [PopulationOfTheSettlement.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id_population_of_the_settlement: int) -> PopulationOfTheSettlement:
+    async def get_by_id(self, id_population_of_the_settlement: int) -> Optional[PopulationOfTheSettlement]:
         query = population_of_the_settlement.select().where(
             population_of_the_settlement.c.id_population_of_the_settlement == id_population_of_the_settlement
         )
-        return PopulationOfTheSettlement.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return PopulationOfTheSettlement.parse_obj(res)
 
-    async def get_by_interval(self, interval: str) -> PopulationOfTheSettlement:
+    async def get_by_interval(self, interval: str) -> Optional[PopulationOfTheSettlement]:
         query = population_of_the_settlement.select().where(
             population_of_the_settlement.c.interval == interval
         )
-        return PopulationOfTheSettlement.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return PopulationOfTheSettlement.parse_obj(res)
 
     async def create(self, interval: str) -> PopulationOfTheSettlement:
         new_population_of_the_settlement = PopulationOfTheSettlement(

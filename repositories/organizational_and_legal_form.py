@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from db.organizational_and_legal_form import organizational_and_legal_form
 from models.organizational_and_legal_form import OrganizationalAndLegalForm
 from .base import BaseRepository
@@ -9,17 +9,23 @@ class OrganizationalAndLegalFormRepository(BaseRepository):
         query = organizational_and_legal_form.select().limit(limit).offset(skip)
         return [OrganizationalAndLegalForm.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id: int) -> OrganizationalAndLegalForm:
+    async def get_by_id(self, id: int) -> Optional[OrganizationalAndLegalForm]:
         query = organizational_and_legal_form.select().where(
             organizational_and_legal_form.c.id_organizational_and_legal_form == id
         )
-        return OrganizationalAndLegalForm.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return OrganizationalAndLegalForm.parse_obj(res)
 
-    async def get_by_type(self, type: str) -> OrganizationalAndLegalForm:
+    async def get_by_type(self, type: str) -> Optional[OrganizationalAndLegalForm]:
         query = organizational_and_legal_form.select().where(
             organizational_and_legal_form.c.type_of_organizational_and_legal_form == type
         )
-        return OrganizationalAndLegalForm.parse_obj(await self.database.fetch_all(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return OrganizationalAndLegalForm.parse_obj(res)
 
     async def create(self, type_of_organizational_and_legal_form: str) -> OrganizationalAndLegalForm:
         new_organizational_and_legal_form = OrganizationalAndLegalForm(

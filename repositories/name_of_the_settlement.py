@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from db.name_of_the_settlement import name_of_the_settlement
 from models.name_of_the_settlement import NameOfTheSettlement, NameOfTheSettlementIn
 from .base import BaseRepository
@@ -9,15 +9,22 @@ class NameOfTheSettlementRepository(BaseRepository):
         query = name_of_the_settlement.select().limit(limit).offset(skip)
         return [NameOfTheSettlement.parse_obj(res) for res in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id_name_of_the_settlement: int) -> NameOfTheSettlement:
+    async def get_by_id(self, id_name_of_the_settlement: int) -> Optional[NameOfTheSettlement]:
         query = name_of_the_settlement.select().where(
             name_of_the_settlement.c.id_name_of_the_settlement == id_name_of_the_settlement
         )
-        return NameOfTheSettlement.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return NameOfTheSettlement.parse_obj(res)
 
-    async def get_by_name(self, name: str) -> NameOfTheSettlement:
+    async def get_by_name(self, name: str) -> Optional[NameOfTheSettlement]:
         query = name_of_the_settlement.select().where(name_of_the_settlement.c.name == name)
-        return NameOfTheSettlement.parse_obj(await self.database.fetch_all(query))
+
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return NameOfTheSettlement.parse_obj(res)
 
     async def create(self, new: NameOfTheSettlementIn) -> NameOfTheSettlement:
         new_name_of_the_settlement = NameOfTheSettlement(
