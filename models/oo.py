@@ -21,6 +21,7 @@ class OO(BaseModel):
     id_organisation_status: Optional[int] = None
     place_index: Optional[str] = None
     coordinates: Optional[str] = None
+    url: Optional[str] = None
 
 
 class OOLoginOOName(BaseModel):
@@ -46,6 +47,7 @@ class OOIn(BaseModel):
     id_organisation_status: Optional[int] = None
     place_index: Optional[str] = None
     coordinates: Optional[str] = None
+    url: Optional[str] = None
 
     @validator("coordinates")
     def correct_coordinates(cls, coordinates: str, **kwargs):
