@@ -15,13 +15,6 @@ async def read_oo_logins(
     return await oo_logins.get_all(limit=limit, skip=skip)
 
 
-@router.get("/get_by_oo_login", response_model=OOLogins)
-async def read_oo_logins_by_oo_login(
-        oo_login: str,
-        oo_logins: OOLoginsRepository = Depends(get_oo_logins_repository)):
-    return await oo_logins.get_by_oo_login(oo_login)
-
-
 @router.post("/", response_model=OOLogins)
 async def create_oo_login(
         oo_login: str,

@@ -10,13 +10,6 @@ class OOLoginsRepository(BaseRepository):
         query = oo_logins.select().limit(limit).offset(skip)
         return [OOLogins.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_oo_login(self, oo_login: str) -> Optional[OOLogins]:
-        query = oo_logins.select().where(oo_logins.c.oo_login == oo_login)
-        res = await self.database.fetch_one(query)
-        if res is None:
-            return None
-        return OOLogins.parse_obj(await self.database.fetch_one(query))
-
     async def get_by_id_oo(self, id_oo: int) -> Optional[OOLogins]:
         query = oo.select().where(oo.c.id_oo == id_oo)
         res = await self.database.fetch_one(query)
