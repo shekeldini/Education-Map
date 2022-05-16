@@ -26,7 +26,7 @@ $.getJSON("static/files/districts.json", function(json) {
     };
 });
 
-function getSchoolsCoordinates(polygon){
+function getSchools(polygon){
     send_data = {
             year: 2022,
             id_parallels: polygon.options.id_parallels,

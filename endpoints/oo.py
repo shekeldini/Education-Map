@@ -30,7 +30,6 @@ async def read_oo_by_oo_login_and_year(
     return await oo.get_by_oo_login_and_year(oo_login, year)
 
 
-
 @router.get("/get_all_by_year_and_id_district", response_model=List[OO])
 async def read_oo_by_year_and_id_district(
         year: str,
