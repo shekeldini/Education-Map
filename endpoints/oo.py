@@ -30,13 +30,19 @@ async def read_oo_by_oo_login_and_year(
     return await oo.get_by_oo_login_and_year(oo_login, year)
 
 
-@router.get("/get_by_district_and_id_user_and_years", response_model=List[OOLoginOOName])
-async def read_by_district_and_id_user_and_years(
+@router.get("/get_all_by_year", response_model=OO)
+async def read_oo_by_oo_login_and_year(
+        year: str,
+        oo: OORepository = Depends(get_oo_repository)):
+    return await oo.get_all_by_year(year)
+
+
+@router.get("/get_all_by_year_and_id_district", response_model=OO)
+async def read_oo_by_year_and_id_district(
+        year: str,
         id_district: int,
-        id_user: int,
-        years: str,
-        oo_logins: OORepository = Depends(get_oo_repository)):
-    return await oo_logins.get_by_district_and_id_user_and_years(id_district, id_user, years)
+        oo: OORepository = Depends(get_oo_repository)):
+    return await oo.get_all_by_year_and_id_district(year, id_district)
 
 
 @router.post("/", response_model=OO)

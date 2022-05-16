@@ -38,7 +38,7 @@ class OORepository(BaseRepository):
             return None
         return OO.parse_obj(res)
 
-    async def get_all_by_year_and_district(self, year: str, district_name: str) -> Optional[OO]:
+    async def get_all_by_year_and_id_district(self, year: str, id_district: int) -> Optional[OO]:
         query = """
         SELECT * FROM oo 
         WHERE year = :year 
@@ -49,7 +49,7 @@ class OORepository(BaseRepository):
         );"""
 
         res = await self.database.fetch_one(query, {"year": year,
-                                                    "district": district_name})
+                                                    "id_district": id_district})
         if res is None:
             return None
         return OO.parse_obj(res)
