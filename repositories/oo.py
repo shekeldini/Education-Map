@@ -28,74 +28,31 @@ class OORepository(BaseRepository):
             return None
         return OO.parse_obj(res)
 
-    async def get_by_district_and_id_user_and_years(
-            self,
-            id_district: int,
-            id_user: int,
-            years: str
-    ) -> Optional[List[OOLoginOOName]]:
+    async def get_all_by_year(self, year: str) -> Optional[OO]:
+        query = """
+        SELECT * FROM oo 
+        WHERE year = :year ;"""
 
-        years = years.split(",")
-        last_year = years.pop()
-        query = f"""
-            SELECT oo_login, oo_name FROM
-            (
-                SELECT oo_login FROM oo 
-                WHERE year = :last_year  
-                AND id_name_of_the_settlement IN 
-                (
-                    SELECT id_name_of_the_settlement FROM name_of_the_settlement 
-                    WHERE id_district = :id_district
-                ) 
-                AND id_oo IN 
-                (
-                    SELECT id_oo FROM oo_parallels
-                )
-                AND oo_login in 
-                (
-                    SELECT oo_login FROM users_oo_logins 
-                    WHERE id_user = :id_user
-                ) """
-        values = {
-            "last_year": last_year,
-            "id_district": id_district,
-            "id_user": id_user
-        }
-        if years:
-            for i, year in enumerate(years):
-                query += f"""
-                    INTERSECT
-                    SELECT oo_login FROM oo 
-                    WHERE year = :year_{i} 
-                    AND id_name_of_the_settlement IN 
-                    (
-                        SELECT id_name_of_the_settlement FROM name_of_the_settlement 
-                        WHERE id_district = :id_district
-                    ) 
-                    AND id_oo IN 
-                    (
-                        SELECT id_oo FROM oo_parallels
-                    )
-                    AND oo_login in 
-                    (
-                        SELECT oo_login FROM users_oo_logins 
-                        WHERE id_user = :id_user
-                    ) """
-                values[f"year_{i}"] = year
-        query += """
-        ) AS T1
-        LEFT JOIN
-        (
-            SELECT oo_login, oo_name FROM oo 
-            WHERE year = :last_year
-        ) AS T2
-        USING (oo_login);
-        """
-
-        res = await self.database.fetch_all(query, values)
+        res = await self.database.fetch_one(query, {"year": year})
         if res is None:
             return None
-        return [OOLoginOOName.parse_obj(row) for row in res]
+        return OO.parse_obj(res)
+
+    async def get_all_by_year_and_district(self, year: str, district_name: str) -> Optional[OO]:
+        query = """
+        SELECT * FROM oo 
+        WHERE year = :year 
+        AND id_name_of_the_settlement IN
+        (
+            SELECT id_name_of_the_settlement FROM name_of_the_settlement
+            WHERE id_district = :id_district
+        );"""
+
+        res = await self.database.fetch_one(query, {"year": year,
+                                                    "district": district})
+        if res is None:
+            return None
+        return OO.parse_obj(res)
 
     async def create(self, oo_in: OOIn) -> OO:
         new_oo = OO(

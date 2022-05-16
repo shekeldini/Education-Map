@@ -22,5 +22,6 @@ oo = Table(
     Column("id_organisation_status", INTEGER, ForeignKey('organisation_status.id_organisation_status'), nullable=True),
     Column("place_index", VARCHAR(length=7), nullable=True),
     Column("coordinates", String, nullable=True),
+    Column("url",  String, nullable=True)
 )
 

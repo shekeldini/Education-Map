@@ -16,17 +16,17 @@ async def read_district(
 
 
 @router.get("/get_by_id", response_model=District)
-async def read_name_of_the_settlement_by_id(
-        id_name_of_the_settlement: int,
+async def read_district_by_id(
+        id_district: int,
         district: DistrictRepository = Depends(get_district_repository)):
-    return await district.get_by_id(id_name_of_the_settlement)
+    return await district.get_by_id(id_district)
 
 
 @router.get("/get_by_name", response_model=District)
-async def read_name_of_the_settlement_by_name(
-        name: str,
+async def read_district_by_name(
+        district_name: str,
         district: DistrictRepository = Depends(get_district_repository)):
-    return await district.get_by_name(name)
+    return await district.get_by_name(district_name)
 
 
 @router.post("/", response_model=District)

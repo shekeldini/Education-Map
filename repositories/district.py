@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from db.district import district
 from models.district import District
 from .base import BaseRepository
@@ -9,13 +9,20 @@ class DistrictRepository(BaseRepository):
         query = district.select().limit(limit).offset(skip)
         return [District.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id_district: int) -> District:
+    async def get_by_id(self, id_district: int) -> Optional[District]:
         query = district.select().where(district.c.id_district == id_district)
-        return District.parse_obj(await self.database.fetch_one(query))
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return District.parse_obj(res)
 
-    async def get_by_name(self, district_name: str) -> District:
+    async def get_by_name(self, district_name: str) -> Optional[District]:
         query = district.select().where(district.c.district_name == district_name)
-        return District.parse_obj(await self.database.fetch_all(query))
+
+        res = await self.database.fetch_one(query)
+        if res is None:
+            return None
+        return District.parse_obj(res)
 
     async def create(self, district_name: str) -> District:
         new_district = District(

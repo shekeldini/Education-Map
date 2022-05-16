@@ -960,8 +960,8 @@
         ]
       ]
     ],
-    "name": "\u0410\u043b\u0435\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/alejskij-rajon-oblasti/"
+    "name": "Алейский район",
+
   },
   {
     "coordinates": [
@@ -969,6 +969,7 @@
         [
           [
             51.7876,
+
             84.7229
           ],
           [
@@ -1918,8 +1919,7 @@
         ]
       ]
     ],
-    "name": "\u0410\u043b\u0442\u0430\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/altajskij-rajon-oblasti/"
+    "name": "Алтайский район"
   },
   {
     "coordinates": [
@@ -2452,8 +2452,7 @@
         ]
       ]
     ],
-    "name": "\u0411\u0430\u0435\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/baevskij-rajon-oblasti/"
+    "name": "Баевский район"
   },
   {
     "coordinates": [
@@ -3648,8 +3647,7 @@
         ]
       ]
     ],
-    "name": "\u0411\u0438\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/bijskij-rajon-oblasti/"
+    "name": "Бийский район"
   },
   {
     "coordinates": [
@@ -4302,8 +4300,7 @@
         ]
       ]
     ],
-    "name": "\u0411\u043b\u0430\u0433\u043e\u0432\u0435\u0449\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/blagoveschenskij-rajon-oblasti/"
+    "name": "Благовещенский район"
   },
   {
     "coordinates": [
@@ -4912,8 +4909,7 @@
         ]
       ]
     ],
-    "name": "\u0411\u0443\u0440\u043b\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/burlinskij-rajon-oblasti/"
+    "name": "Бурлинский район"
   },
   {
     "coordinates": [
@@ -5430,8 +5426,7 @@
         ]
       ]
     ],
-    "name": "\u0411\u044b\u0441\u0442\u0440\u043e\u0438\u0441\u0442\u043e\u043a\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/bystroistokskij-rajon-oblasti/"
+    "name": "Быстроистокский район"
   },
   {
     "coordinates": [
@@ -5908,8 +5903,7 @@
         ]
       ]
     ],
-    "name": "\u0412\u043e\u043b\u0447\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/volchihinskij-rajon-oblasti/"
+    "name": "Волчихинский район"
   },
   {
     "coordinates": [
@@ -6294,8 +6288,7 @@
         ]
       ]
     ],
-    "name": "\u0415\u0433\u043e\u0440\u044c\u0435\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/egorevskij-rajon-oblasti/"
+    "name": "Егорьевский район"
   },
   {
     "coordinates": [
@@ -7686,8 +7679,7 @@
         ]
       ]
     ],
-    "name": "\u0415\u043b\u044c\u0446\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/eltsovskij-rajon-oblasti/"
+    "name": "Ельцовский район"
   },
   {
     "coordinates": [
@@ -8112,8 +8104,7 @@
         ]
       ]
     ],
-    "name": "\u0417\u0430\u0432\u044c\u044f\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/zavjalovskij-rajon-oblasti/"
+    "name": "Завьяловский район"
   },
   {
     "coordinates": [
@@ -8846,8 +8837,7 @@
         ]
       ]
     ],
-    "name": "\u0417\u0430\u043b\u0435\u0441\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/zalesovskij-rajon-oblasti/"
+    "name": "Залесовский район"
   },
   {
     "coordinates": [
@@ -9774,8 +9764,7 @@
         ]
       ]
     ],
-    "name": "\u0417\u0430\u0440\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/zarinskij-rajon-oblasti/"
+    "name": "Заринский район"
   },
   {
     "coordinates": [
@@ -10768,8 +10757,7 @@
         ]
       ]
     ],
-    "name": "\u0417\u043c\u0435\u0438\u043d\u043e\u0433\u043e\u0440\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/zmeinogorskij-rajon-oblasti/"
+    "name": "Змеиногорский район"
   },
   {
     "coordinates": [
@@ -11458,8 +11446,7 @@
         ]
       ]
     ],
-    "name": "\u0417\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/zonalnyj-rajon-oblasti/"
+    "name": "Зональный район"
   },
   {
     "coordinates": [
@@ -12520,8 +12507,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u0430\u043b\u043c\u0430\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/kalmanskij-rajon-oblasti/"
+    "name": "Калманский район"
   },
   {
     "coordinates": [
@@ -13374,8 +13360,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u0430\u043c\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/kamenskij-rajon-oblasti/"
+    "name": "Каменский район"
   },
   {
     "coordinates": [
@@ -13736,8 +13721,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u043b\u044e\u0447\u0435\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/kljuchevskij-rajon-oblasti/"
+    "name": "Ключевский район"
   },
   {
     "coordinates": [
@@ -14362,8 +14346,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u043e\u0441\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/kosihinskij-rajon-oblasti/"
+    "name": "Косихинский район"
   },
   {
     "coordinates": [
@@ -15564,8 +15547,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u0440\u0430\u0441\u043d\u043e\u0433\u043e\u0440\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/krasnogorskij-rajon-oblasti/"
+    "name": "Красногорский район"
   },
   {
     "coordinates": [
@@ -16638,8 +16620,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u0440\u0430\u0441\u043d\u043e\u0449\u0451\u043a\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/krasnoschekovskij-rajon-oblasti/"
+    "name": "Краснощёковский район"
   },
   {
     "coordinates": [
@@ -17084,8 +17065,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u0440\u0443\u0442\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/krutihinskij-rajon-oblasti/"
+    "name": "Крутихинский район"
   },
   {
     "coordinates": [
@@ -17334,8 +17314,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u0443\u043b\u0443\u043d\u0434\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/kulundinskij-rajon-oblasti/"
+    "name": "Кулундинский район"
   },
   {
     "coordinates": [
@@ -18440,8 +18419,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u0443\u0440\u044c\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/kurinskij-rajon-oblasti/"
+    "name": "Курьинский район"
   },
   {
     "coordinates": [
@@ -18830,8 +18808,7 @@
         ]
       ]
     ],
-    "name": "\u041a\u044b\u0442\u043c\u0430\u043d\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/kytmanovskij-rajon-oblasti/"
+    "name": "Кытмановский район"
   },
   {
     "coordinates": [
@@ -19676,8 +19653,7 @@
         ]
       ]
     ],
-    "name": "\u041b\u043e\u043a\u0442\u0435\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/loktevskij-rajon-oblasti/"
+    "name": "Локтевский район"
   },
   {
     "coordinates": [
@@ -20786,8 +20762,7 @@
         ]
       ]
     ],
-    "name": "\u041c\u0430\u043c\u043e\u043d\u0442\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/mamontovskij-rajon-oblasti/"
+    "name": "Мамонтовский район"
   },
   {
     "coordinates": [
@@ -21076,8 +21051,7 @@
         ]
       ]
     ],
-    "name": "\u041c\u0438\u0445\u0430\u0439\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/mihajlovskij-rajon-oblasti/"
+    "name": "Михайловский район"
   },
   {
     "coordinates": [
@@ -21306,8 +21280,7 @@
         ]
       ]
     ],
-    "name": "\u041d\u0435\u043c\u0435\u0446\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/nemetskij-rajon-oblasti/"
+    "name": "Немецкий национальный район"
   },
   {
     "coordinates": [
@@ -21748,8 +21721,7 @@
         ]
       ]
     ],
-    "name": "\u041d\u043e\u0432\u0438\u0447\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/novichihinskij-rajon-oblasti/"
+    "name": "Новичихинский район"
   },
   {
     "coordinates": [
@@ -22534,8 +22506,7 @@
         ]
       ]
     ],
-    "name": "\u041f\u0430\u0432\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/pavlovskij-rajon-oblasti/"
+    "name": "Павловский район"
   },
   {
     "coordinates": [
@@ -22848,8 +22819,7 @@
         ]
       ]
     ],
-    "name": "\u041f\u0430\u043d\u043a\u0440\u0443\u0448\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/pankrushihinskij-rajon-oblasti/"
+    "name": "Панкрушихинский район"
   },
   {
     "coordinates": [
@@ -24936,8 +24906,7 @@
         ]
       ]
     ],
-    "name": "\u041f\u0435\u0440\u0432\u043e\u043c\u0430\u0439\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/pervomajskij-rajon-oblasti/"
+    "name": "Первомайский район"
   },
   {
     "coordinates": [
@@ -25266,8 +25235,7 @@
         ]
       ]
     ],
-    "name": "\u041f\u0435\u0442\u0440\u043e\u043f\u0430\u0432\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/petropavlovskij-rajon-oblasti/"
+    "name": "Петропавловский район"
   },
   {
     "coordinates": [
@@ -25888,8 +25856,7 @@
         ]
       ]
     ],
-    "name": "\u041f\u043e\u0441\u043f\u0435\u043b\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/pospelihinskij-rajon-oblasti/"
+    "name": "Поспелихинский район"
   },
   {
     "coordinates": [
@@ -26370,8 +26337,7 @@
         ]
       ]
     ],
-    "name": "\u0420\u0435\u0431\u0440\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/rebrihinskij-rajon-oblasti/"
+    "name": "Ребрихинский район"
   },
   {
     "coordinates": [
@@ -26820,8 +26786,7 @@
         ]
       ]
     ],
-    "name": "\u0420\u043e\u0434\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/rodinskij-rajon-oblasti/"
+    "name": "Родинский район"
   },
   {
     "coordinates": [
@@ -27338,8 +27303,7 @@
         ]
       ]
     ],
-    "name": "\u0420\u043e\u043c\u0430\u043d\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/romanovskij-rajon-oblasti/"
+    "name": "Романовский район"
   },
   {
     "coordinates": [
@@ -28422,8 +28386,7 @@
         ]
       ]
     ],
-    "name": "\u0420\u0443\u0431\u0446\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/rubtsovskij-rajon-oblasti/"
+    "name": "Рубцовский район"
   },
   {
     "coordinates": [
@@ -29568,8 +29531,7 @@
         ]
       ]
     ],
-    "name": "\u0421\u043c\u043e\u043b\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/smolenskij-rajon-oblasti/"
+    "name": "Смоленский район"
   },
   {
     "coordinates": [
@@ -30566,8 +30528,7 @@
         ]
       ]
     ],
-    "name": "\u0421\u043e\u0432\u0435\u0442\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/sovetskij-rajon-oblasti/"
+    "name": "Советский район"
   },
   {
     "coordinates": [
@@ -31280,8 +31241,7 @@
         ]
       ]
     ],
-    "name": "\u0421\u043e\u043b\u043e\u043d\u0435\u0448\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/soloneshenskij-rajon-oblasti/"
+    "name": "Солонешенский район"
   },
   {
     "coordinates": [
@@ -32270,8 +32230,7 @@
         ]
       ]
     ],
-    "name": "\u0421\u043e\u043b\u0442\u043e\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/soltonskij-rajon-oblasti/"
+    "name": "Солтонский район"
   },
   {
     "coordinates": [
@@ -32600,8 +32559,7 @@
         ]
       ]
     ],
-    "name": "\u0421\u0443\u0435\u0442\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/suetskij-rajon-oblasti/"
+    "name": "Суетский район"
   },
   {
     "coordinates": [
@@ -32990,8 +32948,7 @@
         ]
       ]
     ],
-    "name": "\u0422\u0430\u0431\u0443\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/tabunskij-rajon-oblasti/"
+    "name": "Табунский район"
   },
   {
     "coordinates": [
@@ -34168,8 +34125,7 @@
         ]
       ]
     ],
-    "name": "\u0422\u0430\u043b\u044c\u043c\u0435\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/talmenskij-rajon-oblasti/"
+    "name": "Тальменский район"
   },
   {
     "coordinates": [
@@ -34814,8 +34770,7 @@
         ]
       ]
     ],
-    "name": "\u0422\u043e\u0433\u0443\u043b\u044c\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/togulskij-rajon-oblasti/"
+    "name": "Тогульский район"
   },
   {
     "coordinates": [
@@ -35600,8 +35555,7 @@
         ]
       ]
     ],
-    "name": "\u0422\u043e\u043f\u0447\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/topchihinskij-rajon-oblasti/"
+    "name": "Топчихинский район"
   },
   {
     "coordinates": [
@@ -36410,8 +36364,7 @@
         ]
       ]
     ],
-    "name": "\u0422\u0440\u0435\u0442\u044c\u044f\u043a\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/tretjakovskij-rajon-oblasti/"
+    "name": "Третьяковский район"
   },
   {
     "coordinates": [
@@ -36848,8 +36801,7 @@
         ]
       ]
     ],
-    "name": "\u0422\u0440\u043e\u0438\u0446\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/troitskij-rajon-oblasti/"
+    "name": "Троицкий район"
   },
   {
     "coordinates": [
@@ -37794,8 +37746,7 @@
         ]
       ]
     ],
-    "name": "\u0422\u044e\u043c\u0435\u043d\u0446\u0435\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/tjumentsevskij-rajon-oblasti/"
+    "name": "Тюменцевский район"
   },
   {
     "coordinates": [
@@ -38088,8 +38039,7 @@
         ]
       ]
     ],
-    "name": "\u0423\u0433\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/uglovskij-rajon-oblasti/"
+    "name": "Угловский район"
   },
   {
     "coordinates": [
@@ -38942,8 +38892,7 @@
         ]
       ]
     ],
-    "name": "\u0423\u0441\u0442\u044c-\u041a\u0430\u043b\u043c\u0430\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/ust-kalmanskij-rajon-oblasti/"
+    "name": "Усть Калманский район"
   },
   {
     "coordinates": [
@@ -39304,8 +39253,7 @@
         ]
       ]
     ],
-    "name": "\u0423\u0441\u0442\u044c-\u041f\u0440\u0438\u0441\u0442\u0430\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/ust-pristanskij-rajon-oblasti/"
+    "name": "Усть Пристанский район"
   },
   {
     "coordinates": [
@@ -39690,8 +39638,7 @@
         ]
       ]
     ],
-    "name": "\u0425\u0430\u0431\u0430\u0440\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/habarskij-rajon-oblasti/"
+    "name": "Хабарский район"
   },
   {
     "coordinates": [
@@ -40440,8 +40387,7 @@
         ]
       ]
     ],
-    "name": "\u0426\u0435\u043b\u0438\u043d\u043d\u044b\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/tselinnyj-rajon-oblasti/"
+    "name": "Целинный район"
   },
   {
     "coordinates": [
@@ -41698,8 +41644,7 @@
         ]
       ]
     ],
-    "name": "\u0427\u0430\u0440\u044b\u0448\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/charyshskij-rajon-oblasti/"
+    "name": "Чарышский район"
   },
   {
     "coordinates": [
@@ -42480,8 +42425,7 @@
         ]
       ]
     ],
-    "name": "\u0428\u0435\u043b\u0430\u0431\u043e\u043b\u0438\u0445\u0438\u043d\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/shelabolihinskij-rajon-oblasti/"
+    "name": "Шелаболихинский район"
   },
   {
     "coordinates": [
@@ -43462,8 +43406,7 @@
         ]
       ]
     ],
-    "name": "\u0428\u0438\u043f\u0443\u043d\u043e\u0432\u0441\u043a\u0438\u0439 \u0440\u0430\u0439\u043e\u043d",
-    "url": "/ru/altayskiy-kray/shipunovskij-rajon-oblasti/"
+    "name": "Шипуновский район"
   },
   {
     "coordinates": [
@@ -44700,82 +44643,10 @@
         ]
       ]
     ],
-    "name": "Новоалтайск"
+    "name": "г. Новоалтайск"
   },
   {
     "coordinates": [
-      [
-        [
-          [
-            52.501811,
-            85.301851
-          ],
-          [
-            52.505764,
-            85.306818
-          ],
-          [
-            52.50634,
-            85.299801
-          ],
-          [
-            52.508579,
-            85.297291
-          ],
-          [
-            52.509941,
-            85.298042
-          ],
-          [
-            52.51366,
-            85.311722
-          ],
-          [
-            52.516775,
-            85.310069
-          ],
-          [
-            52.518202,
-            85.337378
-          ],
-          [
-            52.514628,
-            85.33594
-          ],
-          [
-            52.51207,
-            85.393311
-          ],
-          [
-            52.509544,
-            85.392989
-          ],
-          [
-            52.508881,
-            85.356278
-          ],
-          [
-            52.507332,
-            85.354754
-          ],
-          [
-            52.504333,
-            85.355419
-          ],
-          [
-            52.499604,
-            85.351579
-          ],
-          [
-            52.492599,
-            85.350763
-          ],
-          [
-            52.486912,
-            85.340121
-          ]
-        ]
-      ],
       [
         [
           [
@@ -45569,7 +45440,7 @@
         ]
       ]
     ],
-    "name": "Бийск"
+    "name": "г. Бийск"
   },
   {
     "coordinates": [
@@ -46064,7 +45935,7 @@
         ]
       ]
     ],
-    "name": "Рубцовск"
+    "name": "г. Рубцовск"
   },
   {
     "coordinates": [
@@ -46549,10 +46420,10 @@
         ]
       ]
     ],
-    "name": "Заринск"
+    "name": "г. Заринск"
   },
   {
-    "name": "Белокуриха",
+    "name": "г. Белокуриха",
     "coordinates": [
       [
         [
@@ -47231,11 +47102,7 @@
     ]
   },
   {
-    "name": "Яровое",
-    "coordinates": []
-  },
-  {
-    "name": "Барнаул",
+    "name": "г. Барнаул",
     "coordinates": [
       [
         [
@@ -49129,7 +48996,7 @@
     ]
   },
   {
-    "name": "Алейск",
+    "name": "г. Алейск",
     "coordinates": [
       [
         [
@@ -50004,7 +49871,7 @@
     ]
   },
   {
-    "name": "Славгород",
+    "name": "г. Славгород",
     "coordinates": [
       [
         [
@@ -50815,7 +50682,7 @@
     ]
   },
   {
-    "name": "Яровое",
+    "name": "г. Яровое",
     "coordinates": [
       [
         [

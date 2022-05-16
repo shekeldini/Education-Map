@@ -25,3 +25,19 @@ $.getJSON("static/files/districts.json", function(json) {
         };
     };
 });
+
+function getSchoolsCoordinates(polygon){
+    send_data = {
+            year: 2022,
+            id_parallels: polygon.options.id_parallels,
+            id_subjects: polygon.options.id_subjects,
+            id_report: polygon.options.id_report,
+            district_name: polygon.options.name
+    }
+    return $.ajax({
+
+        type : 'GET',
+        url : "api/select/map/get_oo_info/",
+        data: send_data
+    });
+};
