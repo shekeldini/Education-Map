@@ -15,29 +15,66 @@ $.getJSON("static/files/districts.json", function(json) {
     for(district of json){
         var name = district.name
         var coordinates = district.coordinates
+        var id_district = district.id_district
         for (coord of coordinates){
-            var polygon = L.polygon(coord, {color: "#4747A1", "name": name});
+            var polygon = L.polygon(coord, {
+                color: "#4747A1",
+                "name": name,
+                "id_district": id_district
+            });
             polygon.bindTooltip(name,
                {permanent: false, direction: "center"}
             ).openTooltip()
             polygon.addTo(map);
-
+            polygon.on('click', async function () {
+                var schools = await getSchools(this);
+                for (school of schools){
+                    create_marker(school);
+                };
+            });
         };
     };
 });
 
 function getSchools(polygon){
     send_data = {
-            year: 2022,
-            id_parallels: polygon.options.id_parallels,
-            id_subjects: polygon.options.id_subjects,
-            id_report: polygon.options.id_report,
-            district_name: polygon.options.name
+        year: 2022,
+        id_district: polygon.options.id_district
     }
     return $.ajax({
-
         type : 'GET',
-        url : "api/select/map/get_oo_info/",
+        url : "oo/get_all_by_year_and_id_district/",
         data: send_data
     });
+};
+
+async function create_marker(school){
+    var marker = L.marker(coordinates, {
+        "name": name,
+        "value": value,
+        'color': color,
+        "oo_login": oo_login,
+        "coordinates": coordinates,
+        "district": district,
+        "text": text
+    });
+    if (marker.options.value == "Не учавстовал"){
+        var text = "<p>" + marker.options.district + "</p>" +
+            "<p>" + marker.options.name + "</p>" +
+            "<p>" + marker.options.value.toString() + "</p>";
+    }
+    else {
+        var text = "<p>" + marker.options.district + "</p>" +
+            "<p>" + marker.options.name + "</p>" +
+            "<p>" + marker.options.text + marker.options.value.toString() + "</p>";
+    }
+
+
+    marker.bindPopup(text, {autoClose:false}).openPopup();
+
+    marker.on('click', function(){
+        // console.log(this.options);
+        marker.openPopup();
+    });
+    marker.addTo(map);
 };

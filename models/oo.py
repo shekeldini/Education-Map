@@ -12,7 +12,7 @@ class OO(BaseModel):
     oo_name: Optional[str] = None
     oo_full_name: Optional[str] = None
     oo_address: Optional[str] = None
-    full_name_of_the_director: Optional[str] = None
+    director: Optional[str] = None
     email_oo: Optional[str] = None
     phone_number: Optional[str] = None
     inn: Optional[str] = None
@@ -38,7 +38,7 @@ class OOIn(BaseModel):
     oo_name: Optional[str] = None
     oo_full_name: Optional[str] = None
     oo_address: Optional[str] = None
-    full_name_of_the_director: Optional[str] = None
+    director: Optional[str] = None
     email_oo: Optional[str] = None
     phone_number: Optional[str] = None
     inn: Optional[str] = None

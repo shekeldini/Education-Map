@@ -13,7 +13,7 @@ oo = Table(
     Column("oo_name", VARCHAR(length=300), nullable=True),
     Column("oo_full_name", VARCHAR(length=300), nullable=True),
     Column("oo_address", VARCHAR(length=300), nullable=True),
-    Column("full_name_of_the_director", VARCHAR(length=60), nullable=True),
+    Column("director", VARCHAR(length=60), nullable=True),
     Column("email_oo", VARCHAR(length=40), nullable=True),
     Column("phone_number", String, nullable=True),
     Column("inn", VARCHAR(length=12), nullable=True),
