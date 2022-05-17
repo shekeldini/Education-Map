@@ -1,5 +1,6 @@
 import uvicorn
 import secrets
+
 from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.templating import Jinja2Templates
@@ -8,7 +9,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-from db.base import database
+from db.base import database, redis
 from endpoints import district, oo_location_type, roles, users, auth, name_of_the_settlement, \
     organizational_and_legal_form, population_of_the_settlement, oo_logins, organisation_status, oo
 
@@ -41,13 +42,14 @@ app.include_router(oo.router, prefix='/oo', tags=["oo"])
 
 @app.on_event("startup")
 async def startup():
+    await redis.connect()
     await database.connect()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    print("disconnect")
     await database.disconnect()
+    await redis.disconnect()
 
 
 def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
@@ -80,6 +82,7 @@ async def openapi(username: str = Depends(get_current_username)):
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse("map.html", {"request": request, "title": "Интерактивная карта"})
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host='localhost', reload=False)

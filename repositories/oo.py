@@ -29,6 +29,7 @@ class OORepository(BaseRepository):
         return OO.parse_obj(res)
 
     async def get_all_by_year_and_id_district(self, year: str, id_district: int) -> Optional[List[OO]]:
+        redis = await aioredis.create_redis(address=('redis', 6379))
         query = """
         SELECT * FROM oo 
         WHERE year = :year 

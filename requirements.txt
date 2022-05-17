@@ -12,3 +12,4 @@ pydantic
 pydantic[email]
 Werkzeug
 jinja2
+aioredis
