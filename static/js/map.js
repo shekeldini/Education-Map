@@ -1,4 +1,3 @@
-console.log("hi");
 var map = L.map('map').fitWorld();
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -15,7 +14,7 @@ $.getJSON("static/files/districts.json", function(json) {
     for(district of json){
         var name = district.name
         var coordinates = district.coordinates
-        var id_district = district.id_district
+        var id_district = district.id
         for (coord of coordinates){
             var polygon = L.polygon(coord, {
                 color: "#4747A1",
@@ -27,9 +26,12 @@ $.getJSON("static/files/districts.json", function(json) {
             ).openTooltip()
             polygon.addTo(map);
             polygon.on('click', async function () {
+                deleteLayers(L.Marker);
                 var schools = await getSchools(this);
                 for (school of schools){
-                    create_marker(school);
+		    if (school.coordinates != ""){
+                        create_marker(school, this.options.name);
+		    };
                 };
             });
         };
@@ -43,38 +45,49 @@ function getSchools(polygon){
     }
     return $.ajax({
         type : 'GET',
-        url : "oo/get_all_by_year_and_id_district/",
+        url : "oo/get_all_by_year_and_id_district",
         data: send_data
     });
 };
 
-async function create_marker(school){
+async function create_marker(data, district_name){
+    var coordinates = data.coordinates.split(";").map(str => parseFloat(str));
     var marker = L.marker(coordinates, {
-        "name": name,
-        "value": value,
-        'color': color,
-        "oo_login": oo_login,
-        "coordinates": coordinates,
-        "district": district,
-        "text": text
+        "id_oo": data.id_oo,
+        "oo_login": data.oo_login,
+        'year': data.year,
+        "oo_login": data.oo_login,
+        "oo_name": data.oo_name,
+        "oo_address": data.oo_address,
+        "director": data.director,
+        "email_oo": data.email_oo,
+        "phone_number": data.phone_number,
+        "coordinates": data.coordinates,
+        "url": data.url,
+        "district_name": district_name
     });
-    if (marker.options.value == "Не учавстовал"){
-        var text = "<p>" + marker.options.district + "</p>" +
-            "<p>" + marker.options.name + "</p>" +
-            "<p>" + marker.options.value.toString() + "</p>";
-    }
-    else {
-        var text = "<p>" + marker.options.district + "</p>" +
-            "<p>" + marker.options.name + "</p>" +
-            "<p>" + marker.options.text + marker.options.value.toString() + "</p>";
-    }
 
+    var text = "<p>" + marker.options.district_name + "</p>" +
+            "<p>" + marker.options.oo_name + "</p>" +
+            "<p>" + marker.options.oo_address +"</p>" + 
+            "<p>" + marker.options.director +"</p>" + 
+            "<p>" + marker.options.email_oo +"</p>" + 
+            "<p>" + marker.options.phone_number +"</p>" + 
+            "<p>" + marker.options.url +"</p>";
 
     marker.bindPopup(text, {autoClose:false}).openPopup();
 
     marker.on('click', function(){
-        // console.log(this.options);
+        console.log(this.options);
         marker.openPopup();
     });
     marker.addTo(map);
+};
+
+function deleteLayers(LayerType){
+    map.eachLayer(async function(layer) {
+        if (layer instanceof LayerType){
+            map.removeLayer(layer);
+        };
+    })
 };

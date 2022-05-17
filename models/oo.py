@@ -8,7 +8,7 @@ class OO(BaseModel):
     year: str
     id_name_of_the_settlement: Optional[int] = None
     id_organizational_and_legal_form: Optional[int] = None
-    id_population_of_the_settlement: Optional[str] = None
+    id_population_of_the_settlement: Optional[int] = None
     oo_name: Optional[str] = None
     oo_full_name: Optional[str] = None
     oo_address: Optional[str] = None
@@ -34,7 +34,7 @@ class OOIn(BaseModel):
     year: str
     id_name_of_the_settlement: Optional[int] = None
     id_organizational_and_legal_form: Optional[int] = None
-    id_population_of_the_settlement: Optional[str] = None
+    id_population_of_the_settlement: Optional[int] = None
     oo_name: Optional[str] = None
     oo_full_name: Optional[str] = None
     oo_address: Optional[str] = None
