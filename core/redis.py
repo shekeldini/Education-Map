@@ -4,13 +4,18 @@ from typing import Optional
 
 
 class Redis:
-    def __init__(self, url: str, port: str):
+    def __init__(self, url: str, port: str, password: str):
         self._connection: Optional[aioRedis] = None
         self._url = url
         self._port = port
+        self._password = password
 
     async def connect(self):
-        self._connection: aioRedis = await create_redis_pool(address=(self._url, self._port), encoding="utf8")
+        self._connection: aioRedis = await create_redis_pool(
+            address=(self._url, self._port),
+            password=self._password,
+            encoding="utf8"
+        )
 
     async def get(self, key):
         return await self._connection.get(key)
