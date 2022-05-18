@@ -7,6 +7,44 @@ map.setView(new L.LatLng(52.61558902526749, 83.57275390625), 7);
 
 var markers = L.markerClusterGroup()
 
+var options = {
+    position: "topleft",
+    drawMarker: true,
+    drawPolygon: true,
+    removalMode: true,
+    drawCircleMarker: false,
+    drawPolyline: false,
+    drawRectangle: false,
+    drawCircle: false,
+    dragMode: false,
+    rotateMode: false,
+    cutPolygon: false,
+    editMode: false
+}
+map.pm.addControls(options)
+map.pm.enableDraw('Polygon',{ snappable: false });
+map.pm.enableDraw('Marker',{ snappable: false });
+map.pm.disableDraw();
+
+var points = [];
+
+map.on('pm:drawstart', ({ workingLayer }) => {
+    points = []
+    workingLayer.on('pm:vertexadded', (e) => {
+        points.push([e.latlng.lat, e.latlng.lng])
+    });
+});
+
+map.on('pm:drawend', ({ workingLayer }) => {
+    console.log(points);
+});
+
+map.on('pm:create', (e) => {
+    e.layer.pm.enable()
+    e.layer.on('pm:edit', ({ layer }) => {
+        console.log(layer.toGeoJSON().geometry.coordinates);
+  })
+});
 
 $.getJSON("static/files/districts.json", function(json) {
     for(district of json){
@@ -76,15 +114,29 @@ async function create_marker(data, district_name){
             "<p class='district'>" + marker.options.district_name + "</p>" +
 
             "<div class='block'>" +
-                        "<div>" + 'Наименование' + "</div>" +
-                        "<div class='name'>" + marker.options.oo_name + "</div>" +
-                "</div>" +
-            "<p class='name'>" + marker.options.oo_name + "</p>" +
-            "<p class='address'>" + marker.options.oo_address +"</p>" + 
-            "<p class='director'>" + marker.options.director +"</p>" + 
-            "<p class='oo'>" + marker.options.email_oo +"</p>" + 
-            "<p class='phone'>" + marker.options.phone_number +"</p>" + 
-            "<a class='url'>" + marker.options.url +"</a>";
+                  
+                 "<div class='name'>" + marker.options.oo_name + "</div>" +
+            "</div>" +
+	    "<div class='block'>" +
+                 "<div>" + 'Адрес' + "</div>" +
+                 "<div class='address'>" + marker.options.oo_address + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Директор' + "</div>" +
+                 "<div class='director'>" + marker.options.director + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Почта' + "</div>" +
+                 "<div class='oo'>" + marker.options.email_oo + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Телефон' + "</div>" +
+                 "<div class='phone'>" + marker.options.phone_number + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Сайт' + "</div>" +
+                 "<a href='marker.options.url' class='url' >" + marker.options.url + "</a>" +
+            "</div>";
 
     marker.bindPopup(text, {autoClose:false}).openPopup();
 

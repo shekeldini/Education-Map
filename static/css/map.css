@@ -69,8 +69,9 @@
 }
 
 .leaflet-popup-content .district {
-  font-weight: 600;
+  font-weight: 600 !important;
     font-size: 17px;
+ color: black !important;
 }
 
 
@@ -78,3 +79,25 @@
   font-size: 14px;
    font-weight: 600;
 }
+
+.block {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.leaflet-popup-content-wrapper {
+  min-width: 340px;
+}
+
+.block div:first-child {
+ margin-right: 10px;
+     font-size: 14px;
+ 
+}
+
+.district, .name, .address, .director, .oo, .phone, .url {
+  font-size: 15px;
+    font-weight: 500;
+}
+
