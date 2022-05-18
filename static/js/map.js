@@ -52,6 +52,11 @@ function getSchools(polygon){
 
 async function create_marker(data, district_name){
     var coordinates = data.coordinates.split(";").map(str => parseFloat(str));
+    var iconOptions = {
+            iconUrl: '/static/images/school.png',
+            iconSize: [50, 50]
+         }
+    var customIcon = L.icon(iconOptions);
     var marker = L.marker(coordinates, {
         "id_oo": data.id_oo,
         "oo_login": data.oo_login,
@@ -64,16 +69,23 @@ async function create_marker(data, district_name){
         "phone_number": data.phone_number,
         "coordinates": data.coordinates,
         "url": data.url,
-        "district_name": district_name
+        "district_name": district_name,
+	"icon": customIcon
     });
 
-    var text = "<p>" + marker.options.district_name + "</p>" +
-            "<p>" + marker.options.oo_name + "</p>" +
-            "<p>" + marker.options.oo_address +"</p>" + 
-            "<p>" + marker.options.director +"</p>" + 
-            "<p>" + marker.options.email_oo +"</p>" + 
-            "<p>" + marker.options.phone_number +"</p>" + 
-            "<p>" + marker.options.url +"</p>";
+    var text =
+            "<p class='district'>" + marker.options.district_name + "</p>" +
+
+            "<div class='block'>" +
+                        "<div>" + 'Наименование' + "</div>" +
+                        "<div class='name'>" + marker.options.oo_name + "</div>" +
+                "</div>" +
+            "<p class='name'>" + marker.options.oo_name + "</p>" +
+            "<p class='address'>" + marker.options.oo_address +"</p>" + 
+            "<p class='director'>" + marker.options.director +"</p>" + 
+            "<p class='oo'>" + marker.options.email_oo +"</p>" + 
+            "<p class='phone'>" + marker.options.phone_number +"</p>" + 
+            "<a class='url'>" + marker.options.url +"</a>";
 
     marker.bindPopup(text, {autoClose:false}).openPopup();
 
