@@ -1,8 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
+
+from models.users import Users
 from repositories.organizational_and_legal_form import OrganizationalAndLegalFormRepository
 from models.organizational_and_legal_form import OrganizationalAndLegalForm
-from .depends import get_organizational_and_legal_form_repository
+from .depends import get_organizational_and_legal_form_repository, get_current_user
 
 router = APIRouter()
 
@@ -40,7 +42,11 @@ async def create_district(
         type_of_organizational_and_legal_form: str,
         organizational_and_legal_form: OrganizationalAndLegalFormRepository = Depends(
             get_organizational_and_legal_form_repository
-        )):
+        ),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await organizational_and_legal_form.create(type_of_organizational_and_legal_form)
 
 
@@ -49,7 +55,11 @@ async def delete_district(
         id_organizational_and_legal_form: int,
         organizational_and_legal_form: OrganizationalAndLegalFormRepository = Depends(
             get_organizational_and_legal_form_repository
-        )):
+        ),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await organizational_and_legal_form.delete(id_organizational_and_legal_form)
 
 
@@ -59,7 +69,11 @@ async def update_district(
         type_of_organizational_and_legal_form: str,
         organizational_and_legal_form: OrganizationalAndLegalFormRepository = Depends(
             get_organizational_and_legal_form_repository
-        )):
+        ),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await organizational_and_legal_form.update(
         id_organizational_and_legal_form, type_of_organizational_and_legal_form
     )

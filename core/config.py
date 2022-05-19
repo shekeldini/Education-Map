@@ -11,5 +11,6 @@ REDIS_URL = config("REDIS_URL", cast=str, default="")
 REDIS_PORT = config("REDIS_PORT", cast=str, default="")
 REDIS_PASSWORD = config("REDIS_PASSWORD", cast=str, default="")
 SECRET_KEY = config("SECRET_KEY", cast=str, default="")
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 15
+REFRESH_TOKEN_EXPIRE_MINUTES = 60
 ALGORITHM = "HS256"

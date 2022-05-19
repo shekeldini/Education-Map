@@ -1,3 +1,5 @@
+import datetime
+
 from fastapi import Depends, HTTPException, status
 
 from core.security import JWTBearer, decode_access_token
@@ -70,3 +72,4 @@ async def get_current_user(
     if user is None:
         raise cred_exception
     return user
+

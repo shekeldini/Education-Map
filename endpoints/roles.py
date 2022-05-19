@@ -1,8 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
+
+from models.users import Users
 from repositories.roles import RolesRepository
 from models.roles import Roles
-from .depends import get_roles_repository
+from .depends import get_roles_repository, get_current_user
 
 router = APIRouter()
 
@@ -18,14 +20,22 @@ async def read_roles(
 @router.post("/", response_model=Roles)
 async def create_role(
         role: str,
-        roles: RolesRepository = Depends(get_roles_repository)):
+        roles: RolesRepository = Depends(get_roles_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await roles.create(role)
 
 
 @router.delete("/", response_model=Roles)
 async def delete_role(
         id_role: int,
-        roles: RolesRepository = Depends(get_roles_repository)):
+        roles: RolesRepository = Depends(get_roles_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await roles.delete(id_role)
 
 
@@ -33,5 +43,9 @@ async def delete_role(
 async def update_role(
         id_role: int,
         role: str,
-        roles: RolesRepository = Depends(get_roles_repository)):
+        roles: RolesRepository = Depends(get_roles_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await roles.update(id_role, role)

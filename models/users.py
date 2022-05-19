@@ -13,6 +13,9 @@ class Users(BaseModel):
     id_role: int
     time: int
 
+    def is_admin(self):
+        return self.id_role == 1
+
 
 class UserIn(BaseModel):
     login: str

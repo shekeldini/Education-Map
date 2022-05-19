@@ -1,8 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
+
+from models.users import Users
 from repositories.oo_logins import OOLoginsRepository
 from models.oo_logins import OOLogins
-from .depends import get_oo_logins_repository
+from .depends import get_oo_logins_repository, get_current_user
 
 router = APIRouter()
 
@@ -18,14 +20,22 @@ async def read_oo_logins(
 @router.post("/", response_model=OOLogins)
 async def create_oo_login(
         oo_login: str,
-        oo_logins: OOLoginsRepository = Depends(get_oo_logins_repository)):
+        oo_logins: OOLoginsRepository = Depends(get_oo_logins_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await oo_logins.create(oo_login)
 
 
 @router.delete("/", response_model=OOLogins)
 async def delete_oo_login(
         oo_login: str,
-        oo_logins: OOLoginsRepository = Depends(get_oo_logins_repository)):
+        oo_logins: OOLoginsRepository = Depends(get_oo_logins_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await oo_logins.delete(oo_login)
 
 
@@ -33,5 +43,9 @@ async def delete_oo_login(
 async def update_oo_login(
         oo_login: str,
         new_oo_login: str,
-        oo_logins: OOLoginsRepository = Depends(get_oo_logins_repository)):
+        oo_logins: OOLoginsRepository = Depends(get_oo_logins_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await oo_logins.update(oo_login, new_oo_login)

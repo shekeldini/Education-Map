@@ -1,8 +1,10 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
+
+from models.users import Users
 from repositories.name_of_the_settlement import NameOfTheSettlementRepository
 from models.name_of_the_settlement import NameOfTheSettlement, NameOfTheSettlementIn
-from .depends import get_name_of_the_settlement_repository
+from .depends import get_name_of_the_settlement_repository, get_current_user
 
 router = APIRouter()
 
@@ -32,14 +34,22 @@ async def read_name_of_the_settlement_by_name(
 @router.post("/", response_model=NameOfTheSettlement)
 async def create_name_of_the_settlement(
         name_of_the_settlement_in: NameOfTheSettlementIn,
-        name_of_the_settlement: NameOfTheSettlementRepository = Depends(get_name_of_the_settlement_repository)):
+        name_of_the_settlement: NameOfTheSettlementRepository = Depends(get_name_of_the_settlement_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await name_of_the_settlement.create(name_of_the_settlement_in)
 
 
 @router.delete("/", response_model=NameOfTheSettlement)
 async def delete_name_of_the_settlement(
         id_name_of_the_settlement: int,
-        name_of_the_settlement: NameOfTheSettlementRepository = Depends(get_name_of_the_settlement_repository)):
+        name_of_the_settlement: NameOfTheSettlementRepository = Depends(get_name_of_the_settlement_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await name_of_the_settlement.delete(id_name_of_the_settlement)
 
 
@@ -47,5 +57,9 @@ async def delete_name_of_the_settlement(
 async def update_name_of_the_settlement(
         id_name_of_the_settlement: int,
         name_of_the_settlement_in: NameOfTheSettlementIn,
-        name_of_the_settlement: NameOfTheSettlementRepository = Depends(get_name_of_the_settlement_repository)):
+        name_of_the_settlement: NameOfTheSettlementRepository = Depends(get_name_of_the_settlement_repository),
+        current_user: Users = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await name_of_the_settlement.update(id_name_of_the_settlement, name_of_the_settlement_in)

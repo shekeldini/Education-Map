@@ -8,10 +8,12 @@ from fastapi import Depends, FastAPI, HTTPException, status, Request
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-
+from core.security import verify_password
 from db.base import database, redis
 from endpoints import district, oo_location_type, roles, users, auth, name_of_the_settlement, \
     organizational_and_legal_form, population_of_the_settlement, oo_logins, organisation_status, oo
+from endpoints.depends import get_users_repository
+from repositories.users import UsersRepository
 
 app = FastAPI(
     title="FastAPI",
@@ -22,6 +24,7 @@ app = FastAPI(
 )
 
 security = HTTPBasic()
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -52,16 +55,24 @@ async def shutdown():
     await redis.disconnect()
 
 
-def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
-    correct_username = secrets.compare_digest(credentials.username, "admin")
-    correct_password = secrets.compare_digest(credentials.password, "687980@rA")
-    if not (correct_username and correct_password):
+async def get_current_username(
+        credentials: HTTPBasicCredentials = Depends(security),
+        users: UsersRepository = Depends(get_users_repository)
+):
+    user = await users.get_by_login(credentials.username)
+    if user is None or not verify_password(credentials.password, user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect login or password",
             headers={"WWW-Authenticate": "Basic"},
         )
-    return credentials.username
+    if not user.is_admin():
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access Denied",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return user.login
 
 
 @app.get("/docs", include_in_schema=False)
