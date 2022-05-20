@@ -46,7 +46,7 @@ map.on('pm:create', (e) => {
   })
 });
 
-async function load_districts(){
+function load_districts(){
     $.getJSON("static/files/districts.json", function(json) {
         for(district of json){
             var name = district.name
@@ -79,7 +79,7 @@ async function load_districts(){
     });
 };
 
-async function load_region(){
+function load_region(){
     $.getJSON("static/files/okruga.json", function(json) {
         for(region of json){
             var name = region.name
@@ -96,25 +96,10 @@ async function load_region(){
     });
 };
 
-async function load_region_border(){
-    $.getJSON("static/files/okruga.json", function(json) {
-        for(region of json){
-            var name = region.name
-            var coordinates = region.coordinates
-            var color = region.color
-            var polyline = L.polyline(coordinates, {
-                color: color,
-                "name": name,
-                dashArray: '20, 20'
-            });
-            polyline.addTo(map);
-        };
-    });
-};
 
-async function load_json(){
-    await load_region();
-    await load_districts();
+function load_json(){
+    load_region();
+    load_districts();
 }
 load_json();
 
