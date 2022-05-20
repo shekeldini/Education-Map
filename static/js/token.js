@@ -1,3 +1,4 @@
+var HOST_NAME = document.location.origin
 var access_token = null;
 
 async function get_private(){
@@ -5,7 +6,7 @@ async function get_private(){
         await get_access_token();
     }
     $.ajax({
-       url: 'http://localhost:8000/user/get_all?limit=100&skip=0',
+       url: HOST_NAME + '/user/get_all?limit=100&skip=0',
        type: 'GET',
        contentType: 'application/json',
        headers: {
