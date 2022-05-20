@@ -30,7 +30,14 @@ async def login(
 
 
 @router.post('/refresh', response_model=AccessToken)
-async def refresh(refresh_token: Optional[str] = Cookie(None)):
+async def refresh(response: Response, refresh_token: Optional[str] = Cookie(None)):
     current_user = await get_current_user(users=get_users_repository(), token=refresh_token)
-    new_token = create_access_token({"sub": current_user.login})
-    return AccessToken(access_token=new_token)
+    token = Token(
+        access_token=create_access_token({"sub": current_user.login}),
+        refresh_token=create_refresh_token({"sub": current_user.login}),
+        token_type="Bearer"
+    )
+    response.set_cookie(
+        key="refresh_token", value=f"{token.refresh_token}", httponly=True, secure=True, samesite="strict"
+    )
+    return AccessToken(access_token=token.access_token)
