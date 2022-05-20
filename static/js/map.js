@@ -135,7 +135,7 @@ async function create_marker(data, district_name){
             "</div>" +
             "<div class='block'>" +
                  "<div>" + 'Сайт' + "</div>" +
-                 "<a href='marker.options.url' class='url' >" + marker.options.url + "</a>" +
+                 "<a href='" + marker.options.url + "' class='url' >" + marker.options.url + "</a>" +
             "</div>";
 
     marker.bindPopup(text, {autoClose:false}).openPopup();
