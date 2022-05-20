@@ -1,6 +1,4 @@
 import uvicorn
-import secrets
-
 from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.templating import Jinja2Templates
@@ -93,6 +91,16 @@ async def openapi(username: str = Depends(get_current_username)):
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse("map.html", {"request": request, "title": "Интерактивная карта"})
+
+
+@app.get("/login", response_class=HTMLResponse)
+async def login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request, "title": "Авторизация"})
+
+
+@app.get("/private", response_class=HTMLResponse)
+async def private(request: Request):
+    return templates.TemplateResponse("protected.html", {"request": request, "title": "Приватно"})
 
 
 if __name__ == "__main__":

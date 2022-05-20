@@ -46,7 +46,22 @@ map.on('pm:create', (e) => {
   })
 });
 
-function load_districts(){
+function load_data(){
+    $.getJSON("static/files/okruga.json", function(json) {
+        for(region of json){
+            var name = region.name
+            var coordinates = region.coordinates
+            var color = region.color
+            var polyline = L.polygon(coordinates, {
+                color: color,
+                "name": name,
+                fillOpacity: 0.25,
+                weight: 4
+            });
+            polyline.addTo(map);
+        };
+    });
+
     $.getJSON("static/files/districts.json", function(json) {
         for(district of json){
             var name = district.name
@@ -78,31 +93,7 @@ function load_districts(){
         };
     });
 };
-
-function load_region(){
-    $.getJSON("static/files/okruga.json", function(json) {
-        for(region of json){
-            var name = region.name
-            var coordinates = region.coordinates
-            var color = region.color
-            var polyline = L.polygon(coordinates, {
-                color: color,
-                "name": name,
-                fillOpacity: 0.25,
-                weight: 4
-            });
-            polyline.addTo(map);
-        };
-    });
-};
-
-
-function load_json(){
-    load_region();
-    load_districts();
-}
-load_json();
-
+load_data();
 
 function getSchools(polygon){
     send_data = {

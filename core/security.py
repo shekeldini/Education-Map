@@ -39,6 +39,8 @@ def decode_access_token(token: str):
         return None
     except AttributeError:
         return None
+    except jose.exceptions.JWTError:
+        return None
     return encoded_jwt
 
 

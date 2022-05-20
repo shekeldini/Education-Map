@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+	{{ super() }}
+	<script
+			src="{{ url_for('static', path='js/token.js') }}">
+    </script>
+{% endblock %}
+
+{% block content -%}
+	{{ super() }}
+	<button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="get_private()">
+		  Sign In
+    </button>
+	<div id="test">
+	</div>
+{% endblock -%}
