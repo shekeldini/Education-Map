@@ -24,7 +24,7 @@ async function get_private(){
 
 function get_access_token(){
     return $.ajax({
-       url: 'http://localhost:8000/auth/refresh',
+       url: HOST_NAME + '/auth/refresh',
        type: 'POST',
        contentType: 'application/json',
        success: function (result) {
@@ -32,7 +32,7 @@ function get_access_token(){
             access_token = result.access_token
        },
        error: function (error) {
-            window.location.replace("http://localhost:8000/login");
+            window.location.replace(HOST_NAME + "/login");
        }
     });
 }
