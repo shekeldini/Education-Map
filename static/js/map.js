@@ -46,8 +46,8 @@ map.on('pm:create', (e) => {
   })
 });
 
-function load_data(){
-    $.getJSON("static/files/okruga.json", function(json) {
+async function load_regions(){
+    return $.getJSON("static/files/okruga.json", function(json) {
         for(region of json){
             var name = region.name
             var coordinates = region.coordinates
@@ -60,9 +60,13 @@ function load_data(){
             });
             polyline.addTo(map);
         };
+        return
     });
+};
 
-    $.getJSON("static/files/districts.json", function(json) {
+
+async function load_districts(){
+    return $.getJSON("static/files/districts.json", function(json) {
         for(district of json){
             var name = district.name
             var coordinates = district.coordinates
@@ -91,8 +95,16 @@ function load_data(){
                 });
             };
         };
+        return
     });
 };
+
+async function load_data(){
+    await load_regions();
+    await load_districts();
+
+};
+
 load_data();
 
 function getSchools(polygon){
