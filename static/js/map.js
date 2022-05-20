@@ -46,34 +46,78 @@ map.on('pm:create', (e) => {
   })
 });
 
-$.getJSON("static/files/districts.json", function(json) {
-    for(district of json){
-        var name = district.name
-        var coordinates = district.coordinates
-        var id_district = district.id
-        for (coord of coordinates){
-            var polygon = L.polygon(coord, {
-                color: "#4747A1",
-                "name": name,
-                "id_district": id_district
-            });
-            polygon.bindTooltip(name,
-               {permanent: false, direction: "center"}
-            ).openTooltip()
-            polygon.addTo(map);
-            polygon.on('click', async function () {
-                deleteLayers(L.Marker);
-                var schools = await getSchools(this);
-                for (school of schools){
-                    if (school.coordinates != ""){
-                        create_marker(school, this.options.name);
+async function load_districts(){
+    $.getJSON("static/files/districts.json", function(json) {
+        for(district of json){
+            var name = district.name
+            var coordinates = district.coordinates
+            var id_district = district.id
+            for (coord of coordinates){
+                var polygon = L.polygon(coord, {
+                    color: "#139BF0",
+                    "name": name,
+                    "id_district": id_district,
+                    fillOpacity: 0,
+                    weight: 1
+                });
+                polygon.bindTooltip(name,
+                   {permanent: false, direction: "center"}
+                ).openTooltip()
+                polygon.addTo(map);
+                polygon.on('click', async function () {
+                    deleteLayers(L.Marker);
+                    var schools = await getSchools(this);
+                    for (school of schools){
+                        if (school.coordinates != ""){
+                            create_marker(school, this.options.name);
+                        };
+                    markers.addTo(map)
                     };
-                markers.addTo(map)
-                };
-            });
+                });
+            };
         };
-    };
-});
+    });
+};
+
+async function load_region(){
+    $.getJSON("static/files/okruga.json", function(json) {
+        for(region of json){
+            var name = region.name
+            var coordinates = region.coordinates
+            var color = region.color
+            var polyline = L.polygon(coordinates, {
+                color: color,
+                "name": name,
+                fillOpacity: 0.25,
+                weight: 4
+            });
+            polyline.addTo(map);
+        };
+    });
+};
+
+async function load_region_border(){
+    $.getJSON("static/files/okruga.json", function(json) {
+        for(region of json){
+            var name = region.name
+            var coordinates = region.coordinates
+            var color = region.color
+            var polyline = L.polyline(coordinates, {
+                color: color,
+                "name": name,
+                dashArray: '20, 20'
+            });
+            polyline.addTo(map);
+        };
+    });
+};
+
+async function load_json(){
+    await load_region();
+    await load_districts();
+}
+load_json();
+
 
 function getSchools(polygon){
     send_data = {
