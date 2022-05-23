@@ -1,3 +1,8 @@
+var HOST_NAME = document.location.origin
+var URL_STRING = document.location.href
+var url = new URL(URL_STRING);
+var next = url.searchParams.get("next");
+
 function submitform(){
     var formData = $("#login_form").serializeArray();
     var send_data = {}
@@ -12,7 +17,12 @@ function submitform(){
       dataType: "json",
       contentType : "application/json",
       success: function(data){
-        console.log(data)
+        if (next){
+            document.location.replace(HOST_NAME + next);
+        }
+        else {
+            document.location.replace(HOST_NAME);
+        }
       }
     });
 };
