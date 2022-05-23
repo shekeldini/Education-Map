@@ -99,6 +99,16 @@ async function load_districts(){
                     markers.addTo(map)
                     };
                 });
+                polygon.on('mouseover', function () {
+                    this.setStyle({
+                        fillOpacity: 0.3
+                    });
+                });
+                polygon.on('mouseout', function () {
+                    this.setStyle({
+                        fillOpacity: 0
+                    });
+                });
             };
         };
         return
