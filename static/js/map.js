@@ -4,7 +4,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 map.setView(new L.LatLng(52.61558902526749, 83.57275390625), 7);
-
+L.Control.geocoder({
+position:"topleft"
+}).addTo(map);
 var markers = L.markerClusterGroup()
 
 var options = {
