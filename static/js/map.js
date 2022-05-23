@@ -165,7 +165,7 @@ async function create_marker(data, district_name){
                   
                  "<div class='name'>" + marker.options.oo_name + "</div>" +
             "</div>" +
-	    "<div class='block'>" +
+	        "<div class='block'>" +
                  "<div>" + 'Адрес' + "</div>" +
                  "<div class='address'>" + marker.options.oo_address + "</div>" +
             "</div>" +

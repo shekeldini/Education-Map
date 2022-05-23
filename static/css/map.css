@@ -101,3 +101,12 @@
     font-weight: 500;
 }
 
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #ffffff;
+  width: 400px;
+  height: 100%;
+}

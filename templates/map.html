@@ -53,6 +53,50 @@
 
 {% block content -%}
 	{{ super() }}
+	<div class="menu">
+        <div class="menu-header">
+            <div class="menu-header__burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-header__title">
+                Образовательные учреждения
+            </div>
+            <div class="menu-block">
+
+                <ul class="tree" id="tree">
+                    <li>Выберите округ
+                        <ul>
+                            <li>1 округ
+                                <ul>
+                                    <li>школа</li>
+                                    <li>какая то школа</li>
+                                    <li>еще школа</li>
+                                </ul>
+                            </li>
+                            <li>2 округ
+                                <ul>
+                                    <li>опять школа</li>
+                                    <li>мбоу сош</li>
+                                    <li>тест</li>
+                                </ul>
+                            </li>
+                            <li>3 округ
+                                <ul>
+                                    <li>школа</li>
+                                    <li>школьники</li>
+                                    <li>еще школа</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
 	<div>
 	   <div id="map">
 
@@ -60,5 +104,9 @@
 	</div>
 	<script
 			src="{{ url_for('static', path='js/map.js') }}" >
+	</script>
+
+	<script
+			src="{{ url_for('static', path='js/script.js') }}">
 	</script>
 {% endblock -%}
