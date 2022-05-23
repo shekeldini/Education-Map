@@ -20,8 +20,8 @@ class Redis:
     async def get(self, key):
         return await self._connection.get(key)
 
-    async def set(self, key, value):
-        return await self._connection.set(key, value)
+    async def set(self, key, value, expire=0):
+        return await self._connection.set(key, value, expire=expire)
 
     async def disconnect(self):
         self._connection.close()

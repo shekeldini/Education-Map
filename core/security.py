@@ -4,7 +4,7 @@ import jose
 from fastapi import Request, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from passlib.context import CryptContext
-from jose import jwt
+from jose import jwt, ExpiredSignatureError, JWTError
 from .config import ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_MINUTES, SECRET_KEY, ALGORITHM
 from werkzeug.security import check_password_hash, generate_password_hash
 pwd_context = CryptContext(schemes=["bcrypt_sha256"], deprecated="auto")
@@ -35,11 +35,11 @@ def decode_access_token(token: str):
         encoded_jwt = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     except jwt.JWSError:
         return None
-    except jose.exceptions.ExpiredSignatureError:
+    except ExpiredSignatureError:
         return None
     except AttributeError:
         return None
-    except jose.exceptions.JWTError:
+    except JWTError:
         return None
     return encoded_jwt
 

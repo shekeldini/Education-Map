@@ -1,10 +1,11 @@
 from typing import Optional
-
+from db.base import redis
 from fastapi import APIRouter, HTTPException, status, Depends, Response, Cookie
 from models.token import Token, Login, AccessToken
 from repositories.users import UsersRepository
 from core.security import verify_password, create_access_token, create_refresh_token
 from .depends import get_users_repository, get_current_user
+from core.config import REFRESH_TOKEN_EXPIRE_MINUTES
 
 router = APIRouter()
 
@@ -32,6 +33,11 @@ async def login(
 @router.post('/refresh', response_model=AccessToken)
 async def refresh(response: Response, refresh_token: Optional[str] = Cookie(None)):
     current_user = await get_current_user(users=get_users_repository(), token=refresh_token)
+    if await redis.get(refresh_token):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Credentials are not valid")
+
+    await redis.set(refresh_token, "Blacklisted", expire=REFRESH_TOKEN_EXPIRE_MINUTES)
+
     token = Token(
         access_token=create_access_token({"sub": current_user.login}),
         refresh_token=create_refresh_token({"sub": current_user.login}),
