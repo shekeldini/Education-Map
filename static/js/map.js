@@ -1,11 +1,15 @@
-var map = L.map('map').fitWorld();
+var map = L.map('map', {
+    zoomSnap: 0.5,
+    zoomAnimation: true,
+    fadeAnimation: true,
+}).fitWorld();
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-map.setView(new L.LatLng(52.61558902526749, 83.57275390625), 7);
+map.setView(new L.LatLng(52.61558902526749, 83), 7.25);
 L.Control.geocoder({
-position:"topleft"
+    position:"topleft"
 }).addTo(map);
 var markers = L.markerClusterGroup()
 
