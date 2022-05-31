@@ -54,59 +54,77 @@
 {% block content -%}
 	{{ super() }}
 	<div class="menu">
-        <div class="menu-header">
-            <div class="menu-header__burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="menu-header__title">
+           <div class="menu-header">
+               <div class="menu-header__burger">
+                   <span></span>
+                   <span class="middle"></span>
+                   <span></span>
+               </div>
+               <div class="menu-header__title">
                 Образовательные учреждения
-            </div>
-            <div class="menu-block">
-
-                <ul class="tree" id="tree">
-                    <li>Выберите округ
-                        <ul>
-                            <li>1 округ
-                                <ul>
-                                    <li>школа</li>
-                                    <li>какая то школа</li>
-                                    <li>еще школа</li>
-                                </ul>
-                            </li>
-                            <li>2 округ
-                                <ul>
-                                    <li>опять школа</li>
-                                    <li>мбоу сош</li>
-                                    <li>тест</li>
-                                </ul>
-                            </li>
-                            <li>3 округ
-                                <ul>
-                                    <li>школа</li>
-                                    <li>школьники</li>
-                                    <li>еще школа</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+               </div>
+	   </div>
+           <div class="menu-block">
+                <ul class="list-one" id="tree">
                 </ul>
-            </div>
+           </div>
         </div>
-    </div>
 
 
 	<div>
 	   <div id="map">
 
 	   </div>
+           <div class="open-menu">
+            	<span></span>
+                <span class="middle"></span>
+                <span></span>
+
+	   </div>
+
+           <div class="legend">
+		<div class="container">
+            <div class="legend-title">Обозначение округов Алтайского края</div>
+            <div class="legend-wrapper">
+                <div class="legend-block">
+                    <div class="legend-block__name">Барнаульский округ</div>
+                    <div class="legend-block__color"></div>
+                </div>
+                <div class="legend-block">
+                    <div class="legend-block__name">Алейский округ</div>
+                    <div class="legend-block__color"></div>
+                </div>
+                <div class="legend-block">
+                    <div class="legend-block__name">Бийский округ</div>
+                    <div class="legend-block__color"></div>
+                </div>
+                <div class="legend-block">
+                    <div class="legend-block__name">Заринский округ</div>
+                    <div class="legend-block__color"></div>
+                </div>
+                <div class="legend-block">
+                    <div class="legend-block__name">Каменский округ</div>
+                    <div class="legend-block__color"></div>
+                </div>
+                <div class="legend-block">
+                    <div class="legend-block__name">Рубцовский округ</div>
+                    <div class="legend-block__color"></div>
+                </div>
+                <div class="legend-block">
+                    <div class="legend-block__name">Славгородский округ</div>
+                    <div class="legend-block__color"></div>
+                </div>
+            </div>
+			
+		</div>
 	</div>
+	</div>
+
 	<script
 			src="{{ url_for('static', path='js/map.js') }}" >
 	</script>
 
-	<script
+        <script
 			src="{{ url_for('static', path='js/script.js') }}">
 	</script>
 {% endblock -%}

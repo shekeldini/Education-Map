@@ -1,6 +1,6 @@
 
 #map {
-  height: 920px;
+  height: 807px;
   max- width: 1500px;
 }
 
@@ -14,6 +14,8 @@
      max-width: 100%;
   }
 }
+
+
 
 @media (max-width: 1500px) {
   #map {
@@ -109,4 +111,241 @@
   background: #ffffff;
   width: 400px;
   height: 100%;
+}
+
+ul {
+  list-style: none;
+    padding: 0;
+}
+
+.menu-block {
+      display: flex;
+    justify-content: center;
+  overflow-y: scroll;
+    height: 80vh;
+}
+
+.menu-header {
+  height: 64px;
+  background-color: #db4437;
+      display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.menu-header__title {
+   font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+    color: #ffffff;
+    margin-left: 35px;
+}
+
+.menu-header__burger {
+  cursor: pointer;
+  margin-left: 25px;
+}
+
+.menu-header__burger span {
+     height: 4px;
+    width: 35px;
+    background: #414141;
+    display: block;
+}
+
+.middle {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.list-one {
+ width: 350px;
+}
+
+.list-two li {
+      margin-top: 10px;
+      margin-left: 25px;
+}
+
+.list-three {
+  margin-top: 0px;
+  margin-bottom: 15px;
+     
+}
+
+.list-three li {
+ margin-bottom: -5px;
+}
+
+.list-one span {
+ background-color: #FFFFFF;
+ transition: 0.4s;
+    color: #464646;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: left;
+    text-transform: uppercase;
+    width: 310px;
+    padding: 10px 5px 10px 10px;
+   display: block;
+       position: relative;
+   border: 1px solid;
+    border-radius: 15px 0;
+  cursor: pointer;
+  font-size: 13px;
+    font-family: 'Roboto', sans-serif;   
+
+}
+
+
+.closed:before {
+  content: '\02795';
+    font-size: 13px;
+    color: #ffffff;
+    float: right;
+    margin-left: 5px;
+
+}
+
+.open:after {
+  content: "\2796";
+    font-size: 13px;
+    color: #ffffff;
+    float: right;
+    position: absolute;
+    right: 5px;
+        transition: 0.4s;
+    background-color: #3bac37;
+
+}
+
+
+.list-three li span {
+      background: #FFFFFF;
+ max-width: 200px;
+    display: block;
+   
+white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.active {
+      background-color: #3bac37 !important;
+
+}
+
+.list-three li ul {
+      margin-top: -3px;
+}
+
+.legend {
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+
+.legend .container {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.legend-title {
+    text-align: center;
+    font-size: 23px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.legend-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.legend-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    margin-top: 8px;
+        padding: 7px;
+    border: 1px solid black;
+    border-radius: 15px 0;
+    cursor: pointer;
+}
+
+.legend-block__name {
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.legend-block__color {
+    height: 20px;
+    width: 50px;
+    background: red;
+    border: 1px solid black;
+}
+
+.legend-block:nth-child(1):hover {
+    background: #EBE100;
+}
+.legend-block:nth-child(2):hover {
+    background: #F0C466;
+}
+.legend-block:nth-child(3):hover {
+    background: #42EBC0;
+}
+.legend-block:nth-child(4):hover {
+    background: #722FEB;
+}
+.legend-block:nth-child(5):hover {
+    background: #EB734D;
+}
+.legend-block:nth-child(6):hover {
+    background: #F086E0;
+}
+.legend-block:nth-child(7):hover {
+    background: #44A1F0;
+}
+
+.legend-block:nth-child(1) .legend-block__color {
+    background: #EBE100;
+}
+.legend-block:nth-child(2) .legend-block__color {
+    background: #F0C466;
+}
+.legend-block:nth-child(3) .legend-block__color {
+    background: #42EBC0;
+}
+.legend-block:nth-child(4) .legend-block__color {
+    background: #722FEB;
+}
+.legend-block:nth-child(5) .legend-block__color {
+    background: #EB734D;
+}
+.legend-block:nth-child(6) .legend-block__color {
+    background: #F086E0;
+}
+.legend-block:nth-child(7) .legend-block__color {
+    background: #44A1F0;
+}
+
+.open-menu {
+ cursor: pointer;
+    margin-left: 25px;
+      position: absolute;
+    top: 25px;
+    z-index: 500;
+}
+
+.open-menu span {
+  height: 4px;
+    width: 35px;
+    background: #414141;
+    display: block;
+}
+
+.visible {
+ display: block;
 }
