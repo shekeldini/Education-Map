@@ -299,7 +299,7 @@ white-space: nowrap;
     width: 230px;
     margin-top: 6px;
     padding: 7px;
-    border: 1px solid black;
+    border: 1px solid #dee0e1;
     border-radius: 15px 0;
     cursor: pointer;
 }
@@ -315,7 +315,7 @@ white-space: nowrap;
     height: 20px;
     width: 50px;
     background: red;
-    border: 1px solid black;
+    border: 1px solid #dee0e1;
 }
 
 .legend-block:nth-child(1):hover {
