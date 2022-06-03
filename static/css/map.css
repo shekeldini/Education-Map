@@ -4,6 +4,10 @@
   max- width: 1500px;
 }
 
+.leaflet-container {
+  background: #f5f5f5;
+}
+
 .leaflet-left {
   left: unset;
   right: 10px;
@@ -65,6 +69,10 @@
 }
 }
 
+.leaflet-popup-content {
+ width: 340px !important;
+}
+
 .leaflet-popup-content p {
   font-size: 14px;
   font-weight: 500;
@@ -73,7 +81,11 @@
 .leaflet-popup-content .district {
   font-weight: 600 !important;
     font-size: 17px;
- color: black !important;
+ color: #414141 !important;
+ text-align: center;
+    border: 1px solid #414141;
+    border-radius: 15px 0;
+    padding: 5px 0;
 }
 
 
@@ -86,6 +98,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #414141;
+  padding-bottom: 5px;  
+
 }
 
 .leaflet-popup-content-wrapper {
@@ -93,8 +109,9 @@
 }
 
 .block div:first-child {
- margin-right: 10px;
-     font-size: 14px;
+   min-width: 25%;
+   font-size: 14px;
+       font-weight: 600;
  
 }
 
@@ -111,6 +128,7 @@
   background: #ffffff;
   width: 400px;
   height: 100%;
+  display: none;
 }
 
 ul {
@@ -127,7 +145,7 @@ ul {
 
 .menu-header {
   height: 64px;
-  background-color: #db4437;
+  background-color: #449ff0;
       display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -240,13 +258,12 @@ white-space: nowrap;
 }
 
 .legend {
-    margin-top: 15px;
     padding-bottom: 20px;
 }
 
 .legend .container {
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 900px;
 }
 
 .legend-title {
@@ -254,6 +271,7 @@ white-space: nowrap;
     font-size: 23px;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
+    color: #243964;
 }
 
 .legend-wrapper {
@@ -266,8 +284,8 @@ white-space: nowrap;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
-    margin-top: 8px;
+    width: 250px;
+    margin-top: 4px;
         padding: 7px;
     border: 1px solid black;
     border-radius: 15px 0;
@@ -278,6 +296,7 @@ white-space: nowrap;
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
+    color: #243964;
 }
 
 .legend-block__color {

@@ -17,10 +17,14 @@ var map = L.map('map', {
     ]
 }).fitWorld();
 
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+$.getJSON('static/files/kray.json').then(function(geoJSON) {
+  var osm = new L.TileLayer.BoundaryCanvas('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    boundary: geoJSON,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+  }).addTo(map);
+});
+
+
 map.setView(new L.LatLng(52.61558902526749, 83), 7.5);
 L.Control.geocoder({
     position:"topleft"
@@ -214,8 +218,9 @@ async function load_districts(){
 
 async function load_data(){
     create_menu();
-    await load_regions();
+await load_regions();
     await load_districts();
+
 
 };
 
@@ -264,23 +269,23 @@ async function create_marker(data, district_name){
                  "<div class='name'>" + marker.options.oo_name + "</div>" +
             "</div>" +
 	        "<div class='block'>" +
-                 "<div>" + 'Адрес' + "</div>" +
+                 "<div>" + 'Адрес:' + "</div>" +
                  "<div class='address'>" + marker.options.oo_address + "</div>" +
             "</div>" +
             "<div class='block'>" +
-                 "<div>" + 'Директор' + "</div>" +
+                 "<div>" + 'Директор:' + "</div>" +
                  "<div class='director'>" + marker.options.director + "</div>" +
             "</div>" +
             "<div class='block'>" +
-                 "<div>" + 'Почта' + "</div>" +
+                 "<div>" + 'Почта:' + "</div>" +
                  "<div class='oo'>" + marker.options.email_oo + "</div>" +
             "</div>" +
             "<div class='block'>" +
-                 "<div>" + 'Телефон' + "</div>" +
+                 "<div>" + 'Телефон:' + "</div>" +
                  "<div class='phone'>" + marker.options.phone_number + "</div>" +
             "</div>" +
             "<div class='block'>" +
-                 "<div>" + 'Сайт' + "</div>" +
+                 "<div>" + 'Сайт:' + "</div>" +
                  "<a href='" + marker.options.url + "' class='url' >" + marker.options.url + "</a>" +
             "</div>";
 

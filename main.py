@@ -12,6 +12,8 @@ from endpoints import district, oo_location_type, roles, users, auth, name_of_th
     organizational_and_legal_form, population_of_the_settlement, oo_logins, organisation_status, oo
 from endpoints.depends import get_users_repository
 from repositories.users import UsersRepository
+from celery_worker import write_log
+
 
 app = FastAPI(
     title="FastAPI",
@@ -101,6 +103,7 @@ async def login(request: Request):
 @app.get("/private", response_class=HTMLResponse)
 async def private(request: Request):
     return templates.TemplateResponse("protected.html", {"request": request, "title": "Приватно"})
+
 
 
 if __name__ == "__main__":

@@ -34,11 +34,11 @@ tree.onclick = function (event) {
     }
 };
 
-//const openMenu = document.querySelector('.open-menu'),
-     // menuPanel = document.querySelector('.menu');
+const openMenu = document.querySelector('.open-menu'),
+     menuPanel = document.querySelector('.menu');
 
-//openMenu.addEventListener('click', () => {
-  // menuPanel.classList.add('visible');
+openMenu.addEventListener('click', () => {
+  menuPanel.classList.add('visible');
 
-//})
+})
 

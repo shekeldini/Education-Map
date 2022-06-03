@@ -3,4 +3,7 @@ venv
 .git
 .idea
 .env
-.env
+*.log
+*.zip
+/logs
+*.swp
