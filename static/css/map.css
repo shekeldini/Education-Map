@@ -1,6 +1,6 @@
 
 #map {
-  height: 807px;
+  height: 920px;
   max- width: 1500px;
 }
 
@@ -67,6 +67,10 @@
    right: 55px;
  }
 }
+}
+
+.header {
+
 }
 
 .leaflet-popup-content {
@@ -258,7 +262,15 @@ white-space: nowrap;
 }
 
 .legend {
-    padding-bottom: 20px;
+    position: absolute;
+    width: 285px;
+    background: #ffffff;
+    bottom: 5%;
+    right: 30px;
+    padding: 30px 0;
+    border-radius: 35px 0;
+    box-shadow: 4px 6px 15px 1px rgb(104 104 104 / 40%);
+    z-index: 500;
 }
 
 .legend .container {
@@ -284,16 +296,16 @@ white-space: nowrap;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 250px;
-    margin-top: 4px;
-        padding: 7px;
+    width: 230px;
+    margin-top: 6px;
+    padding: 7px;
     border: 1px solid black;
     border-radius: 15px 0;
     cursor: pointer;
 }
 
 .legend-block__name {
-    font-size: 18px;
+    font-size: 17px;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     color: #243964;

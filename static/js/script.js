@@ -35,10 +35,15 @@ tree.onclick = function (event) {
 };
 
 const openMenu = document.querySelector('.open-menu'),
-     menuPanel = document.querySelector('.menu');
+     menuPanel = document.querySelector('.menu'),
+menuClosed = document.querySelector('.menu-header__burger');
 
 openMenu.addEventListener('click', () => {
   menuPanel.classList.add('visible');
 
+})
+
+menuClosed.addEventListener('click', () => {
+  menuPanel.classList.remove('visible');
 })
 
