@@ -26,7 +26,7 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
 });
 
 
-map.setView(new L.LatLng(52.61558902526749, 83), 7.5);
+map.setView(new L.LatLng(52.6097204210268, 82.19761583222313), 7.5);
 L.Control.geocoder({
     position:"topleft"
 }).addTo(map);
@@ -202,11 +202,13 @@ function menu_create_district_item(district){
         district.setStyle({
             fillOpacity: 0.3
         });
+        district._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
     };
     span.onmouseout = function () {
         district.setStyle({
             fillOpacity: 0
         });
+        district._path.removeAttribute('filter');
     };
     span.onclick = async function () {
         let ul = document.createElement('ul');
