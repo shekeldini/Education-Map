@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from models.users import Users
 from repositories.oo import OORepository
-from models.oo import OO, OOIn, OOLoginOOName
+from models.oo import OO, OOIn, OOLoginOOName, OOLoginUrl
 from .depends import get_oo_repository, get_current_user
 
 router = APIRouter()
@@ -38,6 +38,20 @@ async def read_oo_by_year_and_id_district(
         id_district: int,
         oo: OORepository = Depends(get_oo_repository)):
     return await oo.get_all_by_year_and_id_district(year, id_district)
+
+
+@router.get("/get_all_by_year", response_model=List[OO])
+async def read_oo_by_year(
+        year: str,
+        oo: OORepository = Depends(get_oo_repository)):
+    return await oo.get_all_by_year(year)
+
+
+@router.get("/get_all_oo_url_by_year", response_model=List[OOLoginUrl])
+async def read_all_oo_url_by_year(
+        year: str,
+        oo: OORepository = Depends(get_oo_repository)):
+    return await oo.get_all_oo_url_by_year(year)
 
 
 @router.post("/", response_model=OO)

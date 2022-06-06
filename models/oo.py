@@ -29,6 +29,11 @@ class OOLoginOOName(BaseModel):
     oo_name: str
 
 
+class OOLoginUrl(BaseModel):
+    oo_login: str
+    url: str
+
+
 class OOIn(BaseModel):
     oo_login: str
     year: str

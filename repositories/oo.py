@@ -1,6 +1,6 @@
 from typing import List, Optional
 from db.oo import oo
-from models.oo import OO, OOIn, OOLoginOOName
+from models.oo import OO, OOIn, OOLoginUrl
 from .base import BaseRepository
 
 
@@ -43,6 +43,28 @@ class OORepository(BaseRepository):
         if res is None:
             return None
         return [OO.parse_obj(i) for i in res]
+
+    async def get_all_by_year(self, year: str) -> Optional[List[OO]]:
+        query = """
+        SELECT * FROM oo 
+        WHERE year = :year ;
+        """
+
+        res = await self.database.fetch_all(query, {"year": year})
+        if res is None:
+            return None
+        return [OO.parse_obj(i) for i in res]
+
+    async def get_all_oo_url_by_year(self, year: str) -> Optional[List[OOLoginUrl]]:
+        query = """
+        SELECT oo_login, url FROM oo 
+        WHERE year = :year 
+        AND url != '';
+        """
+        res = await self.database.fetch_all(query, {"year": year})
+        if res is None:
+            return None
+        return [OOLoginUrl.parse_obj(i) for i in res]
 
     async def create(self, oo_in: OOIn) -> OO:
         new_oo = OO(
