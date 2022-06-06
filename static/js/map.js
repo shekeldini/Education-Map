@@ -175,11 +175,13 @@ function menu_create_region_item(region){
         region.setStyle({
             fillOpacity: 0.6
         });
+        region._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
     };
     span.onmouseout = function () {
         region.setStyle({
             fillOpacity: 0.25
         });
+        region._path.removeAttribute('filter');
     };
     span.className = "hide";
     span.classList.add('closed');
