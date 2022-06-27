@@ -1,5 +1,7 @@
 var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
+let start_position = new L.LatLng(52.726338, 82.466781)
+let start_zoom = 7.5
 
 var map = L.map('map', {
     zoomSnap: 0.5,
@@ -13,16 +15,26 @@ var map = L.map('map', {
         [50.28933925329178,75.498046875]
     ]
 }).fitWorld();
+map.setView(start_position, start_zoom);
 
 $.getJSON('static/files/kray.json').then(function(geoJSON) {
-  var osm = new L.TileLayer.BoundaryCanvas('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    var osm = new L.TileLayer.BoundaryCanvas('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     boundary: geoJSON,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+    }).addTo(map);
+    var coordinates = geoJSON["features"][0]["geometry"]["coordinates"][0]
+    coordinates.forEach(arr => [arr[0], arr[1]] = [arr[1], arr[0]])
+    var polygon = L.polygon(coordinates, {
+                color: 'white',
+                "name": name,
+                fillOpacity: 0,
+                weight: 2,
+            });
+    polygon.addTo(map)
+    polygon._path.setAttribute('filter', 'drop-shadow(5px 6px 2px rgb(0 0 0 / 0.8))');
+
 });
 
-
-map.setView(new L.LatLng(52.6097204210268, 82.19761583222313), 7.5);
 L.Control.geocoder({
     position:"topleft"
 }).addTo(map);
@@ -49,6 +61,9 @@ map.on("zoomend", function(){
 })
 
 var markers = L.markerClusterGroup()
+let regions_layers = L.layerGroup()
+let districts_layers = L.layerGroup()
+
 
 var options = {
     position: "topleft",
@@ -106,7 +121,7 @@ async function load_regions(){
                 weight: 4,
                 "type": "region",
             });
-            polygon.addTo(map);
+            regions_layers.addLayer(polygon);
             menu_create_region_item(polygon);
         };
         return
@@ -115,11 +130,19 @@ async function load_regions(){
 
 function create_menu(){
     let li = document.createElement('li');
-    li.innerHTML += "Выберите округ";
     li.id = "li:select_region";
+
+    let span = document.createElement('span');
+    span.innerHTML += "Выберите округ";
+    span.className = "closed hide"
+    span.onclick = function(){
+        map.flyTo(start_position, start_zoom);
+    };
+
     let ul = document.createElement('ul');
     ul.id = "select_region";
     ul.className = "list-two";
+    li.appendChild(span);
     li.appendChild(ul);
     tree.appendChild(li);
 }
@@ -229,7 +252,22 @@ async function load_districts(){
                    {permanent: false, direction: "center"}
                 ).openTooltip()
                 menu_create_district_item(polygon);
-                polygon.addTo(map);
+
+                districts_layers.addLayer(polygon);
+
+                polygon.on("mouseover", function() {
+                    this.setStyle({
+                        fillOpacity: 0.3
+                    });
+                    this._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
+                });
+                polygon.on("mouseout", function() {
+                    this.setStyle({
+                        fillOpacity: 0
+                    });
+                    this._path.removeAttribute('filter');
+                });
+
                 polygon.on('click', async function () {
                     var open_menu = document.getElementById("open-menu");
                     open_menu.click()
@@ -253,7 +291,9 @@ async function load_districts(){
 async function load_data(){
     create_menu();
     await load_regions();
+    regions_layers.addTo(map);
     await load_districts();
+    districts_layers.addTo(map);
 
 
 };
@@ -376,7 +416,7 @@ function deleteLayersForRegion(id_region){
 };
 
 function changeOpacity(value){
-    map.eachLayer(async function(layer) {
+    regions_layers.eachLayer(async function(layer) {
         if (layer instanceof L.Polygon && layer.options.type == "region"){
             layer.setStyle({
                 fillOpacity: value

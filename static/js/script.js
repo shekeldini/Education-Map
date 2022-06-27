@@ -4,13 +4,6 @@ for(let ul of tree.querySelectorAll('ul')){
     ul.hidden = true;
 }
 
-for ( let li of tree.querySelectorAll('li')){
-    let span = document.createElement('span');
-    span.classList.add('show');
-    span.classList.add('closed');
-    li.prepend(span);
-    span.append(span.nextSibling);
-}
 
 tree.onclick = function (event) {
     if (event.target.tagName != 'SPAN') return;
