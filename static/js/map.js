@@ -1,5 +1,4 @@
 var tree = document.getElementById('tree');
-var div_legend = document.getElementById('legend');
 var burger = document.getElementById('burger');
 
 var map = L.map('map', {
@@ -114,7 +113,6 @@ async function load_regions(){
             });
             polygon.addTo(map);
             menu_create_region_item(polygon);
-            create_legend_item(polygon);
         };
         return
     });
@@ -131,51 +129,6 @@ function create_menu(){
     tree.appendChild(li);
 }
 
-function create_legend(){
-
-    let div_container = document.createElement('div');
-    div_container.className = "container";
-
-    let div_legend_title = document.createElement('div');
-    div_legend_title.className = "legend-title";
-    div_legend_title.innerHTML += "Обозначение округов Алтайского края";
-
-    let div_legend_wrapper = document.createElement('div');
-    div_legend_wrapper.className = "legend-wrapper";
-    div_legend_wrapper.id = "legend-wrapper";
-
-    div_container.appendChild(div_legend_title);
-    div_container.appendChild(div_legend_wrapper);
-    div_legend.appendChild(div_container);
-};
-
-function create_legend_item(region){
-    let legend_wrapper = document.getElementById('legend-wrapper');
-
-    let div_legend_block = document.createElement('div');
-    div_legend_block.className = "legend-block";
-
-    let div_legend_block_name = document.createElement('div');
-    div_legend_block_name.className = "legend-block__name";
-    div_legend_block_name.innerHTML += region.options.name;
-
-    div_legend_block.onmouseover = function(){
-        div_legend_block.setAttribute(
-            'style',
-            'background:' + region.options.fillColor + ';'
-        );
-        region._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
-    };
-    div_legend_block.onmouseout = function () {
-        div_legend_block.setAttribute(
-            'style',
-            'background: "white";'
-        );
-        region._path.removeAttribute('filter');
-    };
-    div_legend_block.appendChild(div_legend_block_name);
-    legend_wrapper.appendChild(div_legend_block);
-};
 
 function menu_create_region_item(region){
     var select_region = document.getElementById('select_region');
@@ -274,7 +227,7 @@ async function load_districts(){
                     "id_region": id_region,
                     fillOpacity: 0,
                     weight: 1,
-		    "type": "district",
+		            "type": "district",
                 });
                 polygon.bindTooltip(name,
                    {permanent: false, direction: "center"}
@@ -282,21 +235,18 @@ async function load_districts(){
                 menu_create_district_item(polygon);
                 polygon.addTo(map);
                 polygon.on('click', async function () {
-		    var open_menu = document.getElementById("open-menu");
+                    var open_menu = document.getElementById("open-menu");
                     open_menu.click()
                     var menu_select_region_item = document.getElementById("li:select_region");
                     if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
                         menu_select_region_item.firstChild.click()
                     }
-
                     var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
                     if (menu_region_item.className != "closed active open show"){
                         menu_region_item.click()
                     };
                     var menu_district_item = document.getElementById("id_district=" + this.options.id_district);
                     menu_district_item.click();
-
-
                 });
             };
         };
@@ -306,7 +256,6 @@ async function load_districts(){
 
 async function load_data(){
     create_menu();
-    create_legend();
     await load_regions();
     await load_districts();
 
