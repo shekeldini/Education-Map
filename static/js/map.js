@@ -285,7 +285,11 @@ async function load_districts(){
                     var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
                     if (menu_region_item.className != "closed active open show"){
                         menu_region_item.click()
-                    };
+                    }
+                    else{
+                        console.log(this.options.id_region)
+                        flyToRegion(this.options.id_region)
+                    }
                     var menu_district_item = document.getElementById("id_district=" + this.options.id_district);
                     menu_district_item.click();
                 });
@@ -439,3 +443,11 @@ function search(){
         url : "oo/search?oo_name=" + value
     });
 };
+
+function flyToRegion(id_region){
+    regions_layers.eachLayer(async function(layer) {
+        if (layer instanceof L.Polygon && layer.options.id_region == id_region){
+            map.flyTo(layer.getBounds().getCenter(), 8.5)
+        };
+    })
+}
