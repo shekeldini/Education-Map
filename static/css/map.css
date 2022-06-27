@@ -346,10 +346,6 @@ white-space: nowrap;
  display: none;
 }
 
-path.leaflet-interactive:hover{
-  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8));
-}
-
 .header {
       height: 60px;
     display: flex;

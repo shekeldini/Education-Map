@@ -95,15 +95,15 @@ async function load_regions(){
             var name = region.name
             var coordinates = region.coordinates
             var color = region.color
-	    var fillOpacity = region.fillOpacity
+	        var fillOpacity = region.fillOpacity
             var id_region = region.id_region
             var polygon = L.polygon(coordinates, {
                 fillColor: color,
-                        color: 'white',
-                        "name": name,
-                        "id_region": id_region,
-                        fillOpacity: 0.8,
-                        weight: 4,
+                color: 'white',
+                "name": name,
+                "id_region": id_region,
+                fillOpacity: 0.8,
+                weight: 4,
                 "type": "region",
             });
             polygon.addTo(map);
@@ -140,7 +140,7 @@ function menu_create_region_item(region){
     };
     span.onclick = function(){
         deleteLayersForRegion(region.options.id_region);
-         map.flyTo(region.getBounds().getCenter(), 8.5);
+        map.flyTo(region.getBounds().getCenter(), 8.5);
     };
     span.className = "hide";
     span.classList.add('closed');
