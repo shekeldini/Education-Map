@@ -38,12 +38,22 @@ const openMenu = document.querySelector('.open-menu'),
      menuPanel = document.querySelector('.menu'),
 menuClosed = document.querySelector('.menu-header__burger');
 
-openMenu.addEventListener('click', () => {
-  menuPanel.classList.add('visible');
-
-})
-
 menuClosed.addEventListener('click', () => {
-  menuPanel.classList.remove('visible');
+    menuPanel.classList.add('visible');
 })
 
+openMenu.addEventListener('click', () => {
+    menuPanel.classList.remove('visible');
+})
+
+const login = document.querySelector('.header-wrapper__login'),
+      overlay = document.querySelector('.overlay'),
+      close = document.querySelector('.form-close');
+
+login.addEventListener('click', () => {
+      overlay.classList.add('overlayOn');
+})
+
+close.addEventListener('click', () => {
+      overlay.classList.remove('overlayOn');
+})

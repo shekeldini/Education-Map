@@ -57,27 +57,92 @@
 
 {% block content -%}
 	{{ super() }}
-	<div class="menu">
-           <div class="menu-header">
-               <div class="menu-header__burger">
-                   <span></span>
-                   <span class="middle"></span>
-                   <span></span>
-               </div>
-               <div class="menu-header__title">
-                Образовательные учреждения
-               </div>
+
+	<header class="header">
+	   <div class="header-logo">
+	      <img class="header-logo__img" src="{{ url_for('static', path='images/logo.png') }}" alt="">	
 	   </div>
-           <div class="menu-block">
-                <ul class="list-one" id="tree">
-                </ul>
-           </div>
+	   <div class="header-wrapper">
+	      <h1 class="header-wrapper__title">Интерактивная карта системы образования Алтайского края</h1>
+	      <a class="header-wrapper__login" style="--clr:#0e448e" href="#"><span>Вход</span></a>
+	   </div>
+
+	
+	</header>
+	
+	<div class="menu">
+    <div class="menu-header">
+        <div class="menu-header__burger">
+            <span></span>
+            <span class="middle"></span>
+            <span></span>
         </div>
+        <div class="menu-header__title">
+         Образовательные учреждения
+        </div>
+    </div>
+    <div class="menu-block">
+         <ul class="list-one" id="tree">
+         </ul>
+    </div>
+    <div class="menu-header filter2">
+        <div class="menu-header__burger">
+            <span></span>
+            <span class="middle"></span>
+            <span></span>
+        </div>
+        <div class="menu-header__title">
+        Цифровая среда
+        </div>
+    </div>
+    <div class="menu-header filter3">
+        <div class="menu-header__burger">
+            <span></span>
+            <span class="middle"></span>
+            <span></span>
+        </div>
+        <div class="menu-header__title">
+        Результаты ЕГЭ
+        </div>
+    </div>
+    <div class="menu-header filter4">
+        <div class="menu-header__burger">
+            <span></span>
+            <span class="middle"></span>
+            <span></span>
+        </div>
+        <div class="menu-header__title">
+            Результаты ВПР
+        </div>
+    </div>
+    <div class="menu-header filter5">
+        <div class="menu-header__burger">
+            <span></span>
+            <span class="middle"></span>
+            <span></span>
+        </div>
+        <div class="menu-header__title">
+            Центры "Точка роста"
+        </div>
+    </div>
+    <div class="menu-header filter6">
+        <div class="menu-header__burger">
+            <span></span>
+            <span class="middle"></span>
+            <span></span>
+        </div>
+        <div class="menu-header__title">
+            Будущий фильтр
+        </div>
+    </div>
+</div>
+
+
 	<div>
 	   <div id="map">
 
 	   </div>
-	   <div class="open-menu">
+	   <div class="open-menu" id="open-menu">
 			<span></span>
 			<span class="middle"></span>
 			<span></span>
@@ -88,7 +153,62 @@
 		</div>
 
 	</div>
+	
+	<footer class="footer">
+	   <div class="footer-wrapper-logo">
+              <div class="footer-wrapper-logo__top">
+<!--	         <h3 class="footer-wrapper-logo__title">Другие наши сервисы:</h3> -->
+              </div>
+	      <div class="footer-wrapper-logo__low">
+	         <div class="footer-wrapper-logo__low_block">
+		    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/vpr22.png') }}" alt="" >
+		 </div>
+		 <div class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/logo.png') }}" alt="" >
+                 </div>
+		 <div class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img" src="" alt="" >
+                 </div>
+		 <div class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img" src="" alt="" >
+                 </div>
 
+	      </div>
+	   </div>
+
+	   <div class="footer-wrapper-contacts">
+	      <div class="footer-wrapper-contacts__top">
+                 <h3 class="footer-wrapper-contacts__title">Контакты:</h3>
+              </div>
+	      <div class="footer-wrapper-contacts__low">
+                 <div class="footer-wrapper-contacts__low_block">
+		    <div class="footer-wrapper-contacts__low_block_name">Телефон:</div>
+		    <a class="footer-wrapper-contacts__low_block_phone" href="tel:88887776655"> 8 888 777 66 55</a>
+                 </div>
+                 <div class="footer-wrapper-contacts__low_block">
+		     <div class="footer-wrapper-contacts__low_block_name">Почта:</div>
+                     <a class="footer-wrapper-contacts__low_block_phone" href="mailto:testmail@mail.ru">testmail@mail.ru</a>
+                 </div>
+              </div>
+	   </div>
+	  
+	</footer>
+	<div class="overlay">
+	   <form action="">
+              <div class="form-close">&times;</div>
+              <div class="form-box">
+                  <input type="text" class="form-box__text" required="required">
+                  <label for="" class="form-box__info">Логин</label>
+              </div>
+              <div class="form-box">
+                  <input type="text" class="form-box__text" required="required">
+                  <label for="" class="form-box__info">Пароль</label>
+              </div>
+	      <div class="form-wrapper">
+                  <input class="form-login" style="--clr:#0e448e" type="submit" value="Войти">
+	      </div>
+    	   </form>
+	</div>
 
 	<script
 			src="{{ url_for('static', path='js/map.js') }}" >

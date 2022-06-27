@@ -1,7 +1,8 @@
 [
   {
     "name": "Барнаульский округ",
-    "color": "#EBE100",
+    "color": "#898993",
+    "fillOpacity": 0.5,
     "coordinates": [
       [
         [
@@ -1944,7 +1945,8 @@
   },
   {
     "name": "Алейский округ",
-    "color": "#F0C466",
+    "color": "#B6B6C1",
+    "fillOpacity": 0.5,
     "coordinates": [
       [
         [
@@ -4865,7 +4867,8 @@
   },
   {
     "name": "Бийский округ",
-    "color": "#42EBC0",
+    "color": "#464655",
+    "fillOpacity": 0.7,
     "coordinates": [
       [
         [
@@ -8042,7 +8045,8 @@
   },
   {
     "name": "Заринский округ",
-    "color": "#722FEB",
+    "color": "#DEDEEF",
+    "fillOpacity": 0,
     "coordinates": [
       [
         [
@@ -10359,7 +10363,8 @@
   },
   {
     "name": "Каменский округ",
-    "color": "#EB734D",
+    "color": "#2A324B",
+    "fillOpacity": 0.2,
     "coordinates": [
       [
         [
@@ -12390,7 +12395,8 @@
   },
   {
     "name": "Рубцовский округ",
-    "color": "#F086E0",
+    "color": "#8E9AAF",
+    "fillOpacity": 0.4,
     "coordinates": [
       [
         [
@@ -14843,7 +14849,8 @@
   },
   {
     "name": "Славгородский округ",
-    "color": "#44A1F0",
+    "color": "#767B91",
+    "fillOpacity": 0.8,
     "coordinates": [
       [
         [
@@ -15951,3 +15958,4 @@
     "id_region": 7
   }
 ]
+

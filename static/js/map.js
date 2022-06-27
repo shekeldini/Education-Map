@@ -1,20 +1,17 @@
 var tree = document.getElementById('tree');
 var div_legend = document.getElementById('legend');
+var burger = document.getElementById('burger');
 
 var map = L.map('map', {
     zoomSnap: 0.5,
     zoomAnimation: true,
-    fadeAnimation: true,
     minZoom: 7.5,
     maxBounds: [
-        [52.84259457223949, 73.564453125], 
-        [49.49667452747045, 73.6083984375], 
-        [49.58222604462167, 82.77099609375], 
-        [49.738681639280024, 90.32958984375], 
-        [55.178867663281984, 90.21972656250001], 
-        [55.178867663281984, 82.11181640625001], 
-        [55.11608453987679, 73.47656249999999], 
-        [52.84259457223949, 73.564453125]
+        [50.590211939351896,76.300048828125],
+        [50.597186230587035,88.13232421875],
+        [54.635697306063854,88.17626953125],
+        [54.629338216555766,76.300048828125],
+        [50.590211939351896,76.300048828125]
     ]
 }).fitWorld();
 
@@ -31,16 +28,39 @@ L.Control.geocoder({
     position:"topleft"
 }).addTo(map);
 
+map.on("zoomend", function(){
+    let zoom = map.getZoom()
 
-
+    if (zoom >=9.5 && zoom < 10.5){
+	console.log(0.7)
+        changeOpacity(0.7)
+    };
+    if (zoom >=10.5 && zoom < 12.5) {
+        console.log(0.6)
+        changeOpacity(0.6)
+    };
+    if (zoom >=12.5 && zoom < 14) {
+        console.log(0.3)
+        changeOpacity(0.4)
+    };
+    if (zoom >= 14) {
+        console.log(0.2)
+        changeOpacity(0.2)
+    };
+    if (zoom < 9.5) {
+        console.log(0.8)
+        changeOpacity(0.8)
+    };
+    //map.setZoomAround(new L.LatLng(52.6097204210268, 82.19761583222313), zoom)
+})
 
 var markers = L.markerClusterGroup()
 
 var options = {
     position: "topleft",
-    drawMarker: true,
-    drawPolygon: true,
-    removalMode: true,
+    drawMarker: false,
+    drawPolygon: false,
+    removalMode: false,
     drawCircleMarker: false,
     drawPolyline: false,
     drawRectangle: false,
@@ -81,13 +101,16 @@ async function load_regions(){
             var name = region.name
             var coordinates = region.coordinates
             var color = region.color
+	    var fillOpacity = region.fillOpacity
             var id_region = region.id_region
             var polygon = L.polygon(coordinates, {
-                color: color,
+		fillColor: color,
+                color: 'white',
                 "name": name,
                 "id_region": id_region,
-                fillOpacity: 0.25,
-                weight: 4
+                fillOpacity: 0.8,
+                weight: 4,
+		"type": "region",
             });
             polygon.addTo(map);
             menu_create_region_item(polygon);
@@ -100,6 +123,7 @@ async function load_regions(){
 function create_menu(){
     let li = document.createElement('li');
     li.innerHTML += "Выберите округ";
+    li.id = "li:select_region";
     let ul = document.createElement('ul');
     ul.id = "select_region";
     ul.className = "list-two";
@@ -135,33 +159,21 @@ function create_legend_item(region){
     div_legend_block_name.className = "legend-block__name";
     div_legend_block_name.innerHTML += region.options.name;
 
-    let div_legend_block_color = document.createElement('div');
-    div_legend_block_color.className = "legend-block__color";
-    div_legend_block_color.setAttribute(
-        'style',
-        'background:' + region.options.color + ';'
-    );
     div_legend_block.onmouseover = function(){
         div_legend_block.setAttribute(
             'style',
-            'background:' + region.options.color + ';'
+            'background:' + region.options.fillColor + ';'
         );
-        region.setStyle({
-            fillOpacity: 0.6
-        });
+        region._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
     };
     div_legend_block.onmouseout = function () {
         div_legend_block.setAttribute(
             'style',
             'background: "white";'
         );
-        region.setStyle({
-            fillOpacity: 0.25
-        });
-
+        region._path.removeAttribute('filter');
     };
     div_legend_block.appendChild(div_legend_block_name);
-    div_legend_block.appendChild(div_legend_block_color);
     legend_wrapper.appendChild(div_legend_block);
 };
 
@@ -171,17 +183,15 @@ function menu_create_region_item(region){
     let ul = document.createElement('ul');
     let span = document.createElement('span');
     span.innerHTML += region.options.name;
+    span.id = "span:id_region=" + region.options.id_region;
     span.onmouseover = function () {
-        region.setStyle({
-            fillOpacity: 0.6
-        });
         region._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
     };
     span.onmouseout = function () {
-        region.setStyle({
-            fillOpacity: 0.25
-        });
         region._path.removeAttribute('filter');
+    };
+    span.onclick = function(){
+        deleteLayersForRegion(region.options.id_region);
     };
     span.className = "hide";
     span.classList.add('closed');
@@ -214,7 +224,7 @@ function menu_create_district_item(district){
     };
     span.onclick = async function () {
         let ul = document.createElement('ul');
-        deleteLayers(L.Marker);
+	deleteLayersForDistrict(span.innerHTML);
         if (span.className == "closed hide"){
             var schools = await getSchools(district);
             for (school of schools){
@@ -224,10 +234,18 @@ function menu_create_district_item(district){
                         var school_span = document.createElement('span');
                         school_span.className = "list-four";
                         school_span.innerHTML+= school.oo_name;
+                        school_span.setAttribute('coordinates', school.coordinates);
+                        school_span.onclick = function(){
+                            let coordinates = this.getAttribute('coordinates')
+                            coordinates = coordinates.split(";").map(str => parseFloat(str));
+                            var latLon = new L.LatLng(coordinates[0], coordinates[1]);
+			    map.flyTo(latLon, 16.5);
+                            map.once('moveend', ()=>openSchoolPopUp(this.innerHTML));
+                        };
                         school_li.appendChild(school_span);
                         ul.appendChild(school_li);
                     }
-                    create_marker(school, district.options.name);
+                    create_marker(school, district.options.name, district.options.id_region);
                 };
             markers.addTo(map);
             span.className = "closed open show active";
@@ -237,7 +255,6 @@ function menu_create_district_item(district){
             li.appendChild(ul);
         };
     };
-
     li.appendChild(span);
     selected_region.appendChild(li);
 }
@@ -251,12 +268,13 @@ async function load_districts(){
             var id_region = district.id_region
             for (coord of coordinates){
                 var polygon = L.polygon(coord, {
-                    color: "#139BF0",
+                    color: "#FFFFFF",
                     "name": name,
                     "id_district": id_district,
                     "id_region": id_region,
                     fillOpacity: 0,
-                    weight: 1
+                    weight: 1,
+		    "type": "district",
                 });
                 polygon.bindTooltip(name,
                    {permanent: false, direction: "center"}
@@ -264,14 +282,21 @@ async function load_districts(){
                 menu_create_district_item(polygon);
                 polygon.addTo(map);
                 polygon.on('click', async function () {
-                    deleteLayers(L.Marker);
-                    var schools = await getSchools(this);
-                    for (school of schools){
-                        if (school.coordinates != ""){
-                            create_marker(school, this.options.name);
-                        };
-                    markers.addTo(map)
+		    var open_menu = document.getElementById("open-menu");
+                    open_menu.click()
+                    var menu_select_region_item = document.getElementById("li:select_region");
+                    if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
+                        menu_select_region_item.firstChild.click()
+                    }
+
+                    var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
+                    if (menu_region_item.className != "closed active open show"){
+                        menu_region_item.click()
                     };
+                    var menu_district_item = document.getElementById("id_district=" + this.options.id_district);
+                    menu_district_item.click();
+
+
                 });
             };
         };
@@ -302,7 +327,8 @@ function getSchools(polygon){
     });
 };
 
-async function create_marker(data, district_name){
+async function create_marker(data, district_name, id_region){
+
     var coordinates = data.coordinates.split(";").map(str => parseFloat(str));
     var iconOptions = {
             iconUrl: '/static/images/school.png',
@@ -322,6 +348,7 @@ async function create_marker(data, district_name){
         "coordinates": data.coordinates,
         "url": data.url,
         "district_name": district_name,
+        "id_region": id_region,
 	"icon": customIcon
     });
 
@@ -371,3 +398,45 @@ function deleteLayers(LayerType){
     })
 };
 
+function deleteLayersForDistrict(district_name){
+    markers.eachLayer(async function(layer) {
+        if (layer instanceof L.Marker){
+            if (layer.options.district_name == district_name){
+                markers.removeLayer(layer);
+            }
+        };
+    })
+};
+
+function openSchoolPopUp(oo_name){
+    markers.eachLayer(async function(layer) {
+        if (layer instanceof L.Marker){
+            if (layer.options.oo_name == oo_name){
+                layer.openPopup();
+            }
+            else{
+                layer.closePopup();
+            }
+        };
+    })
+};
+
+function deleteLayersForRegion(id_region){
+    markers.eachLayer(async function(layer) {
+        if (layer instanceof L.Marker){
+            if (layer.options.id_region == id_region){
+                markers.removeLayer(layer);
+            }
+        };
+    })
+};
+
+function changeOpacity(value){
+    map.eachLayer(async function(layer) {
+        if (layer instanceof L.Polygon && layer.options.type == "region"){
+            layer.setStyle({
+                fillOpacity: value
+            });
+        };
+    })
+};
