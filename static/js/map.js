@@ -431,3 +431,8 @@ function changeOpacity(value){
         };
     })
 };
+
+function search(){
+    var value = document.getElementById("search").value;
+    console.log(value)
+};

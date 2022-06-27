@@ -1,6 +1,7 @@
 from typing import List, Optional
 from db.oo import oo
 from models.oo import OO, OOIn, OOLoginUrl
+from models.search import SearchResponse, SearchResult
 from .base import BaseRepository
 
 
@@ -121,3 +122,26 @@ class OORepository(BaseRepository):
         query = oo.update().where(oo.c.id_oo == id_oo).values(**values)
         await self.database.execute(query=query)
         return update_oo
+
+    async def search_oo_name(self, oo_name: str) -> SearchResponse:
+
+        query = f"""
+        SELECT oo_name, REPLACE(district_name, '_', ' ') as district_name, coordinates FROM 
+        (
+            SELECT id_oo, coordinates, id_name_of_the_settlement, oo_name FROM oo 
+            WHERE oo.year='2022' 
+            AND oo.oo_name like '%{oo_name}%'
+            AND oo.coordinates != ''
+        ) as t1
+        
+        LEFT JOIN 
+        (
+            SELECT name_of_the_settlement.id_name_of_the_settlement, district.district_name, name_of_the_settlement.id_district FROM name_of_the_settlement
+            LEFT JOIN district ON district.id_district = name_of_the_settlement.id_district
+        ) as t2
+        USING (id_name_of_the_settlement);
+        """
+        res = await self.database.fetch_all(query=query)
+        if not res:
+            return SearchResponse(items=[])
+        return SearchResponse(items=[SearchResult.parse_obj(row) for row in res])

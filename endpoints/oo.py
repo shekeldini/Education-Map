@@ -1,6 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 
+from models.search import SearchResponse, Search
 from models.users import Users
 from repositories.oo import OORepository
 from models.oo import OO, OOIn, OOLoginOOName, OOLoginUrl
@@ -52,6 +53,13 @@ async def read_all_oo_url_by_year(
         year: str,
         oo: OORepository = Depends(get_oo_repository)):
     return await oo.get_all_oo_url_by_year(year)
+
+
+@router.get("/search", response_model=SearchResponse)
+async def search_oo_name(
+        model: Search = Depends(),
+        oo: OORepository = Depends(get_oo_repository)):
+    return await oo.search_oo_name(model.oo_name)
 
 
 @router.post("/", response_model=OO)
