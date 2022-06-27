@@ -139,7 +139,9 @@ class OORepository(BaseRepository):
             SELECT name_of_the_settlement.id_name_of_the_settlement, district.district_name, name_of_the_settlement.id_district FROM name_of_the_settlement
             LEFT JOIN district ON district.id_district = name_of_the_settlement.id_district
         ) as t2
-        USING (id_name_of_the_settlement);
+        USING (id_name_of_the_settlement)
+        Order By district_name, oo_name
+        ;
         """
         res = await self.database.fetch_all(query=query)
         if not res:
