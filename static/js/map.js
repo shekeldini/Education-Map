@@ -6,11 +6,11 @@ var map = L.map('map', {
     zoomAnimation: true,
     minZoom: 7.5,
     maxBounds: [
-        [50.590211939351896,76.300048828125],
-        [50.597186230587035,88.13232421875],
-        [54.635697306063854,88.17626953125],
-        [54.629338216555766,76.300048828125],
-        [50.590211939351896,76.300048828125]
+        [50.28933925329178,75.498046875],
+        [50.331436330838834,89.3408203125],
+        [54.92714186454645,89.4287109375],
+        [55.00282580979323,75.65185546874999],
+        [50.28933925329178,75.498046875]
     ]
 }).fitWorld();
 
@@ -31,23 +31,18 @@ map.on("zoomend", function(){
     let zoom = map.getZoom()
 
     if (zoom >=9.5 && zoom < 10.5){
-	console.log(0.7)
         changeOpacity(0.7)
     };
     if (zoom >=10.5 && zoom < 12.5) {
-        console.log(0.6)
         changeOpacity(0.6)
     };
     if (zoom >=12.5 && zoom < 14) {
-        console.log(0.3)
         changeOpacity(0.4)
     };
     if (zoom >= 14) {
-        console.log(0.2)
         changeOpacity(0.2)
     };
     if (zoom < 9.5) {
-        console.log(0.8)
         changeOpacity(0.8)
     };
     //map.setZoomAround(new L.LatLng(52.6097204210268, 82.19761583222313), zoom)
@@ -103,13 +98,13 @@ async function load_regions(){
 	    var fillOpacity = region.fillOpacity
             var id_region = region.id_region
             var polygon = L.polygon(coordinates, {
-		fillColor: color,
-                color: 'white',
-                "name": name,
-                "id_region": id_region,
-                fillOpacity: 0.8,
-                weight: 4,
-		"type": "region",
+                fillColor: color,
+                        color: 'white',
+                        "name": name,
+                        "id_region": id_region,
+                        fillOpacity: 0.8,
+                        weight: 4,
+                "type": "region",
             });
             polygon.addTo(map);
             menu_create_region_item(polygon);
@@ -145,6 +140,7 @@ function menu_create_region_item(region){
     };
     span.onclick = function(){
         deleteLayersForRegion(region.options.id_region);
+         map.flyTo(region.getBounds().getCenter(), 8.5);
     };
     span.className = "hide";
     span.classList.add('closed');
@@ -177,7 +173,7 @@ function menu_create_district_item(district){
     };
     span.onclick = async function () {
         let ul = document.createElement('ul');
-	deleteLayersForDistrict(span.innerHTML);
+	    deleteLayersForDistrict(span.innerHTML);
         if (span.className == "closed hide"){
             var schools = await getSchools(district);
             for (school of schools){
@@ -192,7 +188,7 @@ function menu_create_district_item(district){
                             let coordinates = this.getAttribute('coordinates')
                             coordinates = coordinates.split(";").map(str => parseFloat(str));
                             var latLon = new L.LatLng(coordinates[0], coordinates[1]);
-			    map.flyTo(latLon, 16.5);
+			                map.flyTo(latLon, 16.5);
                             map.once('moveend', ()=>openSchoolPopUp(this.innerHTML));
                         };
                         school_li.appendChild(school_span);
@@ -277,12 +273,11 @@ function getSchools(polygon){
 };
 
 async function create_marker(data, district_name, id_region){
-
     var coordinates = data.coordinates.split(";").map(str => parseFloat(str));
     var iconOptions = {
-            iconUrl: '/static/images/school.png',
-            iconSize: [50, 50]
-         }
+        iconUrl: '/static/images/school.png',
+        iconSize: [50, 50]
+    }
     var customIcon = L.icon(iconOptions);
     var marker = L.marker(coordinates, {
         "id_oo": data.id_oo,
