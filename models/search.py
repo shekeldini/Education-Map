@@ -7,7 +7,7 @@ from pydantic.dataclasses import dataclass
 
 @dataclass
 class Search():
-    oo_name: str = Query()
+    oo_name: str = Query(default="")
 
     @validator("oo_name")
     def validate_oo_name(cls, oo_name: str):
