@@ -434,5 +434,8 @@ function changeOpacity(value){
 
 function search(){
     var value = document.getElementById("search").value;
-    console.log(value)
+    var data = $.ajax({
+        type : 'GET',
+        url : "oo/search?oo_name=" + value
+    });
 };
