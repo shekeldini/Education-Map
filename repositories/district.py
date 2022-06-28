@@ -48,3 +48,19 @@ class DistrictRepository(BaseRepository):
         query = district.update().where(district.c.id_district == id_district).values(**values)
         await self.database.execute(query=query)
         return update_district
+
+    async def get_district_name_for_oo(self, id_oo: int):
+        query = """
+        SELECT district_name FROM district
+        WHERE id_district IN
+        (
+            SELECT id_district FROM name_of_the_settlement
+            WHERE id_name_of_the_settlement IN
+            (
+                SELECT id_name_of_the_settlement FROM oo
+                WHERE id_oo = :id_oo
+            )
+        );
+        """
+        res = await self.database.fetch_one(query=query, values={"id_oo": id_oo})
+        return res.district_name

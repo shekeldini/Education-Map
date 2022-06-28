@@ -3,7 +3,11 @@ var burger = document.getElementById('burger');
 let start_position = new L.LatLng(52.726338, 82.466781)
 let start_zoom = 7.5
 let this_polygon = null
-
+let iconOptions = {
+    iconUrl: '/static/images/school.png',
+    iconSize: [50, 50]
+}
+let customIcon = L.icon(iconOptions);
 
 let maxBounds = [
         [50.28933925329178,75.498046875],
@@ -367,16 +371,11 @@ function getSchools(polygon){
 
 async function create_marker(data, district_name, id_region){
     var coordinates = data.coordinates.split(";").map(str => parseFloat(str));
-    var iconOptions = {
-        iconUrl: '/static/images/school.png',
-        iconSize: [50, 50]
-    }
-    var customIcon = L.icon(iconOptions);
+
     var marker = L.marker(coordinates, {
         "id_oo": data.id_oo,
         "oo_login": data.oo_login,
         'year': data.year,
-        "oo_login": data.oo_login,
         "oo_name": data.oo_name,
         "oo_address": data.oo_address,
         "director": data.director,
@@ -420,16 +419,15 @@ async function create_marker(data, district_name, id_region){
     marker.bindPopup(text, {autoClose:false}).openPopup();
 
     marker.on('click', function(){
-        console.log(this.options);
         marker.openPopup();
     });
 
     markers.addLayer(marker);
 };
 
-function deleteLayers(LayerType){
+function deleteAllMarkers(){
     markers.eachLayer(async function(layer) {
-        if (layer instanceof LayerType){
+        if (layer instanceof L.marker){
             markers.removeLayer(layer);
         };
     })
@@ -493,3 +491,72 @@ function flyToRegion(id_region){
         };
     })
 }
+
+async function create_digital_markers(){
+    deleteAllMarkers()
+    var digital_items = await get_digital_items(2022)
+    for (item of digital_items.items){
+        var coordinates = item.coordinates.split(";").map(str => parseFloat(str));
+        var marker = L.marker(coordinates, {
+            "oo_login": item.oo_login,
+            'year': item.year,
+            "oo_name": item.oo_name,
+            "oo_address": item.oo_address,
+            "director": item.director,
+            "email_oo": item.email_oo,
+            "phone_number": item.phone_number,
+            "coordinates": item.coordinates,
+            "url": item.url,
+            "district_name": item.district_name,
+        "icon": customIcon
+        });
+        var text =
+            "<p class='district'>" + marker.options.district_name + "</p>" +
+
+            "<div class='block'>" +
+
+                 "<div class='name'>" + marker.options.oo_name + "</div>" +
+            "</div>" +
+	        "<div class='block'>" +
+                 "<div>" + 'Адрес:' + "</div>" +
+                 "<div class='address'>" + marker.options.oo_address + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Директор:' + "</div>" +
+                 "<div class='director'>" + marker.options.director + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Почта:' + "</div>" +
+                 "<div class='oo'>" + marker.options.email_oo + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Телефон:' + "</div>" +
+                 "<div class='phone'>" + marker.options.phone_number + "</div>" +
+            "</div>" +
+            "<div class='block'>" +
+                 "<div>" + 'Сайт:' + "</div>" +
+                 "<a href='" + marker.options.url + "' class='url' >" + marker.options.url + "</a>" +
+            "</div>";
+
+        marker.bindPopup(text, {autoClose:false}).openPopup();
+
+        marker.on('click', function(){
+            marker.openPopup();
+        });
+
+        markers.addLayer(marker);
+    }
+    markers.addTo(map);
+};
+
+
+function get_digital_items(year){
+    send_data = {
+        year: year
+    }
+    return $.ajax({
+        type : 'GET',
+        url : "digital_environment/get_all",
+        data: send_data
+    });
+};
