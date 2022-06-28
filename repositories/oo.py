@@ -37,7 +37,8 @@ class OORepository(BaseRepository):
         (
             SELECT id_name_of_the_settlement FROM name_of_the_settlement
             WHERE id_district = :id_district
-        );"""
+        )
+        ORDER BY oo_name;"""
 
         res = await self.database.fetch_all(query, {"year": year,
                                                     "id_district": id_district})
