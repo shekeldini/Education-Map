@@ -744,3 +744,7 @@ display: flex;
       width: 20%;
     margin-right: 30px;
 }
+
+.custom-size {
+ height: 65%;
+}
