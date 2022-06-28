@@ -427,7 +427,7 @@ async function create_marker(data, district_name, id_region){
 
 function deleteAllMarkers(){
     markers.eachLayer(async function(layer) {
-        if (layer instanceof L.marker){
+        if (layer instanceof L.Marker){
             markers.removeLayer(layer);
         };
     })

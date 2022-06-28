@@ -7,3 +7,4 @@ venv
 *.zip
 /logs
 *.swp
+test.py
