@@ -55,6 +55,7 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
     boundary: geoJSON,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    
     var coordinates = geoJSON["features"][0]["geometry"]["coordinates"][0]
     coordinates.forEach(arr => [arr[0], arr[1]] = [arr[1], arr[0]])
     var polygon = L.polygon(coordinates, {
@@ -63,8 +64,8 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
                 fillOpacity: 0,
                 weight: 2,
             });
-    //polygon.addTo(map)
-    //polygon._path.setAttribute('filter', 'drop-shadow(5px 6px 2px rgb(0 0 0 / 0.8))');
+    polygon.addTo(map)
+    polygon._path.setAttribute('filter', 'drop-shadow(5px 6px 2px rgb(0 0 0 / 0.8))');
 
 });
 
