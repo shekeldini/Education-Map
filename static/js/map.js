@@ -44,6 +44,7 @@ var map = L.map('map', {
     maxBounds: maxBounds
 }).fitWorld();
 map.setView(start_position, start_zoom);
+map.doubleClickZoom.disable();
 
 $.getJSON('static/files/kray.json').then(function(geoJSON) {
     var osm = new L.TileLayer.BoundaryCanvas('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
