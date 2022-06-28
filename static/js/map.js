@@ -493,3 +493,7 @@ function flyToRegion(id_region){
         };
     })
 }
+
+function get_digital_items(){
+    console.log("click")
+};
