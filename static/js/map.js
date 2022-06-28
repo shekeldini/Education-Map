@@ -493,63 +493,65 @@ function flyToRegion(id_region){
     })
 }
 
-async function create_digital_markers(){
+async function create_digital_markers(class_name){
     deleteAllMarkers()
-    var digital_items = await get_digital_items(2022)
-    for (item of digital_items.items){
-        var coordinates = item.coordinates.split(";").map(str => parseFloat(str));
-        var marker = L.marker(coordinates, {
-            "oo_login": item.oo_login,
-            'year': item.year,
-            "oo_name": item.oo_name,
-            "oo_address": item.oo_address,
-            "director": item.director,
-            "email_oo": item.email_oo,
-            "phone_number": item.phone_number,
-            "coordinates": item.coordinates,
-            "url": item.url,
-            "district_name": item.district_name,
-        "icon": customIcon
-        });
-        var text =
-            "<p class='district'>" + marker.options.district_name + "</p>" +
+    if (class_name == "menu-header__burger-filter2"){
+        var digital_items = await get_digital_items(2022)
+        for (item of digital_items.items){
+            var coordinates = item.coordinates.split(";").map(str => parseFloat(str));
+            var marker = L.marker(coordinates, {
+                "oo_login": item.oo_login,
+                'year': item.year,
+                "oo_name": item.oo_name,
+                "oo_address": item.oo_address,
+                "director": item.director,
+                "email_oo": item.email_oo,
+                "phone_number": item.phone_number,
+                "coordinates": item.coordinates,
+                "url": item.url,
+                "district_name": item.district_name,
+            "icon": customIcon
+            });
+            var text =
+                "<p class='district'>" + marker.options.district_name + "</p>" +
 
-            "<div class='block'>" +
+                "<div class='block'>" +
 
-                 "<div class='name'>" + marker.options.oo_name + "</div>" +
-            "</div>" +
-	        "<div class='block'>" +
-                 "<div>" + 'Адрес:' + "</div>" +
-                 "<div class='address'>" + marker.options.oo_address + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Директор:' + "</div>" +
-                 "<div class='director'>" + marker.options.director + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Почта:' + "</div>" +
-                 "<div class='oo'>" + marker.options.email_oo + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Телефон:' + "</div>" +
-                 "<div class='phone'>" + marker.options.phone_number + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Сайт:' + "</div>" +
-                 "<a href='" + marker.options.url + "' class='url' >" + marker.options.url + "</a>" +
-            "</div>";
+                     "<div class='name'>" + marker.options.oo_name + "</div>" +
+                "</div>" +
+                "<div class='block'>" +
+                     "<div>" + 'Адрес:' + "</div>" +
+                     "<div class='address'>" + marker.options.oo_address + "</div>" +
+                "</div>" +
+                "<div class='block'>" +
+                     "<div>" + 'Директор:' + "</div>" +
+                     "<div class='director'>" + marker.options.director + "</div>" +
+                "</div>" +
+                "<div class='block'>" +
+                     "<div>" + 'Почта:' + "</div>" +
+                     "<div class='oo'>" + marker.options.email_oo + "</div>" +
+                "</div>" +
+                "<div class='block'>" +
+                     "<div>" + 'Телефон:' + "</div>" +
+                     "<div class='phone'>" + marker.options.phone_number + "</div>" +
+                "</div>" +
+                "<div class='block'>" +
+                     "<div>" + 'Сайт:' + "</div>" +
+                     "<a href='" + marker.options.url + "' class='url' >" + marker.options.url + "</a>" +
+                "</div>";
 
-        marker.bindPopup(text, {autoClose:false}).openPopup();
+            marker.bindPopup(text, {autoClose:false}).openPopup();
 
-        marker.on('click', function(){
-            marker.openPopup();
-        });
+            marker.on('click', function(){
+                marker.openPopup();
+            });
 
-        markers.addLayer(marker);
-    }
-    markers.addTo(map);
+            markers.addLayer(marker);
+        }
+        markers.addTo(map);
+    };
+
 };
-
 
 function get_digital_items(year){
     send_data = {

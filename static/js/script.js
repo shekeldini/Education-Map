@@ -50,3 +50,15 @@ login.addEventListener('click', () => {
 close.addEventListener('click', () => {
       overlay.classList.remove('overlayOn');
 })
+
+const openFilter = document.querySelector('.menu-header__burger-filter2'),
+      filterPanel = document.querySelector('.menu-header__text');
+
+openFilter.addEventListener('click', () => {
+    filterPanel.classList.add('activeFilter');
+
+openFilter.classList.toggle('burgerTest');
+
+});
+
+
