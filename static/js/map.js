@@ -55,8 +55,8 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
                 fillOpacity: 0,
                 weight: 2,
             });
-    polygon.addTo(map)
-    polygon._path.setAttribute('filter', 'drop-shadow(5px 6px 2px rgb(0 0 0 / 0.8))');
+    //polygon.addTo(map)
+    //polygon._path.setAttribute('filter', 'drop-shadow(5px 6px 2px rgb(0 0 0 / 0.8))');
 
 });
 
@@ -92,11 +92,11 @@ let districts_layers = L.layerGroup()
 
 var options = {
     position: "topleft",
-    drawMarker: false,
-    drawPolygon: false,
+    drawMarker: true,
+    drawPolygon: true,
     removalMode: false,
     drawCircleMarker: false,
-    drawPolyline: false,
+    drawPolyline: true,
     drawRectangle: false,
     drawCircle: false,
     dragMode: false,

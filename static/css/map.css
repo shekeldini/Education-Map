@@ -15,7 +15,7 @@ body {
 .leaflet-left {
   left: unset;
   right: 10px;
-  display: none;
+  display: block;
 }
 
 @media (max-width: 1800px) {
@@ -137,7 +137,7 @@ body {
   background: #DEDEEF; 
     padding: 0;;
   width: 390px;
-  height: 85%;
+  height: 93%;
   display: block;
 }
 
@@ -467,6 +467,8 @@ white-space: nowrap;
     bottom: 0;
     width: 100%;
     box-shadow: 4px 6px 15px 1px rgb(104 104 104 / 76%);
+   z-index: 50000;
+    background: white;
 }
 
 .footer-wrapper-logo {
@@ -487,7 +489,7 @@ white-space: nowrap;
   text-align: center;
 }
 
-.footer-wrapper-contacts__title {
+/*.footer-wrapper-contacts__title {
   font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: 400;
@@ -495,8 +497,7 @@ white-space: nowrap;
    margin-bottom: 5px;
   margin-right: 10px;
       color: #52586b;
-
-}
+} */
 
 /*.footer-wrapper-logo__title {
    font-family: 'Roboto', sans-serif;
@@ -520,8 +521,7 @@ white-space: nowrap;
   display: flex;
     justify-content: space-between;
     align-items: center;
-  margin-bottom: 5px;
-  width: 75%;
+  margin-right: 40px;
 }
 
 .footer-wrapper-logo__low_block {
@@ -537,7 +537,7 @@ white-space: nowrap;
 }
 
 .footer-wrapper-logo__low_block_img {
-   height: 90%;
+   height: 55%;
     display: block;
 }
 
@@ -635,16 +635,20 @@ form {
     position: relative;
     background: #ffffff;
     color: #000;
-    text-transform: uppercase;
+   /* text-transform: uppercase;*/
     font-size: 15px;
     cursor: pointer;
     letter-spacing: 0.1em;
     font-weight: 400;
     padding: 10px 30px;
     transition: 0.5s;
-    border: 1px solid rgba(124, 99, 99, 0.5);
-    margin-top: 60px;
+   /* border: 1px solid rgba(124, 99, 99, 0.5);*/
+   margin-top: 60px;
+	    border: none;
     box-sizing: border-box;
+    
+    box-shadow: 4px 6px 15px 1px rgb(104 104 104 / 76%);
+
 }
 
 .form-login:hover {
@@ -668,7 +672,9 @@ form {
 }
 
 .footer-wrapper-contacts__low {
-  width: 250px;
+display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer-wrapper-contacts__low_block_name {
