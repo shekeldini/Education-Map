@@ -9,10 +9,9 @@ from fastapi.staticfiles import StaticFiles
 from core.security import verify_password
 from db.base import database, redis
 from endpoints import district, oo_location_type, roles, users, auth, name_of_the_settlement, \
-    organizational_and_legal_form, population_of_the_settlement, oo_logins, organisation_status, oo
+    organizational_and_legal_form, population_of_the_settlement, oo_logins, organisation_status, oo, digital_environment
 from endpoints.depends import get_users_repository
 from repositories.users import UsersRepository
-from celery_worker import write_log
 
 
 app = FastAPI(
@@ -41,6 +40,7 @@ app.include_router(population_of_the_settlement.router, prefix='/population_of_t
 app.include_router(oo_logins.router, prefix='/oo_logins', tags=["oo_logins"])
 app.include_router(organisation_status.router, prefix='/organisation_status', tags=["organisation_status"])
 app.include_router(oo.router, prefix='/oo', tags=["oo"])
+app.include_router(digital_environment.router, prefix='/digital_environment', tags=["digital_environment"])
 
 
 @app.on_event("startup")
