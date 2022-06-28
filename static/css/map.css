@@ -207,7 +207,8 @@ ul {
 .list-one span {
  background-color: #FFFFFF;
  transition: 0.4s;
-    color: #464646;
+	   
+   color: #464646;
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
@@ -258,6 +259,7 @@ white-space: nowrap;
 
 .active {
       background-color: #767B91 !important;
+    color: white !important;
 
 }
 
