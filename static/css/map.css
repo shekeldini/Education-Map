@@ -151,6 +151,7 @@ ul {
     justify-content: center;
   overflow-y: scroll;
    /* height: 86%;*/
+  max-height: 400px;
 }
 
 .menu-header {
@@ -732,3 +733,14 @@ display: flex;
   background-color: #f7895b;
 }
 
+.header-wrapper__right {
+     width: 500px;
+  display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header-wrapper__login-img {
+      width: 20%;
+    margin-right: 30px;
+}
