@@ -17,6 +17,7 @@ class DigitalItem(BaseModel):
     phone_number: Optional[str] = None
     coordinates: Optional[str] = None
     url: Optional[str] = None
+    district_name: str
 
 
 class DigitalGet(BaseModel):

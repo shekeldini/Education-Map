@@ -12,7 +12,8 @@ digital_environment = Table(
     Column("email_oo", String),
     Column("phone_number", String),
     Column("coordinates", String),
-    Column("url", String)
+    Column("url", String),
+    Column("district_name", String)
 
 )
 

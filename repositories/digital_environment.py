@@ -3,12 +3,21 @@ from db.digital_environment import digital_environment
 from models.oo import OO
 from models.digital_environment_import import DigitalItem, DigitalGet
 from .base import BaseRepository
+from .district import DistrictRepository
 
 
 class DigitalEnvironment(BaseRepository):
     async def get_all(self, year: str) -> DigitalGet:
-        query = digital_environment.select().where(digital_environment.c.year == year)
-        res = await self.database.fetch_all(query)
+        query = """
+        SELECT 
+            oo_login, year, oo_name, 
+            oo_address, director, 
+            email_oo, phone_number, coordinates, 
+            url, REPLACE(district_name, '_', ' ') as district_name 
+        FROM digital_environment
+        WHERE year = :year
+        """
+        res = await self.database.fetch_all(query=query, values={"year": year})
         if not res:
             return DigitalGet(items=[])
         return DigitalGet(
@@ -16,6 +25,7 @@ class DigitalEnvironment(BaseRepository):
         )
 
     async def create(self, item: OO):
+        district_repository = DistrictRepository(self.database)
         new_item = DigitalItem(
             oo_login=item.oo_login,
             year=item.year,
@@ -26,6 +36,7 @@ class DigitalEnvironment(BaseRepository):
             phone_number=item.phone_number,
             coordinates=item.coordinates,
             url=item.url,
+            district_name=await district_repository.get_district_name_for_oo(item.id_oo)
         )
         values = {**new_item.dict()}
         query = digital_environment.insert().values(**values)
