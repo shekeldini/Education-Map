@@ -2,6 +2,9 @@ var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
 let start_position = new L.LatLng(52.726338, 82.466781)
 let start_zoom = 7.5
+let this_polygon = null
+
+
 let maxBounds = [
         [50.28933925329178,75.498046875],
         [50.331436330838834,89.3408203125],
@@ -72,9 +75,21 @@ map.on("zoomend", function(){
     };
     if (zoom >=10.5 && zoom < 12.5) {
         changeOpacity(0.6)
+        if (this_polygon != null){
+            this_polygon.setStyle({
+                fillOpacity: 0.3
+            });
+            this_polygon._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
+        };
     };
     if (zoom >=12.5 && zoom < 14) {
         changeOpacity(0.4)
+        if (this_polygon != null){
+            this_polygon.setStyle({
+                fillOpacity: 0
+            });
+            this_polygon._path.removeAttribute('filter');
+        };
     };
     if (zoom >= 14) {
         changeOpacity(0.2)
@@ -82,7 +97,6 @@ map.on("zoomend", function(){
     if (zoom < 9.5) {
         changeOpacity(0.8)
     };
-    //map.setZoomAround(new L.LatLng(52.6097204210268, 82.19761583222313), zoom)
 })
 
 var markers = L.markerClusterGroup()
@@ -287,16 +301,20 @@ async function load_districts(){
                 districts_layers.addLayer(polygon);
 
                 polygon.on("mouseover", function() {
-                    this.setStyle({
-                        fillOpacity: 0.3
-                    });
-                    this._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
+                    this_polygon = this
+                    if (map.getZoom() < 12.5){
+                        this.setStyle({
+                            fillOpacity: 0.3
+                        });
+                        this._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
+                    };
                 });
                 polygon.on("mouseout", function() {
                     this.setStyle({
                         fillOpacity: 0
                     });
                     this._path.removeAttribute('filter');
+                    this_polygon = null
                 });
 
                 polygon.on('click', async function () {
