@@ -2,18 +2,43 @@ var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
 let start_position = new L.LatLng(52.726338, 82.466781)
 let start_zoom = 7.5
-
-var map = L.map('map', {
-    zoomSnap: 0.5,
-    zoomAnimation: true,
-    minZoom: 7.5,
-    maxBounds: [
+let maxBounds = [
         [50.28933925329178,75.498046875],
         [50.331436330838834,89.3408203125],
         [54.92714186454645,89.4287109375],
         [55.00282580979323,75.65185546874999],
         [50.28933925329178,75.498046875]
     ]
+window_height = window.screen.height
+window_width = window.screen.width
+
+if (window_width == 1920 && window_height == 1080){
+    maxBounds = [
+        [50.28933925329178,75.498046875],
+        [50.331436330838834,89.3408203125],
+        [54.92714186454645,89.4287109375],
+        [55.00282580979323,75.65185546874999],
+        [50.28933925329178,75.498046875]
+    ]
+}
+
+if (window_width == 2560 && window_height == 1440){
+    maxBounds = [
+        [49.51094351526262,74.0478515625],
+        [49.69606181911566,91.16455078125],
+        [56.206703980680814,90.98876953125],
+        [56.12106042504407,73.916015625],
+        [49.51094351526262,74.0478515625]
+    ]
+}
+
+
+
+var map = L.map('map', {
+    zoomSnap: 0.5,
+    zoomAnimation: true,
+    minZoom: 7.5,
+    maxBounds: maxBounds
 }).fitWorld();
 map.setView(start_position, start_zoom);
 
@@ -220,7 +245,6 @@ async function menu_create_district_item(district){
 
 
     span.onclick = async function () {
-
 	    deleteLayersForDistrict(span.innerHTML);
         if (span.className == "closed hide"){
             var schools = await getSchools(district);
@@ -287,7 +311,6 @@ async function load_districts(){
                         menu_region_item.click()
                     }
                     else{
-                        console.log(this.options.id_region)
                         flyToRegion(this.options.id_region)
                     }
                     var menu_district_item = document.getElementById("id_district=" + this.options.id_district);
