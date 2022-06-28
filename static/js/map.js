@@ -492,11 +492,6 @@ function flyToRegion(id_region){
     })
 }
 
-<<<<<<< HEAD
-function get_digital_items(){
-    console.log("click")
-};
-=======
 async function create_digital_markers(){
     deleteAllMarkers()
     var digital_items = await get_digital_items(2022)
@@ -565,4 +560,3 @@ function get_digital_items(year){
         data: send_data
     });
 };
->>>>>>> 11d8b3357888945c3d7d0f8e7f04fb18495350d9
