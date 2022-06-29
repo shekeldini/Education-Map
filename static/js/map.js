@@ -45,7 +45,8 @@ var map = L.map('map', {
     zoomSnap: 0.5,
     zoomAnimation: true,
     minZoom: 7.5,
-    maxBounds: maxBounds
+    maxBounds: maxBounds,
+    zoomControl: false
 }).fitWorld();
 map.setView(start_position, start_zoom);
 map.doubleClickZoom.disable();
@@ -55,7 +56,7 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
     boundary: geoJSON,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    
+
     var coordinates = geoJSON["features"][0]["geometry"]["coordinates"][0]
     coordinates.forEach(arr => [arr[0], arr[1]] = [arr[1], arr[0]])
     var polygon = L.polygon(coordinates, {
@@ -69,9 +70,6 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
 
 });
 
-L.Control.geocoder({
-    position:"topleft"
-}).addTo(map);
 
 map.on("zoomend", function(){
     let zoom = map.getZoom()
@@ -112,17 +110,18 @@ let districts_layers = L.layerGroup()
 
 var options = {
     position: "topleft",
-    drawMarker: true,
-    drawPolygon: true,
+    drawMarker: false,
+    drawPolygon: false,
     removalMode: false,
     drawCircleMarker: false,
-    drawPolyline: true,
+    drawPolyline: false,
     drawRectangle: false,
     drawCircle: false,
     dragMode: false,
     rotateMode: false,
     cutPolygon: false,
-    editMode: false
+    editMode: false,
+    drawText: false
 }
 map.pm.addControls(options)
 map.pm.enableDraw('Polygon',{ snappable: false });
@@ -324,6 +323,7 @@ async function load_districts(){
                 });
 
                 polygon.on('click', async function () {
+
                     var open_menu = document.getElementById("open-menu");
                     open_menu.click()
                     var menu_select_region_item = document.getElementById("li:select_region");
