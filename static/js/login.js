@@ -9,20 +9,25 @@ function submit_form(){
     for (element of formData) {
         send_data[element.name] = element.value
     };
-    console.log(send_data);
     $.ajax({
-      type: "POST",
-      url: "/auth/",
-      data: JSON.stringify(send_data),
-      dataType: "json",
-      contentType : "application/json",
-      success: function(data){
-        if (next){
-            document.location.replace(HOST_NAME + next);
+        type: "POST",
+        url: "/auth/",
+        data: JSON.stringify(send_data),
+        dataType: "json",
+        contentType : "application/json",
+        statusCode: {
+            200: function(){
+                if (next){
+                    document.location.replace(HOST_NAME + next);
+                }
+                else {
+                    document.location.replace(HOST_NAME);
+                }
+            },
+            401: function(){
+                console.log("401 Unauthorized")
+            }
         }
-        else {
-            document.location.replace(HOST_NAME);
-        }
-      }
+
     });
 };
