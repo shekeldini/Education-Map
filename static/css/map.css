@@ -393,6 +393,7 @@ white-space: nowrap;
    font-family: 'Roboto', sans-serif;
     font-size: 26px;
    font-weight: 400;
+       color: #52586b;
 }
 
 .header-wrapper__login {
@@ -427,7 +428,8 @@ white-space: nowrap;
     z-index: 1;
     font-family: 'Roboto', sans-serif;
     color: #414141;
-    font-size: 15px
+    font-size: 15px;
+    color: #52586b;
 }
 
 .header-wrapper__login i {
