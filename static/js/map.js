@@ -2,6 +2,7 @@ var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
 let start_position = new L.LatLng(52.726338, 82.466781)
 let start_zoom = 7.5
+let current_filter = "info"
 let this_polygon = null
 let iconOptions = {
     iconUrl: '/static/images/school.png',
@@ -323,22 +324,25 @@ async function load_districts(){
                 });
 
                 polygon.on('click', async function () {
+                    if (current_filter == "info"){
+                        var open_menu = document.getElementById("open-menu");
+                        open_menu.click()
+                        var menu_select_region_item = document.getElementById("li:select_region");
+                        if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
+                            menu_select_region_item.firstChild.click()
+                        }
+                        var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
+                        if (menu_region_item.className != "closed active open show"){
+                            menu_region_item.click()
+                        }
+                        else{
+                            flyToRegion(this.options.id_region)
+                        }
+                        var menu_district_item = document.getElementById("id_district=" + this.options.id_district);
+                        menu_district_item.click();
+                    };
 
-                    var open_menu = document.getElementById("open-menu");
-                    open_menu.click()
-                    var menu_select_region_item = document.getElementById("li:select_region");
-                    if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
-                        menu_select_region_item.firstChild.click()
-                    }
-                    var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
-                    if (menu_region_item.className != "closed active open show"){
-                        menu_region_item.click()
-                    }
-                    else{
-                        flyToRegion(this.options.id_region)
-                    }
-                    var menu_district_item = document.getElementById("id_district=" + this.options.id_district);
-                    menu_district_item.click();
+
                 });
             };
         };
@@ -496,6 +500,7 @@ function flyToRegion(id_region){
 async function create_digital_markers(class_name){
     deleteAllMarkers()
     if (class_name == "menu-header__burger-filter2"){
+        current_filter = "digital"
         var digital_items = await get_digital_items(2022)
         for (item of digital_items.items){
             var coordinates = item.coordinates.split(";").map(str => parseFloat(str));
@@ -549,7 +554,10 @@ async function create_digital_markers(class_name){
             markers.addLayer(marker);
         }
         markers.addTo(map);
-    };
+    }
+    else{
+        current_filter = "info"
+    }
 
 };
 

@@ -3,7 +3,7 @@ var URL_STRING = document.location.href
 var url = new URL(URL_STRING);
 var next = url.searchParams.get("next");
 
-function submitform(){
+function submit_form(){
     var formData = $("#login_form").serializeArray();
     var send_data = {}
     for (element of formData) {

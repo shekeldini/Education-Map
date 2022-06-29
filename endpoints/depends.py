@@ -1,5 +1,5 @@
 import datetime
-
+from typing import Optional
 from fastapi import Depends, HTTPException, status
 
 from core.security import JWTBearer, decode_access_token
@@ -79,18 +79,17 @@ async def get_current_user(
     return user
 
 
-async def get_admin_user(
+async def get_user(
     users: UsersRepository = Depends(get_users_repository),
     token: str = Depends(JWTBearer())
-) -> Users:
-    cred_exception = HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Credentials are not valid")
+) -> Optional[Users]:
     payload = decode_access_token(token)
     if payload is None:
-        raise cred_exception
+        return None
     login: str = payload.get("sub")
     if login is None:
-        raise cred_exception
+        return None
     user = await users.get_by_login(login=login)
     if user.id_role != 1:
-        raise cred_exception
+        return None
     return user

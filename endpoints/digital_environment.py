@@ -3,7 +3,7 @@ from models.digital_environment_import import DigitalImport, DigitalGet
 from models.users import Users
 from repositories.digital_environment import DigitalEnvironment
 from repositories.oo import OORepository
-from .depends import get_oo_repository, get_digital_environment_repository, get_current_user, get_admin_user
+from .depends import get_oo_repository, get_digital_environment_repository, get_current_user
 
 router = APIRouter()
 

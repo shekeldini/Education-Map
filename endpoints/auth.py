@@ -1,6 +1,7 @@
 from typing import Optional
+from starlette.responses import RedirectResponse
 from db.base import redis
-from fastapi import APIRouter, HTTPException, status, Depends, Response, Cookie
+from fastapi import APIRouter, HTTPException, status, Depends, Response, Cookie, Request
 from models.token import Token, Login, AccessToken
 from repositories.users import UsersRepository
 from core.security import verify_password, create_access_token, create_refresh_token
@@ -47,3 +48,12 @@ async def refresh(response: Response, refresh_token: Optional[str] = Cookie(None
         key="refresh_token", value=f"{token.refresh_token}", httponly=True, secure=True, samesite="strict"
     )
     return AccessToken(access_token=token.access_token)
+
+
+@router.get("/logout")
+async def logout(request: Request, response: Response, refresh_token: Optional[str] = Cookie(None)):
+    if refresh_token:
+        await redis.set(refresh_token, "Blacklisted", expire=REFRESH_TOKEN_EXPIRE_MINUTES)
+    response = RedirectResponse(request.base_url, status_code=302)
+    response.delete_cookie(key="refresh_token")
+    return response

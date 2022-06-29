@@ -58,19 +58,6 @@
 {% block content -%}
 	{{ super() }}
 
-	<header class="header">
-	   <div class="header-logo">
-	      <img class="header-logo__img" src="{{ url_for('static', path='images/logo.png') }}" alt="">	
-	   </div>
-	   <div class="header-wrapper">
-	      <h1 class="header-wrapper__title">Интерактивная карта системы образования Алтайского края</h1>
-	      <div class="header-wrapper__right">
-		  <img class="header-wrapper__login-img" src="{{ url_for('static', path='images/10iniciativ.png') }}" alt="">
-		  <a class="header-wrapper__login" style="--clr:#0e448e" href="#"><span>вход</span></a>
-	      </dvi>
-	   </div>
-
-	</header>
 	<div class="menu">
         <div class="menu-search">
             <input type="text" placeholder="Поиск">
@@ -165,57 +152,21 @@
 
 	</div>
 	
-	<footer class="footer">
-	   <div class="footer-wrapper-logo">
-              <div class="footer-wrapper-logo__top">
-<!--	         <h3 class="footer-wrapper-logo__title">Другие наши сервисы:</h3> -->
-              </div>
-	      <div class="footer-wrapper-logo__low">
-	         <div class="footer-wrapper-logo__low_block">
-		    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/audit.png') }}" alt="" >
-		 </div>
-		 <div class="footer-wrapper-logo__low_block">
-                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/gia.png') }}" alt="" >
-                 </div>
-		 <div class="footer-wrapper-logo__low_block">
-                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/vpr22.jpg') }}" alt="" >
-                 </div>
-		 <div class="footer-wrapper-logo__low_block">
-                    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/rop.png') }}" alt="" >
-                 </div>
-
-	      </div>
-	   </div>
-
-	   <div class="footer-wrapper-contacts">
-	      <div class="footer-wrapper-contacts__low">
-                 <div class="footer-wrapper-contacts__low_block">
-		    <div class="footer-wrapper-contacts__low_block_name">Телефон:</div>
-		    <a class="footer-wrapper-contacts__low_block_phone" href="tel:88887776655"> 8 888 777 66 55</a>
-                 </div>
-                 <div class="footer-wrapper-contacts__low_block">
-		     <div class="footer-wrapper-contacts__low_block_name">Почта:</div>
-                     <a class="footer-wrapper-contacts__low_block_phone" href="mailto:testmail@mail.ru">testmail@mail.ru</a>
-                 </div>
-              </div>
-	   </div>
-	  
-	</footer>
 	<div class="overlay">
-	   <form action="">
+	   <form method="POST" name="login_form" id="login_form">
               <div class="form-close">&times;</div>
               <div class="form-box">
-                  <input type="text" class="form-box__text" required="required">
+                  <input type="text" class="form-box__text" required="required" id="login" name="login" >
                   <label for="" class="form-box__info">Логин</label>
               </div>
               <div class="form-box">
-                  <input type="text" class="form-box__text" required="required">
+                  <input class="form-box__text" required="required" id="password" name="password" type="password">
                   <label for="" class="form-box__info">Пароль</label>
               </div>
 	      <div class="form-wrapper">
-                  <input class="form-login" style="--clr:#0e448e" type="submit" value="войти">
+              <button type="button" class="form-login" style="--clr:#0e448e" onclick="submit_form()"> войти </button>
 	      </div>
-    	   </form>
+           </form>
 	</div>
 
 	<script

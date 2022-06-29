@@ -1,8 +1,9 @@
 import uvicorn
+from typing import Optional
 from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.templating import Jinja2Templates
-from fastapi import Depends, FastAPI, HTTPException, status, Request
+from fastapi import Depends, FastAPI, HTTPException, status, Request, Cookie
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -10,7 +11,7 @@ from core.security import verify_password
 from db.base import database, redis
 from endpoints import district, oo_location_type, roles, users, auth, name_of_the_settlement, \
     organizational_and_legal_form, population_of_the_settlement, oo_logins, organisation_status, oo, digital_environment
-from endpoints.depends import get_users_repository
+from endpoints.depends import get_users_repository, get_user
 from repositories.users import UsersRepository
 
 
@@ -91,9 +92,15 @@ async def openapi(username: str = Depends(get_current_username)):
 
 
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse("map.html", {"request": request, "title": "Интерактивная карта"})
-
+async def index(request: Request, refresh_token: Optional[str] = Cookie(None)):
+    current_user = None
+    if refresh_token:
+        current_user = await get_user(users=get_users_repository(), token=refresh_token)
+    return templates.TemplateResponse("map.html", {
+        "request": request,
+        "title": "Интерактивная карта",
+        "user": current_user
+    })
 
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):

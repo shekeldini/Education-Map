@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script
+	src="{{ url_for('static', path='js/login.js') }}">
+    </script>
     {% block head -%}
     
     {% endblock %}
@@ -18,9 +21,62 @@
 	{% endblock %}
 <head>
 <body>
+	<header class="header">
+	   <div class="header-logo">
+	      <img class="header-logo__img" src="{{ url_for('static', path='images/logo.png') }}" alt="">	
+	   </div>
+	   <div class="header-wrapper">
+	      <h1 class="header-wrapper__title">Интерактивная карта системы образования Алтайского края</h1>
+	      <div class="header-wrapper__right">
+		      <img class="header-wrapper__login-img" src="{{ url_for('static', path='images/10iniciativ.png') }}" alt="">
+              {% if user%}
+                <p>{{ user.name }}</p>
+              {% endif %}
+              <a class="header-wrapper__login" style="--clr:#0e448e" href="#"><span>вход</span></a>
+	      </div>
+	   </div>
+
+	</header>
 	{% block content -%}
 	
 	{% endblock -%}
+
+	<footer class="footer">
+	   <div class="footer-wrapper-logo">
+              <div class="footer-wrapper-logo__top">
+<!--	         <h3 class="footer-wrapper-logo__title">Другие наши сервисы:</h3> -->
+              </div>
+	      <div class="footer-wrapper-logo__low">
+	         <div class="footer-wrapper-logo__low_block">
+		    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/audit.png') }}" alt="" >
+		 </div>
+		 <div class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/gia.png') }}" alt="" >
+                 </div>
+		 <div class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/vpr22.jpg') }}" alt="" >
+                 </div>
+		 <div class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/rop.png') }}" alt="" >
+                 </div>
+
+	      </div>
+	   </div>
+
+	   <div class="footer-wrapper-contacts">
+	      <div class="footer-wrapper-contacts__low">
+                 <div class="footer-wrapper-contacts__low_block">
+		    <div class="footer-wrapper-contacts__low_block_name">Телефон:</div>
+		    <a class="footer-wrapper-contacts__low_block_phone" href="tel:88887776655"> 8 888 777 66 55</a>
+                 </div>
+                 <div class="footer-wrapper-contacts__low_block">
+		     <div class="footer-wrapper-contacts__low_block_name">Почта:</div>
+                     <a class="footer-wrapper-contacts__low_block_phone" href="mailto:testmail@mail.ru">testmail@mail.ru</a>
+                 </div>
+              </div>
+	   </div>
+	  
+	</footer>
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
