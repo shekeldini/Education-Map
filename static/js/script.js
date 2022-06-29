@@ -27,17 +27,17 @@ tree.onclick = function (event) {
     }
 };
 
-const openMenu = document.querySelector('.open-menu'),
-     menuPanel = document.querySelector('.menu'),
-menuClosed = document.querySelector('.menu-header__burger');
+// const openMenu = document.querySelector('.open-menu'),
+//     menuPanel = document.querySelector('.menu'),
+//menuClosed = document.querySelector('.menu-header__burger');
 
-menuClosed.addEventListener('click', () => {
-    menuPanel.classList.add('visible');
-})
+//menuClosed.addEventListener('click', () => {
+//    menuPanel.classList.add('visible');
+//})
 
-openMenu.addEventListener('click', () => {
-    menuPanel.classList.remove('visible');
-})
+//openMenu.addEventListener('click', () => {
+//    menuPanel.classList.remove('visible');
+//})
 
 const login = document.querySelector('.header-wrapper__login'),
       overlay = document.querySelector('.overlay'),
@@ -55,7 +55,7 @@ const openFilter = document.querySelector('.menu-header__burger-filter2'),
       filterPanel = document.querySelector('.menu-header__text');
 
 openFilter.addEventListener('click', () => {
-    filterPanel.classList.add('activeFilter');
+    filterPanel.classList.toggle('activeFilter');
 
 openFilter.classList.toggle('burgerTest');
 
