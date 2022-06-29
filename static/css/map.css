@@ -409,6 +409,42 @@ white-space: nowrap;
    box-shadow: 4px 6px 15px 1px rgb(104 104 104 / 76%);
 }
 
+.header-wrapper__logout {
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+   /* text-transform: uppercase;*/
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    padding: 10px 30px;
+    transition: 0.5s;
+   /* border: 1px solid rgba(124, 99, 99, 0.5);*/
+   box-shadow: 4px 6px 15px 1px rgb(104 104 104 / 76%);
+}
+
+.header-wrapper__logout span {
+    position: relative;
+    z-index: 1;
+    font-family: 'Roboto', sans-serif;
+    color: #414141;
+    font-size: 15px;
+    color: #52586b;
+}
+
+.header-wrapper__logout:hover {
+    letter-spacing: 0.25em;
+   /* background: var(--clr);*/
+    color: var(--clr);
+    box-shadow: 0 0 35px var(--clr);
+}
+
+.header-wrapper__logout:before {
+    content: '';
+    position: absolute;
+   /* inset: 2px;*/
+    background: #ffffff;
+}
+
 .header-wrapper__login:hover {
     letter-spacing: 0.25em;
    /* background: var(--clr);*/

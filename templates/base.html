@@ -31,8 +31,11 @@
 		      <img class="header-wrapper__login-img" src="{{ url_for('static', path='images/10iniciativ.png') }}" alt="">
               {% if user%}
                 <p>{{ user.name }}</p>
+			  	<a class="header-wrapper__logout" style="--clr:#0e448e" href="{{ url_for('logout') }}"><span>Выход</span></a>
+			  {% else %}
+			  	<a class="header-wrapper__login" style="--clr:#0e448e" href="#"><span>вход</span></a>
               {% endif %}
-              <a class="header-wrapper__login" style="--clr:#0e448e" href="#"><span>вход</span></a>
+
 	      </div>
 	   </div>
 
