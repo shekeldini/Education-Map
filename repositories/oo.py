@@ -131,7 +131,7 @@ class OORepository(BaseRepository):
         (
             SELECT id_oo, coordinates, id_name_of_the_settlement, oo_name FROM oo 
             WHERE oo.year='2022' 
-            AND oo.oo_name like '%{oo_name}%'
+            AND LOWER(oo.oo_name) like '%{oo_name.lower()}%'
             AND oo.coordinates != ''
         ) as t1
         
