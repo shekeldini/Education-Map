@@ -479,12 +479,19 @@ function changeOpacity(value){
     })
 };
 
-function search(){
-    var value = document.getElementById("search").value;
+function search(value){
     var data = $.ajax({
         type : 'GET',
-        url : "oo/search?oo_name=" + value
+        url : "oo/search?oo_name=" + value,
+        success: function(data) {
+            $("#search_result").empty();
+            for (item of data.items){
+
+                $("#search_result").append("<div>" + "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>" + "</div>");
+            }
+        },
     });
+
 };
 
 function flyToRegion(id_region){
