@@ -57,99 +57,71 @@
 
 {% block content -%}
 	{{ super() }}
-
-	<div class="menu">
-        <div class="menu-search">
-            <input type="text" placeholder="Поиск">
-        </div>
-    <div class="menu-header">
-        <div class="menu-header__burger">
-            <span></span>
-            <span class="middle"></span>
-            <span></span>
-        </div>
-        <div class="menu-header__title">
-         Образовательные учреждения
-        </div>
+    <div class="menu" id="filter">
+        <details class="menu-filter">
+            <summary class="menu-filter__title">Образовательные учреждения
+				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+				</svg>
+            </summary>
+            <div class="menu-filter__content">
+                <ul class="list-one" id="tree">
+                    
+                </ul>
+            </div>
+        </details>
+		<details class="menu-filter">
+            <summary class="menu-filter__title" onclick = "create_digital_markers(this.parentNode)">Цифровая среда
+				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+				</svg>
+            </summary>
+            <div class="menu-filter__content">
+				<div class="menu-filter__content-wrapper">
+					Федеральный проект «Цифровая образовательная среда» направлен на создание и внедрение в образовательных организациях цифровой образовательной среды, а также обеспечение реализации цифровой трансформации системы образования.<br>
+					- 209 КОМПЬЮТЕРНЫХ КЛАССОВ</br>
+					- 1194 УЧЕБНЫХ КЛАССОВ SMART TV ДЛЯ РАБОТЫ С ЦИФРОВЫМ ОБРАЗОВАТЕЛЬНЫМ КОНТЕНТОМ</br>
+					- 87 УЧЕБНЫХ КЛАССОВ ДЛЯ РАБОТЫ С ЦИФРОВЫМ ОБРАЗОВАТЕЛЬНЫМ КОНТЕНТОМ НА БАЗЕ ИНТЕРАКТИВНОГО КОМПЛЕКСА</br>
+					- 169 КОМПЛЕКТОВ ОБОРУДОВАНИЯ УПРАВЛЕНИЯ СРЕДСТВАМИ ОБЕСПЕЧЕНИЯ ДИСТАНЦИОННОГО ОБУЧЕНИЯ И ВИДЕОНАБЛЮДЕНИЯ
+				</div>
+            </div>
+        </details>
+		<details class="menu-filter">
+            <summary class="menu-filter__title">Результаты ЕГЭ
+				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+				</svg>
+            </summary>
+            <div class="menu-filter__content">
+                тестовая инфа
+            </div>
+        </details>
+		<details class="menu-filter">
+            <summary class="menu-filter__title">Результаты ВПР
+				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+				</svg>
+            </summary>
+            <div class="menu-filter__content">
+                тестовая инфа
+            </div>
+        </details>
+		<details class="menu-filter">
+            <summary class="menu-filter__title">Центры "Точка роста"
+				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+				</svg>
+            </summary>
+            <div class="menu-filter__content">
+                Центр образования цифрового и гуманитарного профилей «Точка роста» - это подразделение общеобразовательной организации, расположенное в сельской местности и поселках городского типа. В нем располагаются медиазона, шахматная гостиная и коворкинг, а также кабинет формирования цифровых и гуманитарных компетенций.
+            </div>
+        </details>
     </div>
-    <div class="menu-block">
-         <ul class="list-one" id="tree">
-         </ul>
-    </div>
-    <div class="menu-header filter2">
-        <div class="menu-header__burger-filter2"  id="digital" onclick="create_digital_markers(this.className)">
-            <span></span>
-            <span class="middle"></span>
-            <span></span>
-        </div>
-        <div class="menu-header__title">
-           Цифровая среда
-        </div>
-    </div>
-
-    <div class="menu-header__text">
-          <div class="menu-header__text-descr">
-                erreewrw
-          </div>
-    </div>
-
-    <div class="menu-header filter3">
-        <div class="menu-header__burger">
-            <span></span>
-            <span class="middle"></span>
-            <span></span>
-        </div>
-        <div class="menu-header__title">
-        Результаты ЕГЭ
-        </div>
-    </div>
-    <div class="menu-header filter4">
-        <div class="menu-header__burger">
-            <span></span>
-            <span class="middle"></span>
-            <span></span>
-        </div>
-        <div class="menu-header__title">
-            Результаты ВПР
-        </div>
-    </div>
-    <div class="menu-header filter5">
-        <div class="menu-header__burger">
-            <span></span>
-            <span class="middle"></span>
-            <span></span>
-        </div>
-        <div class="menu-header__title">
-            Центры "Точка роста"
-        </div>
-    </div>
-    <div class="menu-header filter6">
-        <div class="menu-header__burger">
-            <span></span>
-            <span class="middle"></span>
-            <span></span>
-        </div>
-        <div class="menu-header__title">
-            Будущий фильтр
-        </div>
-    </div>
-</div>
-
 
 	<div>
 	   <div id="map">
 
 	   </div>
-	   <div class="open-menu" id="open-menu">
-			<span></span>
-			<span class="middle"></span>
-			<span></span>
-	   </div>
-
-	   <div class="legend" id="legend">
-
-		</div>
-
 	</div>
 	
 	<div class="overlay">

@@ -325,8 +325,6 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
-                        var open_menu = document.getElementById("open-menu");
-                        open_menu.click()
                         var menu_select_region_item = document.getElementById("li:select_region");
                         if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
                             menu_select_region_item.firstChild.click()
@@ -497,9 +495,9 @@ function flyToRegion(id_region){
     })
 }
 
-async function create_digital_markers(class_name){
+async function create_digital_markers(parent){
     deleteAllMarkers()
-    if (class_name == "menu-header__burger-filter2"){
+    if (parent.open == false){
         current_filter = "digital"
         var digital_items = await get_digital_items(2022)
         for (item of digital_items.items){

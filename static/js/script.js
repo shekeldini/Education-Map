@@ -51,14 +51,21 @@ close.addEventListener('click', () => {
       overlay.classList.remove('overlayOn');
 })
 
-const openFilter = document.querySelector('.menu-header__burger-filter2'),
-      filterPanel = document.querySelector('.menu-header__text');
-
-openFilter.addEventListener('click', () => {
-    filterPanel.classList.toggle('activeFilter');
-
-openFilter.classList.toggle('burgerTest');
-
-});
 
 
+let table = document.getElementById('filter');
+
+let selectedTd;
+
+table.onclick = function(event) {
+    let target = event.target;
+    if (target.className == 'menu-filter__title') {
+	if (target == selectedTd){
+	    return
+	};
+        if(selectedTd){
+            selectedTd.parentNode.open = false;
+        }
+	selectedTd = target
+    }
+}
