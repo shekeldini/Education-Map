@@ -402,7 +402,22 @@ white-space: nowrap;
     padding: 10px 30px;
     transition: 0.5s;
    /* border: 1px solid rgba(124, 99, 99, 0.5);*/
-   box-shadow: 4px 6px 15px 1px rgb(104 104 104 / 76%);
+  /* box-shadow: 4px 6px 15px 1px rgb(104 104 104  76%);*/
+       border: 2px solid #808080;
+}
+
+.header-wrapper__login-arrow {
+  position: absolute;
+    left: -20px;
+    background: white;
+    width: 40px;
+    height: 18px;
+    transition: all ease 0.5s;
+}
+
+.header-wrapper__login-arrow path {
+   fill: #808080;
+
 }
 
 .header-wrapper__logout {
@@ -442,10 +457,24 @@ white-space: nowrap;
 }
 
 .header-wrapper__login:hover {
-    letter-spacing: 0.25em;
-   /* background: var(--clr);*/
+   /* background: var(--clr);
     color: var(--clr);
-    box-shadow: 0 0 35px var(--clr);
+    box-shadow: 0 0 35px var(--clr); */
+    color: #e4097f;
+    border-color: #f6464c;
+}
+
+.header-wrapper__login:hover span {
+  color: #f6464c;
+}
+
+.header-wrapper__login:hover .header-wrapper__login-arrow {
+ left: -8px;
+     transition: 0.3s all;
+}
+
+.header-wrapper__login:hover .header-wrapper__login-arrow path {
+  fill: #f6464c;
 }
 
 .header-wrapper__login:before {
@@ -697,18 +726,32 @@ form {
     transition: 0.5s;
    /* border: 1px solid rgba(124, 99, 99, 0.5);*/
    margin-top: 60px;
-	    border: none;
+   border: 2px solid #808080;
     box-sizing: border-box;
     
-    box-shadow: 4px 6px 15px 1px rgb(104 104 104 / 76%);
+   /* box-shadow: 4px 6px 15px 1px rgb(104 104 104  76%);*/
 
 }
 
 .form-login:hover {
-   /* background: var(--clr);*/
+   /* background: var(--clr);
     letter-spacing: 0.25em;
-    box-shadow: 0 0 35px var(--clr);
+    box-shadow: 0 0 35px var(--clr); */
+    border-color: #f6464c;
 }
+
+.form-login:hover span {
+   color: #f6464c;
+}
+
+.form-login:hover .header-wrapper__login-arrow {
+   left: -9px;
+}
+
+.form-login:hover .header-wrapper__login-arrow path {
+   fill: #f6464c;
+}
+
 
 .overlay {
     position: fixed;
@@ -910,6 +953,7 @@ summary::-webkit-details-marker {
   align-items: center;
   background-color: #f7895b;
   padding-left: 10px;
+      position: relative;
 }
 .menu-search input {
   height: 35px;
@@ -918,6 +962,25 @@ summary::-webkit-details-marker {
   border-radius: 15px;
   padding-left: 10px;
   font-size: 15px;
+}
+
+
+.menu-search__wrapper {
+      position: absolute;
+    top: 47px;
+    background: white;
+    overflow-y: scroll;
+    max-height: 450px;  
+}
+
+.menu-search__wrapper div {
+     border-bottom: 1px solid #52586b;
+}
+
+.menu-search__wrapper div p {
+   font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    color: #52586b;
 }
 
 #filter .highlight {

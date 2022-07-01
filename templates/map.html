@@ -118,7 +118,7 @@
         </details>
 	<div class="menu-search">
             <input type="text" placeholder="Поиск" oninput="search(this.value)">
-			<div id="search_result">
+			<div class='menu-search__wrapper' id="search_result">
 
 			</div>
         </div>
@@ -142,7 +142,11 @@
                   <label for="" class="form-box__info">Пароль</label>
               </div>
 	      <div class="form-wrapper">
-              <button type="button" class="form-login" style="--clr:#0e448e" onclick="submit_form()"> войти </button>
+              <button type="button" class="form-login" onclick="submit_form()"><span>войти</span> 
+		  <svg class="header-wrapper__login-arrow" width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8462 0C11.8462 0 18.6154 6.4 22 8C18.6154 9.6 11.8462 16 11.8462 16L16.5726 8.8006H0V7.2006H16.5726L11.8462 0Z" fill="#240516"></path>
+                  </svg>
+	      </button>
 	      </div>
            </form>
 	</div>

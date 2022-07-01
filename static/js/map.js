@@ -104,7 +104,7 @@ map.on("zoomend", function(){
     };
 })
 
-var markers = L.markerClusterGroup()
+var markers = L.markerClusterGroup({singleMarkerMode: true})
 let regions_layers = L.layerGroup()
 let districts_layers = L.layerGroup()
 
@@ -181,7 +181,9 @@ function create_menu(){
     span.innerHTML += "Выберите округ";
     span.className = "closed hide"
     span.onclick = function(){
+	deleteAllMarkers()
         map.flyTo(start_position, start_zoom);
+
     };
 
     let ul = document.createElement('ul');

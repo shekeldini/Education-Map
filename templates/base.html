@@ -33,7 +33,11 @@
                 <p>{{ user.name }}</p>
 			  	<a class="header-wrapper__logout" style="--clr:#0e448e" href="{{ url_for('logout') }}"><span>Выход</span></a>
 			  {% else %}
-			  	<a class="header-wrapper__login" style="--clr:#0e448e" href="#"><span>вход</span></a>
+			  	<a class="header-wrapper__login" href="#"><span>вход</span>
+					<svg class="header-wrapper__login-arrow" width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M11.8462 0C11.8462 0 18.6154 6.4 22 8C18.6154 9.6 11.8462 16 11.8462 16L16.5726 8.8006H0V7.2006H16.5726L11.8462 0Z" fill="#240516"></path>
+					</svg>
+				</a>
               {% endif %}
 
 	      </div>
