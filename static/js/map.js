@@ -181,9 +181,13 @@ function create_menu(){
     span.innerHTML += "Выберите округ";
     span.className = "closed hide"
     span.onclick = function(){
-	deleteAllMarkers()
-        map.flyTo(start_position, start_zoom);
 
+	    if (this.className != "closed hide"){
+	        close_children(this.parentNode)
+	        deleteAllMarkers()
+	    }
+
+        map.flyTo(start_position, start_zoom);
     };
 
     let ul = document.createElement('ul');
@@ -209,7 +213,10 @@ function menu_create_region_item(region){
         region._path.removeAttribute('filter');
     };
     span.onclick = function(){
-        deleteLayersForRegion(region.options.id_region);
+        if (this.className != "closed hide"){
+	        close_children(this.parentNode)
+	        deleteLayersForRegion(region.options.id_region);
+	    }
         map.flyTo(region.getBounds().getCenter(), 8.5);
     };
     span.className = "hide";
@@ -578,3 +585,19 @@ function get_digital_items(year){
         data: send_data
     });
 };
+
+function close_children(parent){
+    let ul_element = parent.querySelector("ul")
+    if (ul_element){
+        for (let i = 0; i < ul_element.children.length; i++) {
+            if (ul_element.children[i].children.length == 2){
+                // span
+                ul_element.children[i].children[0].className = "closed hide"
+                // ul
+                ul_element.children[i].children[1].hidden = true
+                close_children(ul_element.children[i])
+            }
+        }
+    }
+};
+
