@@ -58,6 +58,13 @@
 {% block content -%}
 	{{ super() }}
     <div class="menu" id="filter">
+       <div class="menu-search">
+            <input class="menu-search__field"  type="search" placeholder="Поиск" oninput="search(this.value)">
+                        <div class='menu-search__wrapper' id="search_result">
+
+                        </div>
+        </div>
+
         <details class="menu-filter">
             <summary class="menu-filter__title">Образовательные учреждения
 				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -116,12 +123,20 @@
                 Центр образования цифрового и гуманитарного профилей «Точка роста» - это подразделение общеобразовательной организации, расположенное в сельской местности и поселках городского типа. В нем располагаются медиазона, шахматная гостиная и коворкинг, а также кабинет формирования цифровых и гуманитарных компетенций.
             </div>
         </details>
-	<div class="menu-search">
+<!--	<div class="menu-search">
             <input type="text" placeholder="Поиск" oninput="search(this.value)">
 			<div class='menu-search__wrapper' id="search_result">
 
 			</div>
-        </div>
+        </div> -->
+    </div>
+    <div class="modal-search">
+      <div class="modal-search__back">
+           <svg class="modal-search__back-arrow" width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8462 0C11.8462 0 18.6154 6.4 22 8C18.6154 9.6 11.8462 16 11.8462 16L16.5726 8.8006H0V7.2006H16.5726L11.8462 0Z" fill="#240516"></path>
+           </svg>
+       </div>
+
     </div>
 
 	<div>
@@ -135,11 +150,11 @@
               <div class="form-close">&times;</div>
               <div class="form-box">
                   <input type="text" class="form-box__text" required="required" id="login" name="login" >
-                  <label for="" class="form-box__info">Логин</label>
+                  <span class="form-box__info">Логин</span>
               </div>
               <div class="form-box">
                   <input class="form-box__text" required="required" id="password" name="password" type="password">
-                  <label for="" class="form-box__info">Пароль</label>
+                  <span class="form-box__info">Пароль</span>
               </div>
 	      <div class="form-wrapper">
               <button type="button" class="form-login" onclick="submit_form()"><span>войти</span> 

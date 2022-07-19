@@ -68,4 +68,24 @@ table.onclick = function(event) {
         }
 	selectedTd = target
     }
-}
+};
+
+//const searchtest = document.querySelector('.menu-search__field'),
+//      searchField = document.querySelector('.modal-search'),
+//      searchClose = document.querySelector('.modal-search__back');
+
+
+//searchtest.addEventListener('click', () => {
+//   searchField.classList.add('show');
+
+//})
+
+//searchClose.addEventListener('click', () => {
+//    searchField.classList.remove('show');
+//})
+
+
+
+
+
+

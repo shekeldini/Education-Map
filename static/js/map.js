@@ -496,7 +496,7 @@ function search(value){
             url : "oo/search?oo_name=" + value,
             success: function(data) {
                 for (item of data.items){
-                    $("#search_result").append("<div>" + "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>" + "</div>");
+                    $("#search_result").append("<div class='menu-search__wrapper-item'>" + "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>" + "</div>");
                 }
             },
         });
