@@ -211,7 +211,7 @@ ul {
 
 .list-two li {
       margin-top: 10px;
-      margin-left: 25px;
+      margin-left: 15px;
 }
 
 .list-three {
@@ -270,7 +270,7 @@ ul {
 
 .list-three li span {
       background: #FFFFFF;
- max-width: 265px;
+ max-width: 280px;
     display: block;   
 white-space: nowrap;
     overflow: hidden;
@@ -816,12 +816,14 @@ display: flex;
 
 .header-logo {
    display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+       width: 400px;
+  margin-left: 20px;
 }
 
 .header-logo__img {
-  width: 40%;
+  width: 24%;
 }
 
 .filter2 {
@@ -851,8 +853,13 @@ display: flex;
 }
 
 .header-wrapper__login-img {
-      width: 6%;
+      width: 20%;
     margin-right: 30px;
+}
+
+.header-wrapper__login-img-middle {
+       width: 30%;
+       margin-right: 30px;
 }
 
 .custom-size {
