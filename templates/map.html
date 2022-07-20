@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block head %}
 	{{ super() }}
+
 	<link
 			rel="stylesheet"
 			href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
 			integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
 			crossorigin=""
 	/>
-
+	<script src="{{ url_for('static', path='js/leaflet.edgebuffer.js') }}"></script>
   	<script
 			src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
 			integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -52,6 +53,12 @@
 	<script
 			src="https://cdn.rawgit.com/aparshin/leaflet-boundary-canvas/f00b4d35/src/BoundaryCanvas.js">
 	</script>
+	<script src="https://api-maps.yandex.ru/2.1/?apikey=23f561e2-c979-4d8f-96e9-b827cb61ae5a&lang=ru_RU" type="text/javascript">
+    </script>
+
+    <script
+			src="{{ url_for('static', path='js/Yandex.js') }}">
+	</script>
 
 {% endblock %}
 
@@ -65,7 +72,7 @@
                         </div>
         </div>
 
-        <details class="menu-filter">
+        <details class="menu-filter" id="info">
             <summary class="menu-filter__title">Образовательные учреждения
 				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
@@ -77,7 +84,7 @@
                 </ul>
             </div>
         </details>
-		<details class="menu-filter">
+		<details class="menu-filter" id="digital">
             <summary class="menu-filter__title" onclick = "create_digital_markers(this.parentNode)">Цифровая среда
 				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
@@ -165,12 +172,11 @@
 	      </div>
            </form>
 	</div>
-
 	<script
 			src="{{ url_for('static', path='js/map.js') }}" >
 	</script>
 
-        <script
+	<script
 			src="{{ url_for('static', path='js/script.js') }}">
 	</script>
 {% endblock -%}

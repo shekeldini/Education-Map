@@ -52,24 +52,6 @@ close.addEventListener('click', () => {
 })
 
 
-
-let table = document.getElementById('filter');
-
-let selectedTd;
-
-table.onclick = function(event) {
-    let target = event.target;
-    if (target.className == 'menu-filter__title') {
-	if (target == selectedTd){
-	    return
-	};
-        if(selectedTd){
-            selectedTd.parentNode.open = false;
-        }
-	selectedTd = target
-    }
-};
-
 //const searchtest = document.querySelector('.menu-search__field'),
 //      searchField = document.querySelector('.modal-search'),
 //      searchClose = document.querySelector('.modal-search__back');
