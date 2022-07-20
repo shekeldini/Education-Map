@@ -1,3 +1,4 @@
+let info = document.getElementById('info');
 var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
 let start_position = new L.LatLng(52.726338, 82.466781)
@@ -47,15 +48,24 @@ var map = L.map('map', {
     zoomAnimation: true,
     minZoom: 7.5,
     maxBounds: maxBounds,
-    zoomControl: false
-}).fitWorld();
+    zoomControl: false,
+    edgeBufferTiles: 5,
+});
+
+
+map.options.crs = L.CRS.EPSG3395;
+map.on('drag', () => {
+  map.fitBounds(map.getBounds());
+});
+
+//L.yandex().addTo(map)
 map.setView(start_position, start_zoom);
 map.doubleClickZoom.disable();
 
 $.getJSON('static/files/kray.json').then(function(geoJSON) {
-    var osm = new L.TileLayer.BoundaryCanvas('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    var osm = new L.TileLayer.BoundaryCanvas('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=22.07.19-2-b220606200930&x={x}&y={y}&z={z}&scale=1&lang=ru_RU&ads=enabled', {
     boundary: geoJSON,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '<ymaps class="ymaps-2-1-79-copyright__wrap"><ymaps class="ymaps-2-1-79-copyright__layout"><ymaps class="ymaps-2-1-79-copyright__content-cell"><ymaps class="ymaps-2-1-79-copyright__content"><ymaps class="ymaps-2-1-79-copyright__text">© Яндекс</ymaps><ymaps class="ymaps-2-1-79-copyright__agreement">&nbsp;<a class="ymaps-2-1-79-copyright__link" target="_blank" href="https://yandex.ru/legal/maps_termsofuse/?lang=ru" rel="noopener">Условия использования</a></ymaps></ymaps></ymaps><ymaps class="ymaps-2-1-79-copyright__logo-cell"><a class="ymaps-2-1-79-copyright__logo" href="https://yandex.ru/maps/?origin=jsapi21&amp;ll=82.466781,52.726338&amp;z=8&amp;l=map&amp;from=api-maps" target="_blank"></a></ymaps></ymaps></ymaps>'
     }).addTo(map);
 
     var coordinates = geoJSON["features"][0]["geometry"]["coordinates"][0]
@@ -70,7 +80,9 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
     polygon._path.setAttribute('filter', 'drop-shadow(5px 6px 2px rgb(0 0 0 / 0.8))');
 
 });
+map.on("move", function(){
 
+});
 
 map.on("zoomend", function(){
     let zoom = map.getZoom()
@@ -186,8 +198,7 @@ function create_menu(){
 	        close_children(this.parentNode)
 	        deleteAllMarkers()
 	    }
-
-        map.flyTo(start_position, start_zoom);
+        flyToStartPosition()
     };
 
     let ul = document.createElement('ul');
@@ -217,7 +228,10 @@ function menu_create_region_item(region){
 	        close_children(this.parentNode)
 	        deleteLayersForRegion(region.options.id_region);
 	    }
-        map.flyTo(region.getBounds().getCenter(), 8.5);
+        map.flyTo(region.getBounds().getCenter(), 8.5, {
+            animate: true,
+            duration: 1
+        });
     };
     span.className = "hide";
     span.classList.add('closed');
@@ -264,7 +278,7 @@ async function menu_create_district_item(district){
                 let coordinates = this.getAttribute('coordinates')
                 coordinates = coordinates.split(";").map(str => parseFloat(str));
                 var latLon = new L.LatLng(coordinates[0], coordinates[1]);
-                map.flyTo(latLon, 16.5);
+                flyToSchool(latLon);
                 map.once('moveend', ()=>openSchoolPopUp(this.innerHTML));
             };
             school_li.appendChild(school_span);
@@ -306,7 +320,7 @@ async function load_districts(){
                     "id_region": id_region,
                     fillOpacity: 0,
                     weight: 1,
-		            "type": "district",
+		            "type": "district"
                 });
                 polygon.bindTooltip(name,
                    {permanent: false, direction: "center"}
@@ -334,6 +348,7 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
+                        info.open = true
                         var menu_select_region_item = document.getElementById("li:select_region");
                         if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
                             menu_select_region_item.firstChild.click()
@@ -506,10 +521,27 @@ function search(value){
 function flyToRegion(id_region){
     regions_layers.eachLayer(async function(layer) {
         if (layer instanceof L.Polygon && layer.options.id_region == id_region){
-            map.flyTo(layer.getBounds().getCenter(), 8.5)
+            map.flyTo(layer.getBounds().getCenter(), 8.5, {
+            animate: true,
+            })
         };
     })
-}
+};
+
+function flyToStartPosition(){
+    map.flyTo(start_position, start_zoom, {
+            animate: true,
+        });
+};
+
+function flyToSchool(latLon){
+    map.flyTo(latLon, 16.5, {
+        animate: true,
+        duration: 2,
+        easeLinearity: 1
+    });
+};
+
 
 async function create_digital_markers(parent){
     deleteAllMarkers()
@@ -577,7 +609,7 @@ async function create_digital_markers(parent){
 
 function get_digital_items(year){
     send_data = {
-        year: year
+        "year": year
     }
     return $.ajax({
         type : 'GET',
@@ -601,3 +633,24 @@ function close_children(parent){
     }
 };
 
+let table = document.getElementById('filter');
+
+let selectedTd;
+
+table.onclick = function(event) {
+    let target = event.target;
+    if (target.className == 'menu-filter__title') {
+        deleteAllMarkers()
+        if (target == selectedTd){
+            current_filter = "info"
+            return
+        };
+        if(selectedTd){
+            selectedTd.parentNode.open = false;
+
+        }
+        selectedTd = target
+        current_filter = target.parentNode.id
+        console.log(current_filter)
+    }
+};

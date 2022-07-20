@@ -5,8 +5,8 @@ body {
 
 
 #map {
-      height: 96vh;
-  position: absolute;
+    height: 96vh;
+    position: absolute;
     width: 1530px;
     left: 60%;
     transform: translateX(-50%);
