@@ -127,9 +127,9 @@ class OORepository(BaseRepository):
     async def search_oo_name(self, oo_name: str) -> SearchResponse:
 
         query = f"""
-        SELECT oo_name, REPLACE(district_name, '_', ' ') as district_name, coordinates FROM 
+        SELECT id_oo, oo_login, year, oo_name, oo_address, director, email_oo, phone_number, coordinates, url, REPLACE(district_name, '_', ' ') as district_name FROM 
         (
-            SELECT id_oo, coordinates, id_name_of_the_settlement, oo_name FROM oo 
+            SELECT * FROM oo 
             WHERE oo.year='2022' 
             AND LOWER(oo.oo_name) like '%{oo_name.lower()}%'
             AND oo.coordinates != ''

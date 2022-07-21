@@ -15,9 +15,17 @@ class Search():
 
 
 class SearchResult(BaseModel):
+    id_oo: int
+    oo_login: str
+    year: str
     oo_name: str
-    district_name: str
+    oo_address: Optional[str] = None
+    director: Optional[str] = None
+    email_oo: Optional[str] = None
+    phone_number: Optional[str] = None
     coordinates: str
+    url: Optional[str] = None
+    district_name: str
 
 
 class SearchResponse(BaseModel):
