@@ -1,14 +1,15 @@
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
-let start_position = new L.LatLng(52.726338, 82.466781)
-let start_zoom = 7.5
-let current_filter = "info"
-let this_polygon = null
+let start_position = new L.LatLng(52.726338, 82.466781);
+let start_zoom = 7.5;
+let region_weight = 4;
+let current_filter = "info";
+let this_polygon = null;
 let iconOptions = {
     iconUrl: '/static/images/school.png',
     iconSize: [50, 50]
-}
+};
 let customIcon = L.icon(iconOptions);
 
 let maxBounds = [
@@ -17,19 +18,9 @@ let maxBounds = [
         [54.92714186454645,89.4287109375],
         [55.00282580979323,75.65185546874999],
         [50.28933925329178,75.498046875]
-    ]
-window_height = window.screen.height
-window_width = window.screen.width
-
-if (window_width == 1920 && window_height == 1080){
-    maxBounds = [
-        [50.28933925329178,75.498046875],
-        [50.331436330838834,89.3408203125],
-        [54.92714186454645,89.4287109375],
-        [55.00282580979323,75.65185546874999],
-        [50.28933925329178,75.498046875]
-    ]
-}
+];
+window_height = $(window).height();
+window_width = $(window).width();
 
 if (window_width == 2560 && window_height == 1440){
     maxBounds = [
@@ -41,12 +32,23 @@ if (window_width == 2560 && window_height == 1440){
     ]
 }
 
+if (window_width == 768) {
+    start_zoom = 5.8;
+    region_weight = 2;
+    maxBounds = [
+        [50.28933925329178,75.498046875],
+        [50.331436330838834,89.3408203125],
+        [54.92714186454645,89.4287109375],
+        [55.00282580979323,75.65185546874999],
+        [50.28933925329178,75.498046875]
+    ]
+}
 
 
 var map = L.map('map', {
     zoomSnap: 0.5,
     zoomAnimation: true,
-    minZoom: 7.5,
+    minZoom: start_zoom,
     maxBounds: maxBounds,
     zoomControl: false,
     edgeBufferTiles: 5,
@@ -114,6 +116,9 @@ map.on("zoomend", function(){
     if (zoom < 9.5) {
         changeOpacity(0.8)
     };
+    if (zoom < 7.5) {
+        changeBorderWeight(1)
+    };
 })
 
 var markers = L.markerClusterGroup({singleMarkerMode: true})
@@ -175,7 +180,7 @@ async function load_regions(){
                 "name": name,
                 "id_region": id_region,
                 fillOpacity: 0.8,
-                weight: 4,
+                weight: region_weight,
                 "type": "region",
             });
             regions_layers.addLayer(polygon);
@@ -440,7 +445,7 @@ async function create_marker(data, district_name, id_region){
             "</div>" +
             "<div class='block'>" +
                  "<div>" + 'Сайт:' + "</div>" +
-                 "<a href='" + marker.options.url + "' class='url' >" + marker.options.url + "</a>" +
+                 "<a href='" + marker.options.url + "' class='url' + target= + '_blank' + >" + marker.options.url + "</a>" +
             "</div>";
 
     marker.bindPopup(text, {autoClose:false}).openPopup();
@@ -502,6 +507,18 @@ function changeOpacity(value){
         };
     })
 };
+
+function changeBorderWeight(value){
+    regions_layers.eachLayer(async function(layer) {
+        if (layer instanceof L.Polygon && layer.options.type == "region"){
+            layer.setStyle({
+                weight: value
+            });
+        };
+    })
+};
+
+
 
 function search(value){
     $("#search_result").empty();
