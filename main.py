@@ -14,7 +14,6 @@ from endpoints import district, oo_location_type, roles, users, auth, name_of_th
 from endpoints.depends import get_users_repository, get_user
 from repositories.users import UsersRepository
 
-
 app = FastAPI(
     title="FastAPI",
     version="0.1.0",
@@ -102,6 +101,16 @@ async def index(request: Request, refresh_token: Optional[str] = Cookie(None)):
         "user": current_user
     })
 
+
+@app.get("/size", response_class=HTMLResponse)
+async def index(request: Request):
+
+    return templates.TemplateResponse("size.html", {
+        "request": request,
+        "title": "Размер экрана",
+    })
+
+
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "title": "Авторизация"})
@@ -110,7 +119,6 @@ async def login(request: Request):
 @app.get("/private", response_class=HTMLResponse)
 async def private(request: Request):
     return templates.TemplateResponse("protected.html", {"request": request, "title": "Приватно"})
-
 
 
 if __name__ == "__main__":
