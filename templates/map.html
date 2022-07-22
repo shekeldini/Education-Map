@@ -33,21 +33,18 @@
 			src="{{ url_for('static', path='js/leaflet.markercluster.js') }}">
 
 	</script>
+
 	<link
 			rel="stylesheet"
-			href="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.css"
+			href="{{ url_for('static', path='css/leaflet-geoman.css') }}"
+	/>
+	<link
+			rel="stylesheet"
+			href="{{ url_for('static', path='css/Сontrol.Geocoder.css') }}"
 	/>
 
 	<script
-			src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js">
-	</script>
-
-	<link
-			rel="stylesheet"
-			href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-
-	<script
-			src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js">
+			src="{{ url_for('static', path='js/Control.Geocoder.js') }}">
 	</script>
 
 	<script
@@ -58,6 +55,9 @@
 
     <script
 			src="{{ url_for('static', path='js/Yandex.js') }}">
+	</script>
+	<script
+			src="{{ url_for('static', path='js/leaflet-geoman.min.js') }}">
 	</script>
 
 {% endblock %}
