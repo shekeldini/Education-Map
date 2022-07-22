@@ -815,6 +815,7 @@ display: flex;
     align-items: center;
        width: 400px;
   margin-left: 20px;
+    margin-right: 40px;
 }
 
 .header-logo__img {
@@ -1077,6 +1078,20 @@ display: none;
          margin-top: 10px;
 
 }
+
+@media (max-width: 1280px) {
+   .footer-wrapper-logo__low {
+     padding: 0 5px;
+   }
+   .header-wrapper__right {
+     width: 0;
+   }
+   .header-wrapper__title {
+     font-size: 23px;
+         margin-left: 30px;
+   }
+
+} 
 
 @media (max-width: 1024px) {
   .other__wrapper .accordion__wrapper_item_link {

@@ -32,6 +32,18 @@ if (window_width == 2560 && window_height == 1440){
     ]
 }
 
+if (window_width == 1280) {
+    start_zoom = 6.7;
+    region_weight = 3;
+    maxBounds = [
+        [50.28933925329178,75.498046875],
+        [50.331436330838834,89.3408203125],
+        [54.92714186454645,89.4287109375],
+        [55.00282580979323,75.65185546874999],
+        [50.28933925329178,75.498046875]
+    ]
+}
+
 if (window_width == 768) {
     start_zoom = 5.8;
     region_weight = 2;
@@ -52,6 +64,7 @@ var map = L.map('map', {
     maxBounds: maxBounds,
     zoomControl: false,
     edgeBufferTiles: 5,
+    maxZoom: 15
 });
 
 
@@ -60,7 +73,7 @@ map.on('drag', () => {
   map.fitBounds(map.getBounds());
 });
 
-//L.yandex().addTo(map)
+
 map.setView(start_position, start_zoom);
 map.doubleClickZoom.disable();
 
@@ -122,6 +135,8 @@ map.on("zoomend", function(){
 })
 
 var markers = L.markerClusterGroup({singleMarkerMode: true})
+markers.addTo(map);
+
 let regions_layers = L.layerGroup()
 let districts_layers = L.layerGroup()
 
@@ -448,7 +463,7 @@ async function create_marker(data, district_name, id_region){
                  "<a href='" + marker.options.url + "' class='url' + target= + '_blank' + >" + marker.options.url + "</a>" +
             "</div>";
 
-    marker.bindPopup(text, {autoClose:false}).openPopup();
+    marker.bindPopup(text, {autoClose:false});
 
     marker.on('click', function(){
         marker.openPopup();
@@ -519,7 +534,6 @@ function changeBorderWeight(value){
 };
 
 
-
 function search(value){
     $("#search_result").empty();
     if (value.length > 3){
@@ -528,12 +542,28 @@ function search(value){
             url : "oo/search?oo_name=" + value,
             success: function(data) {
                 for (item of data.items){
-                    $("#search_result").append("<div class='menu-search__wrapper-item'>" + "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>" + "</div>");
+                    createFoundItem(item)
                 }
             },
         });
     }
 };
+
+
+function createFoundItem(item){
+    let div = document.createElement('div');
+    div.className = 'menu-search__wrapper-item'
+    div.innerHTML += "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>"
+    div.onclick = async function(){
+        markers.clearLayers();
+        await create_marker(item, item.district_name, null)
+        markers.addTo(map);
+        flyToSchool(item.coordinates.split(";").map(str => parseFloat(str)))
+        map.once('moveend', ()=>openSchoolPopUp(item.oo_name));
+    }
+    $("#search_result").append(div);
+};
+
 
 function flyToRegion(id_region){
     regions_layers.eachLayer(async function(layer) {
@@ -656,18 +686,29 @@ let selectedTd;
 
 table.onclick = function(event) {
     let target = event.target;
-    if (target.className == 'menu-filter__title') {
-        deleteAllMarkers()
+    console.log(current_filter)
+    let flag = false
+    if (target.className === 'menu-filter__title') {
+        flag = true
+    }
+    if (target.className.baseVal === 'menu-filter__title-icon'){
+        flag = true
+        target = target.parentNode
+    }
+    if (target.tagName === 'path'){
+        flag = true
+        target = target.parentNode.parentNode
+    }
+    if (flag){
+        deleteAllMarkers();
         if (target == selectedTd){
-            current_filter = "info"
+            current_filter = "info";
             return
         };
         if(selectedTd){
             selectedTd.parentNode.open = false;
-
-        }
-        selectedTd = target
-        current_filter = target.parentNode.id
-        console.log(current_filter)
+        };
+        selectedTd = target;
+        current_filter = target.parentNode.id;
     }
 };
