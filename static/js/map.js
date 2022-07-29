@@ -422,7 +422,7 @@ function create_marker(id_oo, id_region, id_district, coordinates){
     marker.on('click', async function(){
         if (!marker._popup._content){
             let info = await getSchoolInfo(id_oo);
-            let text = info.base_info.oo_name;
+            let text = create_text(info);
             marker._popup._content = text;
         }
         marker.openPopup();
