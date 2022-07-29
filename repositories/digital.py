@@ -1,3 +1,5 @@
+from typing import Optional
+
 from db.digital import digital
 from models.request.digital import RequestDigital
 from models.response.digital import ResponseDigital, DigitalItem
@@ -5,7 +7,7 @@ from .base import BaseRepository
 
 
 class DigitalRepository(BaseRepository):
-    async def get_all(self) -> ResponseDigital:
+    async def get_by_id(self, id_oo: int) -> Optional[DigitalItem]:
         query = """
         SELECT 
             oo.oo_name,
@@ -27,14 +29,13 @@ class DigitalRepository(BaseRepository):
             LEFT JOIN oo ON
                 oo.id_oo = digital.id_oo
             LEFT JOIN district ON
-                oo.id_district = district.id_district;
+                oo.id_district = district.id_district
+            WHERE digital.id_oo = :id_oo ;
         """
-        res = await self.database.fetch_all(query=query)
+        res = await self.database.fetch_one(query=query, values={"id_oo": id_oo})
         if not res:
-            return ResponseDigital(items=[])
-        return ResponseDigital(
-            items=[DigitalItem.parse_obj(row) for row in res]
-        )
+            return None
+        return DigitalItem.parse_obj(res)
 
     async def create(self, item: RequestDigital):
         values = {**item.dict()}

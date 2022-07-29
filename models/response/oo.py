@@ -3,8 +3,6 @@ from pydantic import BaseModel
 
 
 class ResponseOO(BaseModel):
-    id_oo: int
-    oo_login: str
     oo_name: str
     oo_address: str
     director: str

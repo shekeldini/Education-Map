@@ -31,7 +31,7 @@ def get_oo_repository() -> OORepository:
     return OORepository(database)
 
 
-def get_digital_environment_repository() -> DigitalRepository:
+def get_digital_repository() -> DigitalRepository:
     return DigitalRepository(database)
 
 
