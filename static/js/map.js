@@ -410,51 +410,20 @@ function create_marker(data, district_name, id_region){
 
     var marker = L.marker(coordinates, {
         "id_oo": data.id_oo,
-        "oo_login": data.oo_login,
-        'year': data.year,
         "oo_name": data.oo_name,
         "oo_address": data.oo_address,
-        "director": data.director,
-        "email_oo": data.email_oo,
-        "phone_number": data.phone_number,
         "coordinates": data.coordinates,
-        "url": data.url,
         "district_name": district_name,
-        "id_region": id_region,
-	"icon": customIcon
+        "id_region": id_region
     });
 
-    var text =
-            "<p class='district'>" + marker.options.district_name + "</p>" +
-
-            "<div class='block'>" +
-
-                 "<div class='name'>" + marker.options.oo_name + "</div>" +
-            "</div>" +
-	        "<div class='block'>" +
-                 "<div>" + 'Адрес:' + "</div>" +
-                 "<div class='address'>" + marker.options.oo_address + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Директор:' + "</div>" +
-                 "<div class='director'>" + marker.options.director + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Почта:' + "</div>" +
-                 "<div class='oo'>" + marker.options.email_oo + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Телефон:' + "</div>" +
-                 "<div class='phone'>" + marker.options.phone_number + "</div>" +
-            "</div>" +
-            "<div class='block'>" +
-                 "<div>" + 'Сайт:' + "</div>" +
-                 "<a href='" + marker.options.url + "' class='url' + target= + '_blank' + >" + marker.options.url + "</a>" +
-            "</div>";
-
-    marker.bindPopup(text, {autoClose:false});
+    marker.bindPopup("",{autoClose:false});
 
     marker.on('click', function(){
+        if (!marker._popup._content){
+            let text = "hello"
+            marker._popup._content = text
+        }
         marker.openPopup();
     });
 
