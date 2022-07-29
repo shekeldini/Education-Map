@@ -1,6 +1,8 @@
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
+let table = document.getElementById('filter');
+let selectedTd;
 let start_position = new L.LatLng(52.726338, 82.466781);
 let start_zoom = 7.5;
 let region_weight = 4;
@@ -64,7 +66,7 @@ var map = L.map('map', {
     maxBounds: maxBounds,
     zoomControl: false,
     edgeBufferTiles: 5,
-    maxZoom: 15
+    maxZoom: 17
 });
 
 
@@ -129,9 +131,9 @@ map.on("zoomend", function(){
     if (zoom < 9.5) {
         changeOpacity(0.8)
     };
-    if (zoom < 7.5) {
-        changeBorderWeight(1)
-    };
+//    if (zoom < 7.5) {
+//        changeBorderWeight(1)
+//    };
 })
 
 var markers = L.markerClusterGroup({singleMarkerMode: true})
@@ -248,10 +250,7 @@ function menu_create_region_item(region){
 	        close_children(this.parentNode)
 	        deleteLayersForRegion(region.options.id_region);
 	    }
-        map.flyTo(region.getBounds().getCenter(), 8.5, {
-            animate: true,
-            duration: 1
-        });
+	    flyToRegion(region.getBounds().getCenter())
     };
     span.className = "hide";
     span.classList.add('closed');
@@ -285,37 +284,37 @@ async function menu_create_district_item(district){
 
     let ul = document.createElement('ul');
     ul.hidden = true;
-    var schools = await getSchools(district);
-
-    for (school of schools){
-        if (school.coordinates != ""){
-            var school_li = document.createElement('li');
-            var school_span = document.createElement('span');
-            school_span.className = "list-four";
-            school_span.innerHTML+= school.oo_name;
-            school_span.setAttribute('coordinates', school.coordinates);
-            school_span.onclick = function(){
-                let coordinates = this.getAttribute('coordinates')
-                coordinates = coordinates.split(";").map(str => parseFloat(str));
-                var latLon = new L.LatLng(coordinates[0], coordinates[1]);
-                flyToSchool(latLon);
-                map.once('moveend', ()=>openSchoolPopUp(this.innerHTML));
-            };
-            school_li.appendChild(school_span);
-            ul.appendChild(school_li);
-        };
-    };
-
 
     span.onclick = async function () {
 	    deleteLayersForDistrict(span.innerHTML);
+
         if (span.className == "closed hide"){
-            var schools = await getSchools(district);
-            for (school of schools){
-                if (school.coordinates != ""){
+            let schools = await getSchools(district.options.id_district);
+
+            if (!ul.childElementCount){
+	            for (school of schools){
+                    let school_li = document.createElement('li');
+                    let school_span = document.createElement('span');
+                    school_span.className = "list-four";
+                    school_span.innerHTML+= school.oo_name;
+                    school_span.setAttribute('coordinates', school.coordinates);
+                    school_span.onclick = function(){
+                        let coordinates = this.getAttribute('coordinates')
+                        coordinates = coordinates.split(";").map(str => parseFloat(str));
+                        var latLon = new L.LatLng(coordinates[0], coordinates[1]);
+                        flyToSchool(latLon);
+                        map.once('moveend', ()=>openSchoolPopUp(this.innerHTML));
+                    };
+                    school_li.appendChild(school_span);
+                    ul.appendChild(school_li);
+                    create_marker(school, district.options.name, district.options.id_region);
+                };
+	        }
+	        else{
+	            for (school of schools){
                     create_marker(school, district.options.name, district.options.id_region);
                 }
-            }
+	        };
             markers.addTo(map);
             span.className = "closed open show active";
         };
@@ -377,14 +376,9 @@ async function load_districts(){
                         if (menu_region_item.className != "closed active open show"){
                             menu_region_item.click()
                         }
-                        else{
-                            flyToRegion(this.options.id_region)
-                        }
                         var menu_district_item = document.getElementById("id_district=" + this.options.id_district);
                         menu_district_item.click();
                     };
-
-
                 });
             };
         };
@@ -404,19 +398,14 @@ async function load_data(){
 
 load_data();
 
-function getSchools(polygon){
-    send_data = {
-        year: 2022,
-        id_district: polygon.options.id_district
-    }
+function getSchools(id_district){
     return $.ajax({
         type : 'GET',
-        url : "oo/get_all_by_year_and_id_district",
-        data: send_data
+        url : `oo/get_by_district/${id_district}`
     });
 };
 
-async function create_marker(data, district_name, id_region){
+function create_marker(data, district_name, id_region){
     var coordinates = data.coordinates.split(";").map(str => parseFloat(str));
 
     var marker = L.marker(coordinates, {
@@ -473,7 +462,7 @@ async function create_marker(data, district_name, id_region){
 };
 
 function deleteAllMarkers(){
-    markers.eachLayer(async function(layer) {
+    markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             markers.removeLayer(layer);
         };
@@ -481,7 +470,7 @@ function deleteAllMarkers(){
 };
 
 function deleteLayersForDistrict(district_name){
-    markers.eachLayer(async function(layer) {
+    markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.district_name == district_name){
                 markers.removeLayer(layer);
@@ -491,7 +480,7 @@ function deleteLayersForDistrict(district_name){
 };
 
 function openSchoolPopUp(oo_name){
-    markers.eachLayer(async function(layer) {
+    markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.oo_name == oo_name){
                 layer.openPopup();
@@ -504,7 +493,7 @@ function openSchoolPopUp(oo_name){
 };
 
 function deleteLayersForRegion(id_region){
-    markers.eachLayer(async function(layer) {
+    markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_region == id_region){
                 markers.removeLayer(layer);
@@ -514,7 +503,7 @@ function deleteLayersForRegion(id_region){
 };
 
 function changeOpacity(value){
-    regions_layers.eachLayer(async function(layer) {
+    regions_layers.eachLayer(function(layer) {
         if (layer instanceof L.Polygon && layer.options.type == "region"){
             layer.setStyle({
                 fillOpacity: value
@@ -524,7 +513,7 @@ function changeOpacity(value){
 };
 
 function changeBorderWeight(value){
-    regions_layers.eachLayer(async function(layer) {
+    regions_layers.eachLayer(function(layer) {
         if (layer instanceof L.Polygon && layer.options.type == "region"){
             layer.setStyle({
                 weight: value
@@ -554,39 +543,35 @@ function createFoundItem(item){
     let div = document.createElement('div');
     div.className = 'menu-search__wrapper-item'
     div.innerHTML += "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>"
-    div.onclick = async function(){
-        markers.clearLayers();
-        await create_marker(item, item.district_name, null)
+    div.onclick = function(){
+        deleteAllMarkers();
+        create_marker(item, item.district_name, null)
         markers.addTo(map);
-        flyToSchool(item.coordinates.split(";").map(str => parseFloat(str)))
+        //flyToSchool(item.coordinates.split(";").map(str => parseFloat(str)))
         map.once('moveend', ()=>openSchoolPopUp(item.oo_name));
     }
     $("#search_result").append(div);
 };
 
+function flyToRegion(point){
+    map.flyTo(point, 8.5)
+}
 
-function flyToRegion(id_region){
-    regions_layers.eachLayer(async function(layer) {
+function flyToRegionById(id_region){
+    regions_layers.eachLayer(function(layer) {
         if (layer instanceof L.Polygon && layer.options.id_region == id_region){
-            map.flyTo(layer.getBounds().getCenter(), 8.5, {
-            animate: true,
-            })
+            flyToRegion(layer.getBounds().getCenter())
+            return
         };
     })
 };
 
 function flyToStartPosition(){
-    map.flyTo(start_position, start_zoom, {
-            animate: true,
-        });
+    map.flyTo(start_position, start_zoom);
 };
 
 function flyToSchool(latLon){
-    map.flyTo(latLon, 16.5, {
-        animate: true,
-        duration: 2,
-        easeLinearity: 1
-    });
+    map.flyTo(latLon, 16.5);
 };
 
 
@@ -680,9 +665,6 @@ function close_children(parent){
     }
 };
 
-let table = document.getElementById('filter');
-
-let selectedTd;
 
 table.onclick = function(event) {
     let target = event.target;
