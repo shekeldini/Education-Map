@@ -1,6 +1,12 @@
-function createTabHeaderItem(){
+function createTabHeaderItem(i){
     let tabheader_item = document.createElement('div');
-    tabheader_item.className = "tabheader-item";
+    if (i === 0){
+        tabheader_item.className = "tabheader-item tabheader-item__active";
+    }
+    else{
+        tabheader_item.className = "tabheader-item";
+    }
+
     let tabheader_item__icon = document.createElement('svg');
     tabheader_item__icon.className = "tabheader-item__icon";
 
@@ -48,6 +54,7 @@ function create_base_info(base_info){
     let tabcontent_mail__descr = document.createElement('a');
     tabcontent_mail__descr.className = "tabcontent-mail__descr";
     tabcontent_mail__descr.href = base_info.email_oo;
+    tabcontent_mail__descr.innerHTML = base_info.email_oo;
 
     let tabcontent_phone = document.createElement('div');
     tabcontent_phone.className= "tabcontent-phone";
@@ -57,6 +64,7 @@ function create_base_info(base_info){
     let tabcontent_phone__descr = document.createElement('a');
     tabcontent_phone__descr.className ="tabcontent-phone__descr";
     tabcontent_phone__descr.href = base_info.phone_number;
+    tabcontent_phone__descr.innerHTML = base_info.phone_number;
 
     let tabcontent_site = document.createElement('div');
     tabcontent_site.className = "tabcontent-site";
@@ -66,6 +74,7 @@ function create_base_info(base_info){
     let tabcontent_site__desrc = document.createElement('a');
     tabcontent_site__desrc.className = "tabcontent-site__desrc";
     tabcontent_site__desrc.href = base_info.url;
+    tabcontent_site__desrc.innerHTML = base_info.url;
 
     tabcontent_oo.appendChild(tabcontent_oo__title);
     tabcontent_oo.appendChild(tabcontent_oo__descr);
@@ -92,6 +101,7 @@ function create_base_info(base_info){
 function create_sreda_info(digital) {
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
+    tabContent.hidden = true
 
     let sreda_wrapper = document.createElement('div');
     sreda_wrapper.className ="sreda-wrapper";
@@ -161,28 +171,60 @@ function create_sreda_info(digital) {
     return tabContent
 }
 
+function hideTabContent(tabsContent, tabs){
+    tabsContent.forEach(item => {
+        item.classList.add('hide');
+        item.classList.remove('show', 'fade');
+    });
+
+    tabs.forEach(item => {
+        item.classList.remove('tabheader-item__active');
+    });
+}
+
+function showTabContent(tabsContent, tabs, i = 0) {
+    tabsContent[i].classList.add('show', 'fade');
+    tabsContent[i].classList.remove('hide');
+    tabs[i].classList.add('tabheader-item__active');
+}
+
+
+
 
 function create_text(data){
-
-    let wrapperTabs = document.createElement('div')
-    wrapperTabs.className = "wrapperTabs"
 
     let tabContainer = document.createElement('div')
     tabContainer.className = "tabcontainer"
     
     let tabHeader = document.createElement('div')
-    tabHeader.className = "tabHeader"
+    tabHeader.className = "tabheader"
+
     
     for (let i = 0; i < 5; i++){
-        tabHeader.appendChild(createTabHeaderItem());
+        tabHeader.appendChild(createTabHeaderItem(i));
     }
 
     tabContainer.appendChild(tabHeader)
     tabContainer.appendChild(create_base_info(data.base_info));
     if (data.digital) {
         tabContainer.appendChild(create_sreda_info(data.digital));
-    }
+    };
+    let tabsContent = tabContainer.querySelectorAll('.tabcontent');
+    let tabs = tabHeader.querySelectorAll('.tabheader-item');
+    console.log(tabsContent)
+    console.log(tabs)
+    tabHeader.addEventListener('click', (event) => { //Вещаем событие(а также дилегирование) на табы
+        const target = event.target; //Создаем переменную target, в которую помещаем event.target чтобы потом сочетание event.target прописывать часто, заменяя его просто target
 
-    wrapperTabs.appendChild(tabContainer)
-    return wrapperTabs
+        if (target && target.classList.contains('tabheader-item')) {
+            tabs.forEach((item, i) => { //В качестве второго аргумента(i) у forEach используется номер перебираемого элемента по порядку, аргумент item сам элемент
+                if (target == item) { //Если элемент(target) в который мы кликнули будет совпадать с элементом, который мы перебираем в цикле forEach, то мы вызываем функции
+                    hideTabContent(tabsContent, tabs); //2 функции нужны для того, чтобы скрывать остальные элементы
+                    showTabContent(tabsContent, tabs, i); //i номер элемента в условии, в котором мы перебираем элементы
+                }
+            });
+        }
+
+    });
+    return tabContainer
 }
