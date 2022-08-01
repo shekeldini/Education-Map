@@ -115,4 +115,4 @@ async def private(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host='10.10.2.141', reload=False)
+    uvicorn.run("main:app", host='localhost', reload=False)

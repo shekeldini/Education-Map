@@ -200,6 +200,10 @@ ul {
      margin-left: 10px;
 }
 
+.list-one li {
+    margin-bottom: 10px;
+}
+
 .list-two li {
       margin-top: 10px;
       margin-left: 15px;
@@ -208,11 +212,14 @@ ul {
 .list-three {
   margin-top: 0px;
   margin-bottom: 15px;
+  margin-left: 15px;
      
 }
 
 .list-three li {
  margin-bottom: -5px;
+ margin-top: 10px;
+     margin-left: 15px;
 }
 
 .list-one span {
