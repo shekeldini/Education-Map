@@ -12,8 +12,24 @@ class OORepository(BaseRepository):
         return [ResponseOO.parse_obj(row) for row in await self.database.fetch_all(query)]
 
     async def get_by_id(self, id_oo: int) -> Optional[ResponseOO]:
-        query = oo.select().where(oo.c.id_oo == id_oo)
-        res = await self.database.fetch_one(query)
+        query = """
+        SELECT 
+            oo.id_oo,
+            oo.id_district,
+            oo.oo_name,
+            oo.oo_address,
+            oo.director,
+            oo.email_oo,
+            oo.phone_number,
+            oo.coordinates,
+            oo.url,
+            district.district_name
+        FROM oo
+            LEFT JOIN district ON
+                oo.id_district = district.id_district
+            WHERE oo.id_oo = :id_oo ;
+        """
+        res = await self.database.fetch_one(query, {"id_oo": id_oo})
         if res is None:
             return None
         return ResponseOO.parse_obj(res)
@@ -32,10 +48,24 @@ class OORepository(BaseRepository):
 
     async def get_by_district(self, id_district: int) -> Optional[List[ResponseOO]]:
         query = """
-        SELECT * FROM oo 
-        WHERE id_district = :id_district
-        AND show = TRUE
-        ORDER BY oo_name;"""
+        SELECT 
+            oo.id_oo,
+            oo.id_district,
+            oo.oo_name,
+            oo.oo_address,
+            oo.director,
+            oo.email_oo,
+            oo.phone_number,
+            oo.coordinates,
+            oo.url,
+            district.district_name
+        FROM oo
+            LEFT JOIN district ON
+                oo.id_district = district.id_district
+            WHERE oo.id_district = :id_district 
+            AND show = TRUE
+        ORDER BY oo.oo_name;
+        """
 
         res = await self.database.fetch_all(query, {
             "id_district": id_district
