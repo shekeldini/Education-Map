@@ -8,3 +8,4 @@ venv
 /logs
 *.swp
 test.py
+*.xlsx

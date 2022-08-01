@@ -1,16 +1,17 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status
-
-from models.search import SearchResponse, Search
-from models.users import Users
+from fastapi import APIRouter, Depends, HTTPException, status, Path
+from models.request.search import RequestSearch
+from models.response.search import ResponseSearch
+from models.response.users import ResponseUsers
 from repositories.oo import OORepository
-from models.oo import OO, OOIn, OOLoginOOName, OOLoginUrl
+from models.request.oo import RequestOO
+from models.response.oo import ResponseOO
 from .depends import get_oo_repository, get_current_user
 
 router = APIRouter()
 
 
-@router.get("/get_all", response_model=List[OO])
+@router.get("/get_all", response_model=List[ResponseOO])
 async def read_oo(
         oo: OORepository = Depends(get_oo_repository),
         limit: int = 100,
@@ -18,78 +19,45 @@ async def read_oo(
     return await oo.get_all(limit=limit, skip=skip)
 
 
-@router.get("/get_by_id", response_model=OO)
-async def read_oo_by_id(
-        id_oo: int,
+@router.get("/get_by_district/{id_district}", response_model=List[ResponseOO])
+async def read_oo_by_district(
+        id_district: int = Path(...),
         oo: OORepository = Depends(get_oo_repository)):
-    return await oo.get_by_id(id_oo)
+    return await oo.get_by_district(id_district)
 
 
-@router.get("/get_by_oo_login_and_year", response_model=OO)
-async def read_oo_by_oo_login_and_year(
-        oo_login: str,
-        year: str,
-        oo: OORepository = Depends(get_oo_repository)):
-    return await oo.get_by_oo_login_and_year(oo_login, year)
-
-
-@router.get("/get_all_by_year_and_id_district", response_model=List[OO])
-async def read_oo_by_year_and_id_district(
-        year: str,
-        id_district: int,
-        oo: OORepository = Depends(get_oo_repository)):
-    return await oo.get_all_by_year_and_id_district(year, id_district)
-
-
-@router.get("/get_all_by_year", response_model=List[OO])
-async def read_oo_by_year(
-        year: str,
-        oo: OORepository = Depends(get_oo_repository)):
-    return await oo.get_all_by_year(year)
-
-
-@router.get("/get_all_oo_url_by_year", response_model=List[OOLoginUrl])
-async def read_all_oo_url_by_year(
-        year: str,
-        oo: OORepository = Depends(get_oo_repository)):
-    return await oo.get_all_oo_url_by_year(year)
-
-
-@router.get("/search", response_model=SearchResponse)
+@router.get("/search", response_model=ResponseSearch)
 async def search_oo_name(
-        model: Search = Depends(),
+        model: RequestSearch = Depends(),
         oo: OORepository = Depends(get_oo_repository)):
-    return await oo.search_oo_name(model.oo_name)
+    return await oo.search(model.oo_name)
 
 
-@router.post("/", response_model=OO)
-async def create_oo(
-        oo_in: OOIn,
-        oo: OORepository = Depends(get_oo_repository),
-        current_user: Users = Depends(get_current_user)
+@router.post("/")
+async def import_oo(
+        items: List[RequestOO],
+        oo: OORepository = Depends(get_oo_repository)
 ):
-    if not current_user.is_admin():
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
-    return await oo.create(oo_in)
+    return await oo.import_oo(items)
 
 
-@router.delete("/", response_model=OO)
+@router.delete("/")
 async def delete_district(
         id_oo: int,
         oo: OORepository = Depends(get_oo_repository),
-        current_user: Users = Depends(get_current_user)
+        current_user: ResponseUsers = Depends(get_current_user)
 ):
     if not current_user.is_admin():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await oo.delete(id_oo)
 
 
-@router.put("/", response_model=OO)
+@router.put("/")
 async def update_district(
         id_oo: int,
-        oo_in: OOIn,
+        oo_in: RequestOO,
         oo: OORepository = Depends(get_oo_repository),
-        current_user: Users = Depends(get_current_user)
+        current_user: ResponseUsers = Depends(get_current_user)
 ):
     if not current_user.is_admin():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
