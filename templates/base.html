@@ -21,6 +21,7 @@
 	{% endblock %}
 <head>
 <body>
+<div class="wrapper">
 	<header class="header">
 	   <div class="header-logo">
 	      <img class="header-wrapper__login-img" src="{{ url_for('static', path='images/obraz.png') }}" alt="">
@@ -47,30 +48,20 @@
 	   </div>
 
 	</header>
-	{% block content -%}
+	<main class="main">
+	   {% block content -%}
 	
-	{% endblock -%}
+	   {% endblock -%}
+	</main>
 
 	<footer class="footer">
-	   <div class="footer-wrapper-logo">
-              <div class="footer-wrapper-logo__top">
-<!--	         <h3 class="footer-wrapper-logo__title">Другие наши сервисы:</h3> -->
-              </div>
-	      <div class="footer-wrapper-logo__low">
-	         <a href="https://audit.22edu.ru/" target="_blank"  class="footer-wrapper-logo__low_block">
-		    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/audit.png') }}" alt="" >
-		 </a>
-		 <a href="http://ege.edu22.info/" target="_blank"  class="footer-wrapper-logo__low_block">
-                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/gia.png') }}" alt="" >
-                 </a>
-		 <a href="https://vpr22.22edu.ru/" target="_blank" class="footer-wrapper-logo__low_block">
-                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/vpr22.jpg') }}" alt="" >
-                 </a>
-		 <a href="https://rop.22edu.ru/" target="_blank" class="footer-wrapper-logo__low_block">
-                    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/rop.png') }}" alt="" >
-                 </a>
-
-	      </div>
+	   <div class="yandex">
+	   	<ymaps class="ymaps-2-1-79-copyright__wrap"><ymaps class="ymaps-2-1-79-copyright__layout"><ymaps class="ymaps-2-1-79-copyright__content-cell">
+		<ymaps class="ymaps-2-1-79-copyright__content"><ymaps class="ymaps-2-1-79-copyright__text">© Яндекс</ymaps>
+		<ymaps class="ymaps-2-1-79-copyright__agreement">&nbsp;
+		<a class="ymaps-2-1-79-copyright__link" target="_blank" href="https://yandex.ru/legal/maps_termsofuse/?lang=ru" rel="noopener">Условия использования</a></ymaps></ymaps>
+		</ymaps><ymaps class="ymaps-2-1-79-copyright__logo-cell"><a class="ymaps-2-1-79-copyright__logo" href="https://yandex.ru/maps/?origin=jsapi21&amp;ll=82.466781,52.726338&amp;z=8&amp;l=map&amp;from=api-maps" target="_blank"></a></ymaps>
+		</ymaps></ymaps>
 	   </div>
 
 	   <div class="footer-wrapper-contacts">
@@ -85,8 +76,30 @@
                  </div>
               </div>
 	   </div>
+
+	   <div class="footer-wrapper-logo">
+              <div class="footer-wrapper-logo__top">
+<!--             <h3 class="footer-wrapper-logo__title">Другие наши сервисы:</h3> -->
+              </div>
+              <div class="footer-wrapper-logo__low">
+                 <a href="https://audit.22edu.ru/" target="_blank"  class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/audit1.png') }}" alt="" >
+                 </a>
+                 <a href="http://ege.edu22.info/" target="_blank"  class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/gia.png') }}" alt="" >
+                 </a>
+                 <a href="https://vpr22.22edu.ru/" target="_blank" class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img custom-size" src="{{ url_for('static', path='images/vpr22.jpg') }}" alt="" >
+                 </a>
+                 <a href="https://rop.22edu.ru/" target="_blank" class="footer-wrapper-logo__low_block">
+                    <img class="footer-wrapper-logo__low_block_img" src="{{ url_for('static', path='images/rop1.png') }}" alt="" >
+                 </a>
+
+              </div>
+           </div>
 	  
 	</footer>
+</div>
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >

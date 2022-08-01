@@ -1,7 +1,7 @@
 var tree = document.getElementById('tree');
 
 for(let ul of tree.querySelectorAll('ul')){
-    ul.hidden = true;
+    ul.hidden = false;
 }
 
 

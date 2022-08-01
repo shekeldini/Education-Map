@@ -3,7 +3,7 @@ var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
 let start_position = new L.LatLng(52.726338, 82.466781);
 let start_zoom = 7.5;
-let region_weight = 4;
+let region_weight = 5;
 let current_filter = "info";
 let this_polygon = null;
 let iconOptions = {
@@ -32,8 +32,8 @@ if (window_width == 2560 && window_height == 1440){
     ]
 }
 
-if (window_width == 1280) {
-    start_zoom = 6.7;
+if (window_width <= 1580) {
+    start_zoom = 6.75;
     region_weight = 3;
     maxBounds = [
         [50.28933925329178,75.498046875],
@@ -58,13 +58,13 @@ if (window_width == 768) {
 
 
 var map = L.map('map', {
-    zoomSnap: 0.5,
+    zoomSnap: 0.25,
     zoomAnimation: true,
     minZoom: start_zoom,
     maxBounds: maxBounds,
     zoomControl: false,
     edgeBufferTiles: 5,
-    maxZoom: 15
+    maxZoom: 17
 });
 
 
@@ -80,7 +80,6 @@ map.doubleClickZoom.disable();
 $.getJSON('static/files/kray.json').then(function(geoJSON) {
     var osm = new L.TileLayer.BoundaryCanvas('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=22.07.19-2-b220606200930&x={x}&y={y}&z={z}&scale=1&lang=ru_RU&ads=enabled', {
     boundary: geoJSON,
-    attribution: '<ymaps class="ymaps-2-1-79-copyright__wrap"><ymaps class="ymaps-2-1-79-copyright__layout"><ymaps class="ymaps-2-1-79-copyright__content-cell"><ymaps class="ymaps-2-1-79-copyright__content"><ymaps class="ymaps-2-1-79-copyright__text">© Яндекс</ymaps><ymaps class="ymaps-2-1-79-copyright__agreement">&nbsp;<a class="ymaps-2-1-79-copyright__link" target="_blank" href="https://yandex.ru/legal/maps_termsofuse/?lang=ru" rel="noopener">Условия использования</a></ymaps></ymaps></ymaps><ymaps class="ymaps-2-1-79-copyright__logo-cell"><a class="ymaps-2-1-79-copyright__logo" href="https://yandex.ru/maps/?origin=jsapi21&amp;ll=82.466781,52.726338&amp;z=8&amp;l=map&amp;from=api-maps" target="_blank"></a></ymaps></ymaps></ymaps>'
     }).addTo(map);
 
     var coordinates = geoJSON["features"][0]["geometry"]["coordinates"][0]
@@ -186,7 +185,7 @@ async function load_regions(){
         for(region of json){
             var name = region.name
             var coordinates = region.coordinates
-            var color = region.color
+            var color = "#0e4677"
 	        var fillOpacity = region.fillOpacity
             var id_region = region.id_region
             var polygon = L.polygon(coordinates, {
