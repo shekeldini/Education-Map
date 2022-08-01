@@ -251,7 +251,6 @@ function menu_create_region_item(region){
 	        deleteLayersForRegion(region.options.id_region);
 	    }
 	    flyToRegion(region.getBounds().getCenter())
-
     };
     span.className = "hide";
     span.classList.add('closed');
@@ -670,7 +669,6 @@ table.onclick = function(event) {
             selectedTd.parentNode.open = false;
         };
         selectedTd = target;
-
         current_filter = target.parentNode.id;
     }
 };

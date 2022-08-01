@@ -9,7 +9,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from core.security import verify_password
 from db.base import database, redis
-from endpoints import district, roles, users, auth, oo_logins, oo, digital, info
+from endpoints import district, roles, users, auth, oo_logins, oo, digital, info, ege
 from endpoints.depends import get_users_repository, get_user
 from repositories.users import UsersRepository
 
@@ -34,6 +34,7 @@ app.include_router(oo_logins.router, prefix='/oo_logins', tags=["oo_logins"])
 app.include_router(oo.router, prefix='/oo', tags=["oo"])
 app.include_router(digital.router, prefix='/digital', tags=["digital"])
 app.include_router(info.router, prefix='/info', tags=["info"])
+app.include_router(ege.router, prefix='/ege', tags=["ege"])
 
 
 @app.on_event("startup")
@@ -91,7 +92,7 @@ async def index(request: Request, refresh_token: Optional[str] = Cookie(None)):
     return templates.TemplateResponse("map.html", {
         "request": request,
         "title": "Интерактивная карта",
-        "user": current_user
+        "user": current_user,
     })
 
 

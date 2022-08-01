@@ -9,6 +9,7 @@ from repositories.oo import OORepository
 from repositories.roles import RolesRepository
 from repositories.users import UsersRepository
 from repositories.oo_logins import OOLoginsRepository
+from repositories.ege import EgeRepository
 
 
 def get_district_repository() -> DistrictRepository:
@@ -33,6 +34,10 @@ def get_oo_repository() -> OORepository:
 
 def get_digital_repository() -> DigitalRepository:
     return DigitalRepository(database)
+
+
+def get_ege_repository() -> EgeRepository:
+    return EgeRepository(database)
 
 
 async def get_current_user(
