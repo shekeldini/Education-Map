@@ -233,7 +233,7 @@ function create_menu(){
 
 
 function menu_create_region_item(region){
-    var select_region = document.getElementById('select_region');
+    var select_region = tree;
     let li = document.createElement('li');
     let ul = document.createElement('ul');
     let span = document.createElement('span');
@@ -298,12 +298,13 @@ async function menu_create_district_item(district){
                     school_span.className = "list-four";
                     school_span.innerHTML+= school.oo_name;
                     school_span.setAttribute('coordinates', school.coordinates);
+                    school_span.setAttribute('id_oo', school.id_oo);
                     school_span.onclick = function(){
                         let coordinates = this.getAttribute('coordinates')
-                        coordinates = coordinates.split(";").map(str => parseFloat(str));
+                        coordinates = coordinates.split(",").map(str => parseFloat(str));
                         var latLon = new L.LatLng(coordinates[0], coordinates[1]);
                         flyToSchool(latLon);
-                        map.once('moveend', ()=>openSchoolPopUp(this.innerHTML));
+                        map.once('moveend', ()=>openSchoolPopUp(this.getAttribute('id_oo')));
                     };
                     school_li.appendChild(school_span);
                     ul.appendChild(school_li);
@@ -368,10 +369,10 @@ async function load_districts(){
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
                         info.open = true
-                        var menu_select_region_item = document.getElementById("li:select_region");
-                        if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
-                            menu_select_region_item.firstChild.click()
-                        }
+//                        var menu_select_region_item = document.getElementById("li:select_region");
+//                        if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
+//                            menu_select_region_item.firstChild.click()
+//                        }
                         var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
                         if (menu_region_item.className != "closed active open show"){
                             menu_region_item.click()
@@ -387,7 +388,7 @@ async function load_districts(){
 };
 
 async function load_data(){
-    create_menu();
+    // create_menu();
     await load_regions();
     regions_layers.addTo(map);
     await load_districts();
@@ -415,7 +416,7 @@ function getSchoolInfo(id_oo){
 
 function create_marker(id_oo, id_region, id_district, coordinates){
 
-    var marker = L.marker(coordinates, {"id_region": id_region, "id_district": id_district});
+    var marker = L.marker(coordinates, {"id_region": id_region, "id_district": id_district, "id_oo": id_oo});
 
     marker.bindPopup("",{autoClose:false});
 
@@ -449,11 +450,12 @@ function deleteLayersForDistrict(id_district){
     })
 };
 
-function openSchoolPopUp(oo_name){
+function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
-            if (layer.options.oo_name == oo_name){
-                layer.openPopup();
+            if (layer.options.id_oo == id_oo){
+                console.log("found")
+                layer.click()
             }
             else{
                 layer.closePopup();

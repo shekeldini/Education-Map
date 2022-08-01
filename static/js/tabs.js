@@ -152,7 +152,6 @@ function create_sreda_info(digital) {
             let sreda_wrapper__ul_li = document.createElement('li')
             sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
             sreda_wrapper__ul_li.innerHTML += arr_keys[key];
-            console.log(sreda_wrapper__ul)
             sreda_wrapper__ul.appendChild(sreda_wrapper__ul_li);
         }
     }
@@ -211,11 +210,9 @@ function create_text(data){
     };
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
-    console.log(tabsContent)
-    console.log(tabs)
     tabHeader.addEventListener('click', (event) => { //Вещаем событие(а также дилегирование) на табы
         const target = event.target; //Создаем переменную target, в которую помещаем event.target чтобы потом сочетание event.target прописывать часто, заменяя его просто target
-
+        console.log(target)
         if (target && target.classList.contains('tabheader-item')) {
             tabs.forEach((item, i) => { //В качестве второго аргумента(i) у forEach используется номер перебираемого элемента по порядку, аргумент item сам элемент
                 if (target == item) { //Если элемент(target) в который мы кликнули будет совпадать с элементом, который мы перебираем в цикле forEach, то мы вызываем функции
