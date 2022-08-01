@@ -2,7 +2,8 @@ let info = document.getElementById('info');
 var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
 let table = document.getElementById('filter');
-let selectedTd;
+let selectedTd = info.firstChild;
+let info_select;
 let start_position = new L.LatLng(52.726338, 82.466781);
 let start_zoom = 7.5;
 let region_weight = 5;
@@ -250,6 +251,7 @@ function menu_create_region_item(region){
 	        deleteLayersForRegion(region.options.id_region);
 	    }
 	    flyToRegion(region.getBounds().getCenter())
+
     };
     span.className = "hide";
     span.classList.add('closed');
@@ -368,11 +370,11 @@ async function load_districts(){
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
                         info.open = true
-//                        var menu_select_region_item = document.getElementById("li:select_region");
-//                        if (menu_select_region_item.firstChild.className == "show closed" || menu_select_region_item.firstChild.className == "closed hide"){
-//                            menu_select_region_item.firstChild.click()
-//                        }
+
                         var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
+
+                        selectedTd = info_select
+
                         if (menu_region_item.className != "closed active open show"){
                             menu_region_item.click()
                         }
@@ -611,6 +613,7 @@ function get_all_digital_items(){
 };
 
 function close_children(parent){
+
     let ul_element = parent.querySelector("ul")
     if (ul_element){
         for (let i = 0; i < ul_element.children.length; i++) {
@@ -626,6 +629,7 @@ function close_children(parent){
 };
 
 
+info_select = info.querySelector('summary')
 table.onclick = function(event) {
     let target = event.target;
     let flag = false
@@ -643,13 +647,30 @@ table.onclick = function(event) {
     if (flag){
         deleteAllMarkers();
         if (target == selectedTd){
+            if (target == info_select){
+                for (let i = 0; i < tree.children.length; i++){
+                    close_children(tree.children[i])
+
+                    tree.children[i].children[0].className = "closed hide"
+                    tree.children[i].children[1].hidden = true
+                }
+            }
             current_filter = "info";
             return
         };
         if(selectedTd){
+            if (selectedTd == info_select){
+                for (let i = 0; i < tree.children.length; i++){
+                    close_children(tree.children[i])
+
+                    tree.children[i].children[0].className = "closed hide"
+                    tree.children[i].children[1].hidden = true
+                };
+            };
             selectedTd.parentNode.open = false;
         };
         selectedTd = target;
+
         current_filter = target.parentNode.id;
     }
 };

@@ -13,15 +13,14 @@ tree.onclick = function (event) {
     if (!childrenContainer) return;
 
     childrenContainer.hidden = !childrenContainer.hidden;
-
     if(childrenContainer.hidden) {
         event.target.classList.add('hide');
         event.target.classList.remove('show');
-	event.target.classList.remove('open');
+	    event.target.classList.remove('open');
         event.target.classList.remove('active');
     } else {
         event.target.classList.toggle('active');
-	event.target.classList.toggle("open");
+	    event.target.classList.toggle("open");
         event.target.classList.add('show');
         event.target.classList.remove('hide');
     }
