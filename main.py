@@ -9,8 +9,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from core.security import verify_password
 from db.base import database, redis
-from endpoints import district, oo_location_type, roles, users, auth, name_of_the_settlement, \
-    organizational_and_legal_form, population_of_the_settlement, oo_logins, organisation_status, oo, digital_environment
+from endpoints import district, roles, users, auth, oo_logins, oo, digital, info
 from endpoints.depends import get_users_repository, get_user
 from repositories.users import UsersRepository
 
@@ -31,16 +30,10 @@ app.include_router(auth.router, prefix='/auth', tags=["auth"])
 app.include_router(users.router, prefix='/user', tags=["users"])
 app.include_router(roles.router, prefix='/roles', tags=["roles"])
 app.include_router(district.router, prefix='/district', tags=["district"])
-app.include_router(oo_location_type.router, prefix='/oo_location_type', tags=["oo_location_type"])
-app.include_router(name_of_the_settlement.router, prefix='/name_of_the_settlement', tags=["name_of_the_settlement"])
-app.include_router(organizational_and_legal_form.router, prefix='/organizational_and_legal_form',
-                   tags=["organizational_and_legal_form"])
-app.include_router(population_of_the_settlement.router, prefix='/population_of_the_settlement',
-                   tags=["population_of_the_settlement"])
 app.include_router(oo_logins.router, prefix='/oo_logins', tags=["oo_logins"])
-app.include_router(organisation_status.router, prefix='/organisation_status', tags=["organisation_status"])
 app.include_router(oo.router, prefix='/oo', tags=["oo"])
-app.include_router(digital_environment.router, prefix='/digital_environment', tags=["digital_environment"])
+app.include_router(digital.router, prefix='/digital', tags=["digital"])
+app.include_router(info.router, prefix='/info', tags=["info"])
 
 
 @app.on_event("startup")
@@ -76,7 +69,7 @@ async def get_current_username(
 
 
 @app.get("/docs", include_in_schema=False)
-async def get_swagger_documentation(username: str = Depends(get_current_username)):
+async def get_swagger_documentation():
     return get_swagger_ui_html(openapi_url="/openapi.json", title="docs")
 
 
@@ -86,7 +79,7 @@ async def get_redoc_documentation(username: str = Depends(get_current_username))
 
 
 @app.get("/openapi.json", include_in_schema=False)
-async def openapi(username: str = Depends(get_current_username)):
+async def openapi():
     return get_openapi(title=app.title, version=app.version, routes=app.routes)
 
 

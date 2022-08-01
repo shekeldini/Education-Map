@@ -137,6 +137,7 @@ function create_sreda_info(digital) {
         arm_ped: "АРМ педагогов (шт.): ",
         arm_adm: "АРМ административных (шт.): ",
         server: "Серверов (шт.): "
+
     }
     let sreda_wrapper__ul_last = document.createElement('ul');
     sreda_wrapper__ul_last.className = "sreda_wrapper__ul-last";
@@ -152,6 +153,7 @@ function create_sreda_info(digital) {
             let sreda_wrapper__ul_li = document.createElement('li')
             sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
             sreda_wrapper__ul_li.innerHTML += arr_keys[key] + digital[key];
+
             sreda_wrapper__ul.appendChild(sreda_wrapper__ul_li);
         }
     }
