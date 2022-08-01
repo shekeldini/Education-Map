@@ -2,11 +2,25 @@ from typing import Optional
 
 from db.digital import digital
 from models.request.digital import RequestDigital
-from models.response.digital import ResponseDigital, DigitalItem
+from models.response.digital import DigitalItem, ResponseAllDigital, AllDigitalItem
 from .base import BaseRepository
 
 
 class DigitalRepository(BaseRepository):
+    async def get_all(self) -> ResponseAllDigital:
+        query = """
+        SELECT 
+            digital.id_oo,
+            oo.coordinates
+        FROM digital
+            LEFT JOIN oo ON
+                oo.id_oo = digital.id_oo;
+        """
+        res = await self.database.fetch_all(query=query)
+        if not res:
+            return ResponseAllDigital(items=[])
+        return ResponseAllDigital(items=[AllDigitalItem.parse_obj(item) for item in res])
+
     async def get_by_id(self, id_oo: int) -> Optional[DigitalItem]:
         query = """
         SELECT 

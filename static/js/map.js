@@ -405,6 +405,14 @@ function getSchools(id_district){
     });
 };
 
+function get_digital_by_id(id_oo){
+    return $.ajax({
+        type : 'GET',
+        url : `digital/${id_oo}`
+    });
+};
+
+
 function getSchoolInfo(id_oo){
     return $.ajax({
         type : 'GET',
@@ -545,59 +553,44 @@ function flyToSchool(latLon){
     map.flyTo(latLon, 16.5);
 };
 
+function create_marker(id_oo, id_region, id_district, coordinates){
+
+    var marker = L.marker(coordinates, {"id_region": id_region, "id_district": id_district, "id_oo": id_oo});
+
+    marker.bindPopup("", {autoClose:false});
+
+    marker.on('click', async function(){
+        if (!marker._popup._content){
+            let info = await getSchoolInfo(id_oo);
+            let text = create_text(info, 0);
+            this._popup._content = text;
+        }
+        this.openPopup();
+    });
+
+    markers.addLayer(marker);
+};
+
 
 async function create_digital_markers(parent){
     deleteAllMarkers()
     if (parent.open == false){
         current_filter = "digital"
-        var digital_items = await get_digital_items(2022)
+        var digital_items = await get_all_digital_items()
         for (item of digital_items.items){
-            var coordinates = item.coordinates.split(";").map(str => parseFloat(str));
-            var marker = L.marker(coordinates, {
-                "oo_login": item.oo_login,
-                'year': item.year,
-                "oo_name": item.oo_name,
-                "oo_address": item.oo_address,
-                "director": item.director,
-                "email_oo": item.email_oo,
-                "phone_number": item.phone_number,
-                "coordinates": item.coordinates,
-                "url": item.url,
-                "district_name": item.district_name,
-            "icon": customIcon
-            });
-            var text =
-                "<p class='district'>" + marker.options.district_name + "</p>" +
 
-                "<div class='block'>" +
+            var marker = L.marker(item.coordinates, {"id_oo": item.id_oo});
 
-                     "<div class='name'>" + marker.options.oo_name + "</div>" +
-                "</div>" +
-                "<div class='block'>" +
-                     "<div>" + 'Адрес:' + "</div>" +
-                     "<div class='address'>" + marker.options.oo_address + "</div>" +
-                "</div>" +
-                "<div class='block'>" +
-                     "<div>" + 'Директор:' + "</div>" +
-                     "<div class='director'>" + marker.options.director + "</div>" +
-                "</div>" +
-                "<div class='block'>" +
-                     "<div>" + 'Почта:' + "</div>" +
-                     "<div class='oo'>" + marker.options.email_oo + "</div>" +
-                "</div>" +
-                "<div class='block'>" +
-                     "<div>" + 'Телефон:' + "</div>" +
-                     "<div class='phone'>" + marker.options.phone_number + "</div>" +
-                "</div>" +
-                "<div class='block'>" +
-                     "<div>" + 'Сайт:' + "</div>" +
-                     "<a href='" + marker.options.url + "' class='url' >" + marker.options.url + "</a>" +
-                "</div>";
+            marker.bindPopup("", {autoClose:false});
 
-            marker.bindPopup(text, {autoClose:false}).openPopup();
-
-            marker.on('click', function(){
-                marker.openPopup();
+            marker.on('click', async function(){
+                if (!marker._popup._content){
+                    let info = await getSchoolInfo(this.options.id_oo);
+                    let text = create_text(info, 1);
+                    console.log(text)
+                    this._popup._content = text;
+                }
+                this.openPopup();
             });
 
             markers.addLayer(marker);
@@ -610,14 +603,10 @@ async function create_digital_markers(parent){
 
 };
 
-function get_digital_items(year){
-    send_data = {
-        "year": year
-    }
+function get_all_digital_items(){
     return $.ajax({
         type : 'GET',
-        url : "digital_environment/get_all",
-        data: send_data
+        url : "digital/get_all"
     });
 };
 

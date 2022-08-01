@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, Response, Path
 from models.request.digital import RequestDigital
-from models.response.digital import ResponseDigital
+from models.response.digital import ResponseAllDigital, DigitalItem
 from repositories.digital import DigitalRepository
 from .depends import get_digital_repository
 
@@ -17,9 +17,8 @@ async def import_digital_items(
         await digital_repository.create(item)
 
 
-@router.get("/get_by_id/{id_oo}", response_model=ResponseDigital)
+@router.get("/get_all", response_model=ResponseAllDigital)
 async def get_all(
-        id_oo: int = Path(...),
         digital_repository: DigitalRepository = Depends(get_digital_repository)
 ):
-    return await digital_repository.get_by_id(id_oo)
+    return await digital_repository.get_all()

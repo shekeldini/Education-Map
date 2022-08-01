@@ -1,5 +1,16 @@
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
+
+
+class AllDigitalItem(BaseModel):
+    id_oo: str
+    coordinates: str
+
+    @validator("coordinates")
+    def validate(cls, value):
+        if isinstance(value, str):
+            return tuple(map(float, value.split(";")))
+        return value
 
 
 class DigitalItem(BaseModel):
@@ -20,5 +31,5 @@ class DigitalItem(BaseModel):
     ik: int
 
 
-class ResponseDigital(BaseModel):
-    items: List[DigitalItem]
+class ResponseAllDigital(BaseModel):
+    items: List[AllDigitalItem]

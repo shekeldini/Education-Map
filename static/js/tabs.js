@@ -1,6 +1,6 @@
-function createTabHeaderItem(i){
+function createTabHeaderItem(i, active){
     let tabheader_item = document.createElement('div');
-    if (i === 0){
+    if (i === active){
         tabheader_item.className = "tabheader-item tabheader-item__active";
     }
     else{
@@ -14,10 +14,12 @@ function createTabHeaderItem(i){
 
     return tabheader_item;
 }
-function create_base_info(base_info){
+function create_base_info(base_info, active){
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
-
+    if (active != 0){
+        tabContent.hidden = true
+    }
 
     let tabcontent_oo = document.createElement('div');
     tabcontent_oo.className = "tabcontent-oo";
@@ -98,10 +100,12 @@ function create_base_info(base_info){
     return tabContent;
 }
 
-function create_sreda_info(digital) {
+function create_digital_info(digital, active) {
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
-    tabContent.hidden = true
+    if (active != 1){
+        tabContent.hidden = true
+    }
 
     let sreda_wrapper = document.createElement('div');
     sreda_wrapper.className ="sreda-wrapper";
@@ -190,9 +194,7 @@ function showTabContent(tabsContent, tabs, i = 0) {
 }
 
 
-
-
-function create_text(data){
+function create_text(data, active){
 
     let tabContainer = document.createElement('div')
     tabContainer.className = "tabcontainer"
@@ -202,13 +204,13 @@ function create_text(data){
 
     
     for (let i = 0; i < 5; i++){
-        tabHeader.appendChild(createTabHeaderItem(i));
+        tabHeader.appendChild(createTabHeaderItem(i, active));
     }
 
     tabContainer.appendChild(tabHeader)
-    tabContainer.appendChild(create_base_info(data.base_info));
+    tabContainer.appendChild(create_base_info(data.base_info, active));
     if (data.digital) {
-        tabContainer.appendChild(create_sreda_info(data.digital));
+        tabContainer.appendChild(create_digital_info(data.digital, active));
     };
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
