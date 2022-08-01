@@ -1,1 +1,3 @@
-# FastApi_Map
+# Интерактивная карта Алтайского края
+Еще в разработке
+https://educationmap.22edu.ru/

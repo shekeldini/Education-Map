@@ -1,23 +1,11 @@
 from typing import Optional, List
-
-from fastapi import Query
-from pydantic import BaseModel, validator
-from pydantic.dataclasses import dataclass
-
-
-@dataclass
-class Search():
-    oo_name: str = Query(default="")
-
-    @validator("oo_name")
-    def validate_oo_name(cls, oo_name: str):
-        return oo_name.replace('"', "").replace("'", "").replace(";", "")
+from pydantic import BaseModel
 
 
 class SearchResult(BaseModel):
     id_oo: int
     oo_login: str
-    year: str
+    year: int
     oo_name: str
     oo_address: Optional[str] = None
     director: Optional[str] = None
@@ -28,5 +16,5 @@ class SearchResult(BaseModel):
     district_name: str
 
 
-class SearchResponse(BaseModel):
+class ResponseSearch(BaseModel):
     items: List[Optional[SearchResult]]

@@ -1,52 +1,50 @@
 from typing import List, Optional
 from db.oo import oo
-from models.oo import OO, OOIn, OOLoginUrl
-from models.search import SearchResponse, SearchResult
+from models.request.oo import RequestOO
+from models.response.oo import ResponseOO, ResponseOOLoginUrl
+from models.response.search import ResponseSearch, SearchResult
 from .base import BaseRepository
 
 
 class OORepository(BaseRepository):
-    async def get_all(self, limit: int = 100, skip: int = 0) -> List[OO]:
+    async def get_all(self, limit: int = 100, skip: int = 0) -> List[ResponseOO]:
         query = oo.select().limit(limit).offset(skip)
-        return [OO.parse_obj(row) for row in await self.database.fetch_all(query)]
+        return [ResponseOO.parse_obj(row) for row in await self.database.fetch_all(query)]
 
-    async def get_by_id(self, id_oo: int) -> Optional[OO]:
+    async def get_by_id(self, id_oo: int) -> Optional[ResponseOO]:
         query = oo.select().where(oo.c.id_oo == id_oo)
         res = await self.database.fetch_one(query)
         if res is None:
             return None
-        return OO.parse_obj(res)
+        return ResponseOO.parse_obj(res)
 
-    async def get_by_oo_login_and_year(self, oo_login: str, year: str) -> Optional[OO]:
+    async def exist(self, oo_login: str, filial: bool) -> bool:
         query = """
         SELECT * FROM oo 
         WHERE oo_login = :oo_login
-        AND year = :year ;"""
+        AND filial = :filial;"""
 
-        res = await self.database.fetch_one(query, {"oo_login": oo_login,
-                                                    "year": year})
-        if res is None:
-            return None
-        return OO.parse_obj(res)
+        res = await self.database.fetch_one(query, {
+            "oo_login": oo_login,
+            "filial": filial
+        })
+        return bool(res)
 
-    async def get_all_by_year_and_id_district(self, year: str, id_district: int) -> Optional[List[OO]]:
+    async def get_by_district(self, id_district: int) -> Optional[List[ResponseOO]]:
         query = """
         SELECT * FROM oo 
-        WHERE year = :year 
-        AND id_name_of_the_settlement IN
-        (
-            SELECT id_name_of_the_settlement FROM name_of_the_settlement
-            WHERE id_district = :id_district
-        )
+        WHERE id_district = :id_district
+        AND show = TRUE
         ORDER BY oo_name;"""
 
-        res = await self.database.fetch_all(query, {"year": year,
-                                                    "id_district": id_district})
+        res = await self.database.fetch_all(query, {
+            "id_district": id_district
+        })
         if res is None:
             return None
-        return [OO.parse_obj(i) for i in res]
+        return [ResponseOO.parse_obj(i) for i in res]
 
-    async def get_all_by_year(self, year: str) -> Optional[List[OO]]:
+    async def get_all_by_year(self, year: int) -> Optional[List[ResponseOO]]:
         query = """
         SELECT * FROM oo 
         WHERE year = :year ;
@@ -55,9 +53,9 @@ class OORepository(BaseRepository):
         res = await self.database.fetch_all(query, {"year": year})
         if res is None:
             return None
-        return [OO.parse_obj(i) for i in res]
+        return [ResponseOO.parse_obj(i) for i in res]
 
-    async def get_all_oo_url_by_year(self, year: str) -> Optional[List[OOLoginUrl]]:
+    async def get_all_oo_url_by_year(self, year: int) -> Optional[List[ResponseOOLoginUrl]]:
         query = """
         SELECT oo_login, url FROM oo 
         WHERE year = :year 
@@ -66,85 +64,43 @@ class OORepository(BaseRepository):
         res = await self.database.fetch_all(query, {"year": year})
         if res is None:
             return None
-        return [OOLoginUrl.parse_obj(i) for i in res]
+        return [ResponseOOLoginUrl.parse_obj(i) for i in res]
 
-    async def create(self, oo_in: OOIn) -> OO:
-        new_oo = OO(
-            oo_login=oo_in.oo_login,
-            year=oo_in.year,
-            id_name_of_the_settlement=oo_in.id_name_of_the_settlement,
-            id_organizational_and_legal_form=oo_in.id_organizational_and_legal_form,
-            id_population_of_the_settlement=oo_in.id_population_of_the_settlement,
-            oo_name=oo_in.oo_name,
-            oo_full_name=oo_in.oo_full_name,
-            oo_address=oo_in.oo_address,
-            director=oo_in.director,
-            email_oo=oo_in.email_oo,
-            phone_number=oo_in.phone_number,
-            inn=oo_in.inn,
-            key_oge=oo_in.key_oge,
-            key_ege=oo_in.key_ege,
-            id_organisation_status=oo_in.id_organisation_status,
-            place_index=oo_in.place_index,
-            coordinates=oo_in.coordinates
-        )
-        values = {**new_oo.dict()}
-        values.pop("id_oo", None)
-        query = oo.insert().values(**values)
-        new_oo.id_oo = await self.database.execute(query)
-        return new_oo
+    async def import_oo(self, items: List[RequestOO]):
+        for item in items:
+            values = {**item.dict()}
+            query = oo.insert().values(**values)
+            await self.database.execute(query)
 
     async def delete(self, id_oo: int):
         query = oo.delete().where(oo.c.id_oo == id_oo)
         return await self.database.execute(query=query)
 
-    async def update(self, id_oo: int, oo_in: OOIn) -> OO:
-        update_oo = OO(
-            oo_login=oo_in.oo_login,
-            year=oo_in.year,
-            id_name_of_the_settlement=oo_in.id_name_of_the_settlement,
-            id_organizational_and_legal_form=oo_in.id_organizational_and_legal_form,
-            id_population_of_the_settlement=oo_in.id_population_of_the_settlement,
-            oo_name=oo_in.oo_name,
-            oo_full_name=oo_in.oo_full_name,
-            oo_address=oo_in.oo_address,
-            director=oo_in.director,
-            email_oo=oo_in.email_oo,
-            phone_number=oo_in.phone_number,
-            inn=oo_in.inn,
-            key_oge=oo_in.key_oge,
-            key_ege=oo_in.key_ege,
-            id_organisation_status=oo_in.id_organisation_status,
-            place_index=oo_in.place_index,
-            coordinates=oo_in.coordinates
-        )
-        values = {**update_oo.dict()}
-        values.pop("id_oo", None)
+    async def update(self, id_oo: int, item: RequestOO):
+        values = {**item.dict()}
         query = oo.update().where(oo.c.id_oo == id_oo).values(**values)
-        await self.database.execute(query=query)
-        return update_oo
+        return await self.database.execute(query=query)
 
-    async def search_oo_name(self, oo_name: str) -> SearchResponse:
+    async def search(self, oo_name: str) -> ResponseSearch:
 
         query = f"""
         SELECT id_oo, oo_login, year, oo_name, oo_address, director, email_oo, phone_number, coordinates, url, REPLACE(district_name, '_', ' ') as district_name FROM 
         (
             SELECT * FROM oo 
-            WHERE oo.year='2022' 
+            WHERE oo.year= 2022
             AND LOWER(oo.oo_name) like '%{oo_name.lower()}%'
             AND oo.coordinates != ''
         ) as t1
         
         LEFT JOIN 
         (
-            SELECT name_of_the_settlement.id_name_of_the_settlement, district.district_name, name_of_the_settlement.id_district FROM name_of_the_settlement
-            LEFT JOIN district ON district.id_district = name_of_the_settlement.id_district
+            SELECT district.id_district, district.district_name FROM district
+            LEFT JOIN district ON district.id_district = oo.id_district
         ) as t2
-        USING (id_name_of_the_settlement)
-        Order By district_name, oo_name
-        ;
+        USING (id_district)
+        Order By district_name, oo_name;
         """
         res = await self.database.fetch_all(query=query)
         if not res:
-            return SearchResponse(items=[])
-        return SearchResponse(items=[SearchResult.parse_obj(row) for row in res])
+            return ResponseSearch(items=[])
+        return ResponseSearch(items=[SearchResult.parse_obj(row) for row in res])
