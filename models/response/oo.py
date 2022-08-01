@@ -12,6 +12,7 @@ class ResponseOO(BaseModel):
     phone_number: str
     coordinates: Any
     url: AnyUrl
+    district_name: str
 
     @validator("coordinates")
     def validate(cls, value):
