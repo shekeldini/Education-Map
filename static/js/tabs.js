@@ -194,6 +194,28 @@ function showTabContent(tabsContent, tabs, i = 0) {
 }
 
 
+function create_text_error(text, active){
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+    tabContent.hidden = true
+
+    let sreda_wrapper = document.createElement('div');
+    sreda_wrapper.className ="sreda-wrapper";
+
+    let sreda_wrapper__district = document.createElement('div');
+    sreda_wrapper__district.className = "sreda-wrapper__district";
+    let sreda_wrapper__district_title = document.createElement('div');
+    sreda_wrapper__district_title.className = "sreda-wrapper__district-title";
+    sreda_wrapper__district_title.innerHTML = text;
+
+    sreda_wrapper__district.appendChild(sreda_wrapper__district_title);
+
+    sreda_wrapper.appendChild(sreda_wrapper__district);
+
+    tabContent.appendChild(sreda_wrapper);
+    return tabContent
+}
+
 function create_text(data, active){
 
     let tabContainer = document.createElement('div')
@@ -211,6 +233,9 @@ function create_text(data, active){
     tabContainer.appendChild(create_base_info(data.base_info, active));
     if (data.digital) {
         tabContainer.appendChild(create_digital_info(data.digital, active));
+    }
+    else{
+        tabContainer.appendChild(create_text_error("Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»", active))
     };
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');

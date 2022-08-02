@@ -1,13 +1,13 @@
 from typing import List, Optional
 from db.oo import oo
 from models.request.growing_point import RequestGrowingPoint
-from models.response.growing_point import ResponseGrowingPoint, GrowingPointCheck
+from models.response.growing_point import ResponseGrowingPoint, GrowingPointCheck, GrowingPointItem
 
 from .base import BaseRepository
 
 
 class GrowingPointsRepository(BaseRepository):
-    async def get_all(self) -> List[Optional[ResponseGrowingPoint]]:
+    async def get_all(self) -> ResponseGrowingPoint:
         query = """
         SELECT 
             oo.id_oo,
@@ -15,7 +15,10 @@ class GrowingPointsRepository(BaseRepository):
         FROM oo
         WHERE oo.growing_point IS TRUE;
         """
-        return [ResponseGrowingPoint.parse_obj(row) for row in await self.database.fetch_all(query)]
+        res = await self.database.fetch_all(query)
+        if not res:
+            return ResponseGrowingPoint(items=[])
+        return ResponseGrowingPoint(items=[GrowingPointItem.parse_obj(row) for row in res])
 
     async def get_by_id(self, id_oo: int) -> Optional[GrowingPointCheck]:
         query = """

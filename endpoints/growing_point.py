@@ -17,7 +17,7 @@ async def set_growing_point(
         await growing_points_repository.set_growing_point(item)
 
 
-@router.get("/get_all", response_model=List[ResponseGrowingPoint])
+@router.get("/get_all", response_model=ResponseGrowingPoint)
 async def get_all(
         growing_points_repository: GrowingPointsRepository = Depends(get_growing_points_repository)
 ):
