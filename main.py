@@ -9,7 +9,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from core.security import verify_password
 from db.base import database, redis
-from endpoints import district, roles, users, auth, oo_logins, oo, digital, info, ege
+from endpoints import district, roles, users, auth, oo_logins, oo, digital, info, ege, growing_point
 from endpoints.depends import get_users_repository, get_user
 from repositories.users import UsersRepository
 
@@ -35,6 +35,7 @@ app.include_router(oo.router, prefix='/oo', tags=["oo"])
 app.include_router(digital.router, prefix='/digital', tags=["digital"])
 app.include_router(info.router, prefix='/info', tags=["info"])
 app.include_router(ege.router, prefix='/ege', tags=["ege"])
+app.include_router(growing_point.router, prefix='/growing_point', tags=["growing_point"])
 
 
 @app.on_event("startup")
@@ -116,4 +117,4 @@ async def private(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host='localhost', reload=False)
+    uvicorn.run("main:app", host='10.10.2.141', reload=False)

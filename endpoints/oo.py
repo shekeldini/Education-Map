@@ -51,7 +51,6 @@ async def delete_district(
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await oo.delete(id_oo)
 
-
 @router.put("/")
 async def update_district(
         id_oo: int,

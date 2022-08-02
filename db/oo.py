@@ -18,5 +18,5 @@ oo = Table(
     Column("url",  String, nullable=False),
     Column("coordinates", String, nullable=False),
     Column("show", Boolean, default=True,  nullable=False),
+    Column("growing_point", Boolean, default=False,  nullable=False),
 )
-
