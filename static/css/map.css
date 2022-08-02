@@ -1285,3 +1285,11 @@ sreda-wrapper__district, .sreda-wrapper__oo {
   color: #52586b;
  font-weight: 600;
 }
+
+.sreda-wrapper__district-title, .sreda-wrapper__oo-title {
+ display: none;
+}
+
+.sreda_wrapper__ul-li span {
+      font-weight: 100;
+}

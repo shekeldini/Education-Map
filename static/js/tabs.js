@@ -134,22 +134,22 @@ function create_digital_info(digital, active) {
     sreda_wrapper__ul.className =  "sreda-wrapper__ul";
     sreda_wrapper__ul.innerHTML = 'Количество поступившего оборудования:'
     let arr_keys = {
-        notebook: "Ноутбуков (шт.): ",
-        i_panel: "Интерактивных панелей (шт.): ",
-        mfu: "МФУ (шт.): ",
-        smart_tv: "Smart TV (шт.): ",
-        ip_camera: "IP камер (шт.): ",
-        ik: "Интерактивных комплексов (шт.): ",
-        arm_ped: "АРМ педагогов (шт.): ",
-        arm_adm: "АРМ административных (шт.): ",
-        server: "Серверов (шт.): "
+        notebook: "Ноутбуков <span>(шт.)</span>: ",
+        i_panel: "Интерактивных панелей <span>(шт.)</span>: ",
+        mfu: "МФУ <span>(шт.)</span>: ",
+        smart_tv: "Smart TV <span>(шт.)</span>: ",
+        ip_camera: "IP камер <span>(шт.)</span>: ",
+        ik: "Интерактивных комплексов <span>(шт.)</span>: ",
+        arm_ped: "АРМ педагогов <span>(шт.)</span>: ",
+        arm_adm: "АРМ административных <span>(шт.)</span>: ",
+        server: "Серверов <span>(шт.)</span>: "
 
     }
     let sreda_wrapper__ul_last = document.createElement('ul');
     sreda_wrapper__ul_last.className = "sreda_wrapper__ul-last";
     let osnash = digital.osnash ? "Да" : "Нет"
-    sreda_wrapper__ul_last.innerHTML = '<span>Оснащенность ОО ИТ-инфраструктурой</span>, в том числе беспроводными сетями, в рамках ГП "Информационное общество": ' + osnash;
-
+    sreda_wrapper__ul_last.innerHTML = '<span>Оснащенность ОО ИТ-инфраструктурой</span>, в том числе беспроводными сетями, в рамках ГП "Информационное общество": '
+     + '<span>' + osnash + '</span>';
     if (digital.cos2022) {
         let sreda_wrapper__ul_li = document.createElement('li')
         sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
@@ -208,7 +208,7 @@ function create_text_error(text, active){
     let sreda_wrapper__district = document.createElement('div');
     sreda_wrapper__district.className = "sreda-wrapper__district";
     let sreda_wrapper__district_title = document.createElement('div');
-    sreda_wrapper__district_title.className = "sreda-wrapper__district-title";
+    sreda_wrapper__district_title.className = "sreda-wrapper__district-title-error";
     sreda_wrapper__district_title.innerHTML = text;
 
     sreda_wrapper__district.appendChild(sreda_wrapper__district_title);
