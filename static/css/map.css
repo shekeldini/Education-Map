@@ -1186,14 +1186,31 @@ display: none;
   padding-bottom: 20px;
   background: white;
 }
-.tabcontainer .tabcontent-oo__title, .tabcontainer .tabcontent-address__title, .tabcontainer .tabcontent-director__title, .tabcontainer .tabcontent-mail__title, .tabcontainer .tabcontent-phone__title, .tabcontainer .tabcontent-site__title {
-  font-size: 16px;
+.tabcontainer, .tabcontent-address__descr, .tabcontent-oo__title, .tabcontent-director__descr, tabcontainer, .tabcontent-site__desrc, .tabcontent-mail__descr, .tabcontainer, .tabcontainer .tabcontainer .tabcontent-phone__title, .tabcontent-phone__descr, .tabcontainer,  .sreda-wrapper__district-descr, .sreda-wrapper__oo-descr {
+   font-size: 16px;
+  color: #52586b;
   font-weight: 600;
-}
-.tabcontainer .tabcontent-oo__descr, .tabcontainer .tabcontent-address__descr, .tabcontainer .tabcontent-director__descr, .tabcontainer .tabcontent-mail__descr, .tabcontainer .tabcontent-phone__descr, .tabcontainer .tabcontent-site__descr {
-  font-size: 14px;
-  color: #c2c6c9;
   margin-top: 3px;
+}
+.tabcontainer .tabcontent-oo__descr, .tabcontent-mail__title, .tabcontainer, .tabcontainer, .tabcontent-address__title, .tabcontent-phone__title, .tabcontainer, .tabcontainer, .tabcontainer .tabcontent-site__descr, .sreda-wrapper__district-title, .sreda-wrapper__oo-title {
+   font-size: 14px;
+  color: #a0a0ab;
+font-weight: 500;
+}
+
+.tabcontent-address, .tabcontent-director, .tabcontent-mail, .tabcontent-phone, .tabcontent-site {
+       display: flex;
+    flex-direction: column-reverse;
+}
+
+.sreda-wrapper__district, .sreda-wrapper__oo {
+display: flex;
+    flex-direction: column-reverse
+}  
+
+.tabcontent-mail__descr, .tabcontent-phone__descr {
+      text-decoration: none;
+    color: #52586b !important;
 }
 
 .hide {
@@ -1241,3 +1258,30 @@ display: none;
 }
 
 
+.
+
+sreda-wrapper__district, .sreda-wrapper__oo {
+      display: flex;
+ align-items: center;
+}
+
+.sreda-wrapper__district-title, .sreda-wrapper__oo-title {
+     font-size: 14px;
+    font-weight: 500;
+}
+
+.sreda-wrapper__oo-descr, .sreda-wrapper__district-descr {
+  color: #52586b;
+    margin-top: 3px;
+}
+
+.sreda-wrapper__ul li {
+ color: #52586b;
+ font-weight: 600;
+}
+
+
+.sreda_wrapper__ul-last span {
+  color: #52586b;
+ font-weight: 600;
+}

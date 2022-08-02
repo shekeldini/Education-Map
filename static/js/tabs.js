@@ -78,10 +78,12 @@ function create_base_info(base_info, active){
     tabcontent_site__desrc.href = base_info.url;
     tabcontent_site__desrc.innerHTML = base_info.url;
 
+
     tabcontent_oo.appendChild(tabcontent_oo__title);
     tabcontent_oo.appendChild(tabcontent_oo__descr);
     tabcontent_address.appendChild(tabcontent_address__title);
     tabcontent_address.appendChild(tabcontent_address__descr);
+
     tabcontent_director.appendChild(tabcontent_director__title);
     tabcontent_director.appendChild(tabcontent_director__descr);
     tabcontent_mail.appendChild(tabcontent_mail__title);
@@ -145,7 +147,8 @@ function create_digital_info(digital, active) {
     }
     let sreda_wrapper__ul_last = document.createElement('ul');
     sreda_wrapper__ul_last.className = "sreda_wrapper__ul-last";
-    sreda_wrapper__ul_last.innerHTML = 'Оснащенность ОО ИТ-инфраструктурой, в том числе беспроводными сетями, в рамках ГП "Информационное общество" (да/нет):'
+    let osnash = digital.osnash ? "Да" : "Нет"
+    sreda_wrapper__ul_last.innerHTML = '<span>Оснащенность ОО ИТ-инфраструктурой</span>, в том числе беспроводными сетями, в рамках ГП "Информационное общество": ' + osnash;
 
     if (digital.cos2022) {
         let sreda_wrapper__ul_li = document.createElement('li')
