@@ -35,7 +35,7 @@ app.include_router(oo.router, prefix='/oo', tags=["oo"])
 app.include_router(digital.router, prefix='/digital', tags=["digital"])
 app.include_router(info.router, prefix='/info', tags=["info"])
 app.include_router(ege.router, prefix='/ege', tags=["ege"])
-app.include_router(growing_point.router, prefix='/growing_point', tags=["growing_point"])
+app.include_router(growing_point.router, prefix='/growing_points', tags=["growing_point"])
 
 
 @app.on_event("startup")

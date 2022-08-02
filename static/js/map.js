@@ -1,3 +1,6 @@
+let edit = false
+
+
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
 var burger = document.getElementById('burger');
@@ -95,9 +98,6 @@ $.getJSON('static/files/kray.json').then(function(geoJSON) {
             });
     polygon.addTo(map)
     polygon._path.setAttribute('filter', 'drop-shadow(5px 6px 2px rgb(0 0 0 / 0.8))');
-
-});
-map.on("move", function(){
 
 });
 
@@ -340,7 +340,8 @@ async function load_districts(){
                     "id_region": id_region,
                     fillOpacity: 0,
                     weight: 1,
-		            "type": "district"
+		            "type": "district",
+
                 });
                 polygon.bindTooltip(name,
                    {permanent: false, direction: "center"}
@@ -369,11 +370,18 @@ async function load_districts(){
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
                         info.open = true
-
+//                        if (!edit){
+//
+//                            this.pm.enable({
+//                            allowSelfIntersection: true,
+//                            });
+//                            this.on('pm:edit', ({ layer }) => {
+//                                console.log(layer.toGeoJSON().geometry.coordinates);
+//                            })
+//                        }
+//                        edit = true
                         var menu_region_item = document.getElementById("span:id_region=" + this.options.id_region);
-
                         selectedTd = info_select
-
                         if (menu_region_item.className != "closed active open show"){
                             menu_region_item.click()
                         }
@@ -421,6 +429,19 @@ function getSchoolInfo(id_oo){
     });
 };
 
+function get_all_growing_points(){
+    return $.ajax({
+        type : 'GET',
+        url : "growing_points/get_all"
+    });
+};
+
+function get_all_digital_items(){
+    return $.ajax({
+        type : 'GET',
+        url : "digital/get_all"
+    });
+};
 
 function create_marker(id_oo, id_region, id_district, coordinates){
 
@@ -561,7 +582,7 @@ function create_marker(id_oo, id_region, id_district, coordinates){
     marker.bindPopup("", {autoClose:false});
 
     marker.on('click', async function(){
-        if (!marker._popup._content){
+        if (!this._popup._content){
             let info = await getSchoolInfo(id_oo);
             let text = create_text(info, 0);
             this._popup._content = text;
@@ -585,10 +606,36 @@ async function create_digital_markers(parent){
             marker.bindPopup("", {autoClose:false});
 
             marker.on('click', async function(){
-                if (!marker._popup._content){
+                if (!this._popup._content){
                     let info = await getSchoolInfo(this.options.id_oo);
                     let text = create_text(info, 1);
-                    console.log(text)
+                    this._popup._content = text;
+                }
+                this.openPopup();
+            });
+            markers.addLayer(marker);
+        }
+        markers.addTo(map);
+    }
+    else{
+        current_filter = "info"
+    }
+
+};
+
+
+async function create_growing_points_markers(parent){
+    deleteAllMarkers()
+    if (parent.open == false){
+        current_filter = "growing_point"
+        let growing_points = await get_all_growing_points()
+        for (item of growing_points.items){
+            var marker = L.marker(item.coordinates, {"id_oo": item.id_oo});
+            marker.bindPopup("", {autoClose:false});
+            marker.on('click', async function(){
+                if (!this._popup._content){
+                    let info = await getSchoolInfo(this.options.id_oo);
+                    let text = create_text(info, 4);
                     this._popup._content = text;
                 }
                 this.openPopup();
@@ -604,12 +651,6 @@ async function create_digital_markers(parent){
 
 };
 
-function get_all_digital_items(){
-    return $.ajax({
-        type : 'GET',
-        url : "digital/get_all"
-    });
-};
 
 function close_children(parent){
 
@@ -666,6 +707,7 @@ table.onclick = function(event) {
                     tree.children[i].children[1].hidden = true
                 };
             };
+            console.log(selectedTd)
             selectedTd.parentNode.open = false;
         };
         selectedTd = target;
