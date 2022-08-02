@@ -393,7 +393,7 @@ white-space: nowrap;
    font-family: 'Roboto', sans-serif;
     font-size: 26px;
    font-weight: 400;
-       color: #52586b;
+   color: #1a1c23;
 }
 
 .header-wrapper__login {
@@ -954,7 +954,7 @@ summary::-webkit-details-marker {
   align-items: center;
   font-family: "Roboto", sans-serif;
   font-size: 18px;
-  color: #52586b;
+  color: #1a1c23;
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
@@ -972,7 +972,8 @@ summary::-webkit-details-marker {
 .menu-filter__title-description {
   font-size: 13px;
     margin-top: 5px;
-    color: #a0a0ab;
+    color: #707275;
+     width: 333px;
 }
 
 .menu-filter__title-icon {
@@ -1292,4 +1293,13 @@ sreda-wrapper__district, .sreda-wrapper__oo {
 
 .sreda_wrapper__ul-li span {
       font-weight: 100;
+      color: #a0a0ab;
+font-size: 14px;
 }
+
+.sreda-wrapper__district-descr {
+  color: #a0a0ab;
+font-size: 14px;
+font-weight: 100;
+
+} 

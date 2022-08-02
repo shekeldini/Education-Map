@@ -132,7 +132,7 @@ function create_digital_info(digital, active) {
 
     let sreda_wrapper__ul = document.createElement('ul');
     sreda_wrapper__ul.className =  "sreda-wrapper__ul";
-    sreda_wrapper__ul.innerHTML = 'Количество поступившего оборудования:'
+
     let arr_keys = {
         notebook: "Ноутбуков <span>(шт.)</span>: ",
         i_panel: "Интерактивных панелей <span>(шт.)</span>: ",
@@ -150,28 +150,31 @@ function create_digital_info(digital, active) {
     let osnash = digital.osnash ? "Да" : "Нет"
     sreda_wrapper__ul_last.innerHTML = '<span>Оснащенность ОО ИТ-инфраструктурой</span>, в том числе беспроводными сетями, в рамках ГП "Информационное общество": '
      + '<span>' + osnash + '</span>';
-    if (digital.cos2022) {
-        let sreda_wrapper__ul_li = document.createElement('li')
-        sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
-        sreda_wrapper__ul_li.innerHTML +="поступят в скором времени";
-    }
-    for (const [key, value] of Object.entries(arr_keys)){
-        if (digital[key]){
-            let sreda_wrapper__ul_li = document.createElement('li')
-            sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
-            sreda_wrapper__ul_li.innerHTML += arr_keys[key] + digital[key];
 
-            sreda_wrapper__ul.appendChild(sreda_wrapper__ul_li);
-        }
+    if (digital.cos2022) {
+        sreda_wrapper__ul.innerHTML = 'Информация о поступлении оборудования в 2022 году будет доступна позже';
     }
+    else{
+        sreda_wrapper__ul.innerHTML = 'Количество поступившего оборудования:'
+        for (const [key, value] of Object.entries(arr_keys)){
+            if (digital[key]){
+                let sreda_wrapper__ul_li = document.createElement('li')
+                sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
+                sreda_wrapper__ul_li.innerHTML += arr_keys[key] + digital[key];
+
+                sreda_wrapper__ul.appendChild(sreda_wrapper__ul_li);
+            };
+        };
+    };
     sreda_wrapper__district.appendChild(sreda_wrapper__district_title);
     sreda_wrapper__district.appendChild(sreda_wrapper__district_descr);
 
     sreda_wrapper__oo.appendChild(sreda_wrapper__oo_title);
     sreda_wrapper__oo.appendChild(sreda_wrapper__oo_descr);
 
-    sreda_wrapper.appendChild(sreda_wrapper__district);
+    //sreda_wrapper.appendChild(sreda_wrapper__district);
     sreda_wrapper.appendChild(sreda_wrapper__oo);
+    sreda_wrapper.appendChild(sreda_wrapper__district);
     sreda_wrapper.appendChild(sreda_wrapper__ul);
     sreda_wrapper.appendChild(sreda_wrapper__ul_last);
 

@@ -483,8 +483,7 @@ function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_oo == id_oo){
-                console.log("found")
-                layer.click()
+		layer.getPane().firstChild.click()
             }
             else{
                 layer.closePopup();
