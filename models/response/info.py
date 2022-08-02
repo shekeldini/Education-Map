@@ -7,3 +7,4 @@ from models.response.oo import ResponseOO
 class ResponseInfo(BaseModel):
     digital: Optional[DigitalItem]
     base_info: ResponseOO
+    growing_point: bool

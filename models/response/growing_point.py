@@ -10,3 +10,7 @@ class ResponseGrowingPoint(BaseModel):
         if isinstance(value, str):
             return tuple(map(float, value.split(";")))
         return value
+
+
+class GrowingPointCheck(BaseModel):
+    growing_point: bool
