@@ -11,7 +11,7 @@ class ResponseOO(BaseModel):
     email_oo: str
     phone_number: str
     coordinates: Any
-    url: AnyUrl
+    url: str
     district_name: str
 
     @validator("coordinates")

@@ -3,7 +3,10 @@ from models.response.info import ResponseInfo
 from repositories.oo import OORepository
 from repositories.digital import DigitalRepository
 from repositories.growing_points import GrowingPointsRepository
-from .depends import get_oo_repository, get_digital_repository, get_growing_points_repository
+from repositories.vpr import VprRepository
+from repositories.ege import EgeRepository
+from .depends import get_oo_repository, get_digital_repository, get_growing_points_repository, get_ege_repository, \
+    get_vpr_repository
 
 router = APIRouter()
 
@@ -13,7 +16,10 @@ async def read_oo(
         id_oo: int = Path(...),
         oo_repository: OORepository = Depends(get_oo_repository),
         digital_repository: DigitalRepository = Depends(get_digital_repository),
-        growing_points_repository: GrowingPointsRepository = Depends(get_growing_points_repository)
+        growing_points_repository: GrowingPointsRepository = Depends(get_growing_points_repository),
+        ege_repository: EgeRepository = Depends(get_ege_repository),
+        vpr_repository: VprRepository = Depends(get_vpr_repository),
+
 ):
     exist = await oo_repository.get_by_id(id_oo)
     if not exist:
@@ -23,9 +29,13 @@ async def read_oo(
         )
     digital = await digital_repository.get_by_id(id_oo)
     growing_point_check = await growing_points_repository.get_by_id(id_oo)
+    ege = await ege_repository.get_by_id(id_oo)
+    vpr = await vpr_repository.get_by_id(id_oo)
     response = ResponseInfo(
         base_info=exist,
         digital=digital,
-        growing_point=growing_point_check.growing_point
+        growing_point=growing_point_check.growing_point,
+        ege=ege,
+        vpr=vpr,
     )
     return response

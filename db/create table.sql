@@ -86,15 +86,28 @@ CONSTRAINT "K8" PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS ege(
-id_oo SERIAL,
+id_oo INTEGER NOT NULL,
 id_subject INTEGER NOT NULL,
 low FLOAT,
 medium FLOAT,
 high FLOAT,
-UNIQUE (id_oo, id_subject),
 CONSTRAINT "K9" PRIMARY KEY (id_oo, id_subject),
 CONSTRAINT "C6" FOREIGN KEY (id_subject)
     REFERENCES subject (id),
 CONSTRAINT "C7" FOREIGN KEY (id_oo)
+    REFERENCES oo (id_oo)
+);
+
+CREATE TABLE IF NOT EXISTS vpr(
+id_oo INTEGER NOT NULL,
+id_subject INTEGER NOT NULL,
+parallel INTEGER NOT NULL,
+low FLOAT,
+medium FLOAT,
+high FLOAT,
+CONSTRAINT "K10" PRIMARY KEY (id_oo, id_subject, parallel),
+CONSTRAINT "C8" FOREIGN KEY (id_subject)
+    REFERENCES subject (id),
+CONSTRAINT "C9" FOREIGN KEY (id_oo)
     REFERENCES oo (id_oo)
 );

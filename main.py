@@ -9,7 +9,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from core.security import verify_password
 from db.base import database, redis
-from endpoints import district, roles, users, auth, oo_logins, oo, digital, info, ege, growing_point
+from endpoints import district, roles, users, auth, oo_logins, oo, digital, info, ege, growing_point, vpr
 from endpoints.depends import get_users_repository, get_user
 from repositories.users import UsersRepository
 
@@ -36,6 +36,7 @@ app.include_router(digital.router, prefix='/digital', tags=["digital"])
 app.include_router(info.router, prefix='/info', tags=["info"])
 app.include_router(ege.router, prefix='/ege', tags=["ege"])
 app.include_router(growing_point.router, prefix='/growing_points', tags=["growing_point"])
+app.include_router(vpr.router, prefix='/vpr', tags=["vpr"])
 
 
 @app.on_event("startup")

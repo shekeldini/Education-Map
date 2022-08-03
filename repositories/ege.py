@@ -31,15 +31,11 @@ class EgeRepository(BaseRepository):
             ege.medium,
             ege.high
         FROM ege
-            LEFT JOIN oo ON
-                oo.id_oo = ege.id_oo
-            LEFT JOIN district ON
-                oo.id_district = district.id_district
-            WHERE ege.id_oo = :id_oo
-            AND ege.id_subject IN (
-                SELECT id as id_subject FROM subject
-                WHERE name = :subject_name
-            );
+        WHERE ege.id_oo = :id_oo
+        AND ege.id_subject IN (
+            SELECT id as id_subject FROM subject
+            WHERE name = :subject_name
+        );
         """
         res = await self.database.fetch_one(
             query=query,
