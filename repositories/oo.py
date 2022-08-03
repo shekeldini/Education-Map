@@ -114,21 +114,18 @@ class OORepository(BaseRepository):
     async def search(self, oo_name: str) -> ResponseSearch:
 
         query = f"""
-        SELECT id_oo, oo_login, year, oo_name, oo_address, director, email_oo, phone_number, coordinates, url, REPLACE(district_name, '_', ' ') as district_name FROM 
-        (
-            SELECT * FROM oo 
-            WHERE oo.year= 2022
-            AND LOWER(oo.oo_name) like '%{oo_name.lower()}%'
-            AND oo.coordinates != ''
-        ) as t1
-        
-        LEFT JOIN 
-        (
-            SELECT district.id_district, district.district_name FROM district
-            LEFT JOIN district ON district.id_district = oo.id_district
-        ) as t2
-        USING (id_district)
-        Order By district_name, oo_name;
+        SELECT 
+            oo.id_oo,
+            oo.id_district,
+            oo.oo_name,
+            oo.coordinates,
+            district.district_name
+        FROM oo
+            LEFT JOIN district ON
+                oo.id_district = district.id_district
+            WHERE LOWER(oo.oo_name) LIKE '% {oo_name.lower()} %' 
+            AND show = TRUE
+        ORDER BY oo.oo_name;
         """
         res = await self.database.fetch_all(query=query)
         if not res:
