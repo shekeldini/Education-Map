@@ -223,8 +223,9 @@ function create_text_error(text, active){
 }
 
 function decorator(func, active){
-    function wrapper(text){
-        let result  = func(text)
+    function wrapper(){
+        var args = Array.prototype.slice.call(arguments);
+        let result  = func(args)
         result.hidden = !active
         return result
     };
