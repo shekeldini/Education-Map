@@ -346,7 +346,7 @@ function create_ege_info(ege, active) {
 
     let info = document.createElement('div');
     info.className = "info";
-    info.innerHTML = "*В таблице приведены сведения об обучающихсяб демонстррирующие уровень знаний в процентах";
+    info.innerHTML = "*В таблице приведены сведения об обучающихся  демонстрирующие уровень знаний в процентах";
 
     tabContent.appendChild(table);
     tabContent.appendChild(info);
