@@ -222,32 +222,85 @@ function create_text_error(text, active){
     return tabContent
 }
 
+function decorator(func, active){
+    function wrapper(text){
+        let result  = func(text)
+        result.hidden = !active
+        return result
+    };
+    return wrapper
+};
+
+
+function create_text_error(text){
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+
+    let sreda_wrapper = document.createElement('div');
+    sreda_wrapper.className ="sreda-wrapper";
+
+    let sreda_wrapper__district = document.createElement('div');
+    sreda_wrapper__district.className = "sreda-wrapper__district";
+    let sreda_wrapper__district_title = document.createElement('div');
+    sreda_wrapper__district_title.className = "sreda-wrapper__district-title-error";
+    sreda_wrapper__district_title.innerHTML = text;
+
+    sreda_wrapper__district.appendChild(sreda_wrapper__district_title);
+
+    sreda_wrapper.appendChild(sreda_wrapper__district);
+
+    tabContent.appendChild(sreda_wrapper);
+    return tabContent
+}
+
 function create_text(data, active){
 
     let tabContainer = document.createElement('div')
     tabContainer.className = "tabcontainer"
-    
+
     let tabHeader = document.createElement('div')
     tabHeader.className = "tabheader"
 
-    
+
     for (let i = 0; i < 5; i++){
         tabHeader.appendChild(createTabHeaderItem(i, active));
     }
 
     tabContainer.appendChild(tabHeader)
+
+    let tabs_active = {
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+    }
+    tabs_active[active] = true
+    console.log(tabs_active)
+    // base_info
     tabContainer.appendChild(create_base_info(data.base_info, active));
+    // digital
     if (data.digital) {
         tabContainer.appendChild(create_digital_info(data.digital, active));
     }
     else{
-        tabContainer.appendChild(create_text_error("Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»", active))
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
     };
+    // ege
+    tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("В разработке"));
+    // vpr
+    tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("В разработке"));
+    // growing_point
+    tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация учавствует в программе Центров образования  цифрового и гуманитарного профиля «Точка роста» "));
+
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
     tabHeader.addEventListener('click', (event) => { //Вещаем событие(а также дилегирование) на табы
-        const target = event.target; //Создаем переменную target, в которую помещаем event.target чтобы потом сочетание event.target прописывать часто, заменяя его просто target
-        if (target && target.classList.contains('tabheader-item')) {
+        let target = event.target; //Создаем переменную target, в которую помещаем event.target чтобы потом сочетание event.target прописывать часто, заменяя его просто target
+        if (target && (target.classList.contains('tabheader-item') || target.classList.contains('tabheader-item__icon'))) {
+            if (target.classList.contains('tabheader-item__icon')){
+                target = target.parentNode
+            };
             tabs.forEach((item, i) => { //В качестве второго аргумента(i) у forEach используется номер перебираемого элемента по порядку, аргумент item сам элемент
                 if (target == item) { //Если элемент(target) в который мы кликнули будет совпадать с элементом, который мы перебираем в цикле forEach, то мы вызываем функции
                     hideTabContent(tabsContent, tabs); //2 функции нужны для того, чтобы скрывать остальные элементы
