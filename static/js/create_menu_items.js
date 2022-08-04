@@ -54,7 +54,9 @@ function menu_create_district_item(district, key){
 	    deleteLayersForDistrict(district.options.id_district);
 
         if (span.className == "closed hide"){
-            let schools = await getSchools(district.options.id_district);
+            let route = tabs_routs[key]
+            console.log(route)
+            let schools = await route(district.options.id_district);
 
             if (!ul.childElementCount){
 	            for (school of schools){

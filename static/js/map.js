@@ -7,6 +7,12 @@ let size_popup = {
     4: "340px",
 }
 
+let tabs_routs = {
+    "ege": getEgeSchools,
+    "base": getBaseSchools,
+    "vpr": getVprSchools
+}
+
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
 var ege = document.getElementById('ege');
@@ -282,10 +288,26 @@ async function load_data(){
 
 load_data();
 
-function getSchools(id_district){
+function getBaseSchools(id_district){
     return $.ajax({
         type : 'GET',
         url : `oo/get_by_district/${id_district}`
+    });
+};
+
+
+function getEgeSchools(id_district){
+    return $.ajax({
+        type : 'GET',
+        url : `ege/get_by_district/${id_district}`
+    });
+};
+
+
+function getVprSchools(id_district){
+    return $.ajax({
+        type : 'GET',
+        url : `vpr/get_by_district/${id_district}`
     });
 };
 

@@ -96,10 +96,12 @@ class EgeRepository(BaseRepository):
             district.district_name
         FROM oo
             LEFT JOIN district ON
-                oo.id_district = district.id_district
-            LEFT JOIN ege ON
-                ege.id_oo = oo.id_oo   
+                oo.id_district = district.id_district  
         WHERE oo.id_district = :id_district
+        AND oo.id_oo IN (
+            SELECT DISTINCT id_oo
+            FROM ege
+        )
         AND show = TRUE
         ORDER BY oo.oo_name;
         """

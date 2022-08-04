@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Optional, List
 from db.vpr import vpr
 from models.request.vpr import RequestVpr
+from models.response.oo import ResponseOO
 from models.response.vpr import VprSubjectResult, VprParallelResult, ResponseVpr
 from models.others.subject import Subject, OONameDistrictName
 from .base import BaseRepository
@@ -91,3 +92,34 @@ class VprRepository(BaseRepository):
         values = {**item.dict()}
         query = vpr.insert().values(**values)
         return await self.database.execute(query=query)
+
+    async def get_by_district(self, id_district) -> Optional[List[ResponseOO]]:
+        query = """
+        SELECT 
+            oo.id_oo,
+            oo.id_district,
+            oo.oo_name,
+            oo.oo_address,
+            oo.director,
+            oo.email_oo,
+            oo.phone_number,
+            oo.coordinates,
+            oo.url,
+            district.district_name
+        FROM oo
+            LEFT JOIN district ON
+                oo.id_district = district.id_district  
+        WHERE oo.id_district = :id_district
+        AND oo.id_oo IN (
+            SELECT DISTINCT id_oo
+            FROM vpr
+        )
+        AND show = TRUE
+        ORDER BY oo.oo_name;
+        """
+        res = await self.database.fetch_all(query, {
+            "id_district": id_district
+        })
+        if res is None:
+            return None
+        return [ResponseOO.parse_obj(i) for i in res]
