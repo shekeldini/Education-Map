@@ -1,5 +1,11 @@
 let edit = false
-
+let size_popup = {
+    0: "340px",
+    1: "340px",
+    2: "600px",
+    3: "600px",
+    4: "340px",
+}
 
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
@@ -456,7 +462,22 @@ function create_marker(id_oo, id_region, id_district, coordinates){
             this._popup._content = text;
         }
         this.openPopup();
+        let popup = marker.getPopup().getPane()
+        console.log(popup)
+        popup.onclick = function(){
+            let tabheader = this.firstChild.firstChild.firstChild.firstChild.firstChild
+            for (let i = 0; i < tabheader.children.length; i++){
+                if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
+                    console.log(this.firstChild.firstChild)
+                    this.firstChild.firstChild.setAttribute(
+                        'style',
+                        `min-width: ${size_popup[i]};`,
+                    )
+                }
+            }
+        }
     });
+
 
     markers.addLayer(marker);
 };

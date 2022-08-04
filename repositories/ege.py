@@ -1,8 +1,9 @@
-from typing import Optional, Union
+from typing import Optional, Union, List
 from db.ege import ege
 from models.request.ege import RequestEge
 from models.response.ege import Rus, MathBase, MathProf, ResponseEge, Statistic
 from models.others.subject import Subject, OONameDistrictName
+from models.response.oo import ResponseOO
 from .base import BaseRepository
 
 
@@ -79,3 +80,34 @@ class EgeRepository(BaseRepository):
         values = {**item.dict()}
         query = ege.insert().values(**values)
         return await self.database.execute(query=query)
+
+    async def get_by_district(self, id_district) -> Optional[List[ResponseOO]]:
+        query = """
+        SELECT 
+            oo.id_oo,
+            oo.id_district,
+            oo.oo_name,
+            oo.oo_address,
+            oo.director,
+            oo.email_oo,
+            oo.phone_number,
+            oo.coordinates,
+            oo.url,
+            district.district_name
+        FROM oo
+            LEFT JOIN district ON
+                oo.id_district = district.id_district
+            LEFT JOIN ege ON
+                ege.id_oo = oo.id_oo   
+        WHERE oo.id_district = :id_district
+        AND show = TRUE
+        ORDER BY oo.oo_name;
+        """
+        res = await self.database.fetch_all(query, {
+            "id_district": id_district
+        })
+        if res is None:
+            return None
+        return [ResponseOO.parse_obj(i) for i in res]
+
+
