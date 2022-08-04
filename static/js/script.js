@@ -1,11 +1,8 @@
-var tree = document.getElementById('tree');
-
 for(let ul of tree.querySelectorAll('ul')){
     ul.hidden = false;
 }
 
-
-tree.onclick = function (event) {
+function close_open(event){
     if (event.target.tagName != 'SPAN') return;
 
     let childrenContainer = event.target.parentNode.querySelector('ul');
@@ -24,8 +21,20 @@ tree.onclick = function (event) {
         event.target.classList.add('show');
         event.target.classList.remove('hide');
     }
+}
+
+
+tree.onclick = function (event) {
+    close_open(event);
 };
 
+ege.onclick = function (event) {
+    close_open(event);
+};
+
+vpr.onclick = function (event) {
+    close_open(event);
+};
 // const openMenu = document.querySelector('.open-menu'),
 //     menuPanel = document.querySelector('.menu'),
 //menuClosed = document.querySelector('.menu-header__burger');

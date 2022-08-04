@@ -277,7 +277,6 @@ function create_text(data, active){
         4: false,
     }
     tabs_active[active] = true
-    console.log(tabs_active)
     // base_info
     tabContainer.appendChild(create_base_info(data.base_info, active));
     // digital
@@ -292,7 +291,7 @@ function create_text(data, active){
     // vpr
     tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("В разработке"));
     // growing_point
-    tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация учавствует в программе Центров образования  цифрового и гуманитарного профиля «Точка роста» "));
+    tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация участвует в программе Центров образования  цифрового и гуманитарного профиля «Точка роста» "));
 
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
