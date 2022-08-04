@@ -124,7 +124,6 @@ class OORepository(BaseRepository):
             LEFT JOIN district ON
                 oo.id_district = district.id_district
             WHERE LOWER(oo.oo_name) LIKE '% {oo_name.lower()} %' 
-            AND show = TRUE
         ORDER BY oo.oo_name;
         """
         res = await self.database.fetch_all(query=query)

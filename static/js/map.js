@@ -145,26 +145,6 @@ let regions_layers = L.layerGroup()
 let districts_layers = L.layerGroup()
 
 
-var options = {
-    position: "topleft",
-    drawMarker: false,
-    drawPolygon: false,
-    removalMode: false,
-    drawCircleMarker: false,
-    drawPolyline: false,
-    drawRectangle: false,
-    drawCircle: false,
-    dragMode: false,
-    rotateMode: false,
-    cutPolygon: false,
-    editMode: false,
-    drawText: false
-}
-map.pm.addControls(options)
-map.pm.enableDraw('Polygon',{ snappable: false });
-map.pm.enableDraw('Marker',{ snappable: false });
-map.pm.disableDraw();
-
 var points = [];
 
 map.on('pm:drawstart', ({ workingLayer }) => {
@@ -258,7 +238,7 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
-                        info.open = true
+//                        info.open = true
 //                        if (!edit){
 //
 //                            this.pm.enable({
