@@ -7,7 +7,7 @@ var burger = document.getElementById('burger');
 let table = document.getElementById('filter');
 let selectedTd = info.firstChild;
 let info_select;
-let start_position = new L.LatLng(52.726338, 82.466781);
+let start_position = new L.LatLng(52.526338, 82.466781);
 let start_zoom = 7.5;
 let region_weight = 5;
 let current_filter = "info";
