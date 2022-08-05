@@ -44,4 +44,4 @@ class Statistic(BaseModel):
 class ResponseEge(BaseModel):
     oo_name: str
     district_name: str
-    subject: Statistic
+    subject: Optional[Statistic]

@@ -27,11 +27,14 @@ class EgeRepository(BaseRepository):
         base_info = await self.get_oo_name_and_district_name(id_oo)
         if not base_info:
             return None
+
         statistic = Statistic(
             rus=await self.get_result_for_subject(id_oo, Subject.RUS),
             math_base=await self.get_result_for_subject(id_oo, Subject.MATH_BASE),
             math_prof=await self.get_result_for_subject(id_oo, Subject.MATH_PROF),
         )
+        if all(map(lambda x: not bool(x), (statistic.rus, statistic.math_base, statistic.math_prof))):
+            statistic = None
         return ResponseEge(
             oo_name=base_info.oo_name,
             district_name=base_info.district_name,
@@ -126,5 +129,3 @@ class EgeRepository(BaseRepository):
         if res is None:
             return None
         return [ResponseOO.parse_obj(i) for i in res]
-
-
