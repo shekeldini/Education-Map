@@ -357,6 +357,7 @@ function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_oo == id_oo){
+                console.log(map.getPane(layer))
 		        map.getPane(layer)._icon.click()
             }
         };
@@ -414,12 +415,15 @@ function createFoundItem(item){
     let div = document.createElement('div');
     div.className = 'menu-search__wrapper-item'
     div.innerHTML += "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>"
-    div.onclick = function(){
+    div.onclick = async function(){
         deleteAllMarkers();
-        create_marker(item.id_oo, null, item.id_district, item.coordinates)
-        markers.addTo(map);
-        //flyToSchool(item.coordinates.split(";").map(str => parseFloat(str)))
-        map.once('moveend', ()=>openSchoolPopUp(item.oo_name));
+        flyToSchool(item.coordinates);
+
+        map.once('moveend', function(){
+            create_marker(item.id_oo, null, null, item.coordinates, 0);
+            markers.addTo(map);
+            openSchoolPopUp(item.id_oo)
+        });
     }
     $("#search_result").append(div);
 };
@@ -442,7 +446,7 @@ function flyToStartPosition(){
 };
 
 function flyToSchool(latLon){
-    map.flyTo(latLon, 16.5);
+    map.flyTo(latLon, 14.5);
 };
 
 function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
@@ -478,6 +482,7 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
     });
 
     markers.addLayer(marker);
+    console.log("create");
 };
 
 
@@ -549,7 +554,6 @@ async function create_vpr_markers(parent){
 };
 
 function close_children(parent){
-
     let ul_element = parent.querySelector("ul")
     if (ul_element){
         for (let i = 0; i < ul_element.children.length; i++) {

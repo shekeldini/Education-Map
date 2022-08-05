@@ -70,6 +70,7 @@ function menu_create_district_item(district, key){
                         coordinates = coordinates.split(",").map(str => parseFloat(str));
                         var latLon = new L.LatLng(coordinates[0], coordinates[1]);
                         flyToSchool(latLon);
+                        
                         map.once('moveend', ()=>openSchoolPopUp(this.getAttribute('id_oo')));
                     };
                     school_li.appendChild(school_span);

@@ -1,5 +1,5 @@
 from typing import Optional, List
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class SearchResult(BaseModel):
@@ -8,6 +8,11 @@ class SearchResult(BaseModel):
     coordinates: str
     district_name: str
 
+    @validator("coordinates")
+    def validate(cls, value):
+        if isinstance(value, str):
+            return tuple(map(float, value.split(";")))
+        return value
 
 class ResponseSearch(BaseModel):
     items: List[Optional[SearchResult]]
