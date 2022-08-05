@@ -405,12 +405,10 @@ function create_vpr_info(vpr, active) {
     table_header.className= "table-header";
 
     let vpr_obj = {
-	0: "",
+        0: "",
         1: "РУССКИЙ ЯЗЫК",
         2: "МАТЕМАТИКА"
     }
-
-    
 
 
     for (const [key, value] of Object.entries(vpr_obj)) {
