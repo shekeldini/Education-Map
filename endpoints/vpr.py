@@ -1,8 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, Response, Path
 from models.request.vpr import RequestVpr
-from models.response.oo import ResponseOO
-from models.response.vpr import ResponseVpr
+from models.response.vpr import ResponseVpr, ResponseAllVpr
 from repositories.vpr import VprRepository
 from .depends import get_vpr_repository
 
@@ -26,9 +25,8 @@ async def get_all(
     return await vpr_repository.get_by_id(id_oo)
 
 
-@router.get("/get_by_district/{id_district}", response_model=List[ResponseOO])
-async def read_oo_by_district(
-        id_district: int = Path(...),
+@router.get("/get_all", response_model=ResponseAllVpr)
+async def get_all_vpr(
         vpr_repository: VprRepository = Depends(get_vpr_repository)
 ):
-    return await vpr_repository.get_by_district(id_district)
+    return await vpr_repository.get_all()

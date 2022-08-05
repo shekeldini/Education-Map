@@ -1,8 +1,8 @@
 from typing import List
 from fastapi import APIRouter, Depends, Response, Path
 from models.request.ege import RequestEge
-from models.response.ege import ResponseEge
-from models.response.oo import ResponseOO
+from models.response.ege import ResponseEge, ResponseAllEge
+
 from repositories.ege import EgeRepository
 from .depends import get_ege_repository
 
@@ -26,9 +26,8 @@ async def get_all(
     return await ege_repository.get_by_id(id_oo)
 
 
-@router.get("/get_by_district/{id_district}", response_model=List[ResponseOO])
-async def read_oo_by_district(
-        id_district: int = Path(...),
+@router.get("/get_all", response_model=ResponseAllEge)
+async def get_all_ege(
         ege_repository: EgeRepository = Depends(get_ege_repository)
 ):
-    return await ege_repository.get_by_district(id_district)
+    return await ege_repository.get_all()
