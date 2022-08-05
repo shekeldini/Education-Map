@@ -55,7 +55,6 @@ function menu_create_district_item(district, key){
 
         if (span.className == "closed hide"){
             let route = tabs_routs[key]
-            console.log(route)
             let schools = await route(district.options.id_district);
 
             if (!ul.childElementCount){
