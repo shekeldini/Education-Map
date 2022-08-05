@@ -427,7 +427,7 @@ function create_vpr_info(vpr, active) {
         "",
         "Ниже<br> базового",
         "Базовый<br> уровень",
-        "Выше<br> базового", 
+        "Выше<br> базового",
         "Ниже<br> базового",
         "Базовый<br> уровень",
         "Выше<br> базового"
@@ -527,7 +527,7 @@ function create_text(data, active){
     };
 
     // ege
-    if (data.ege){
+    if (data.ege.subject){
         tabContainer.appendChild(create_ege_info(data.ege, tabs_active[2]));
     }
     else{
