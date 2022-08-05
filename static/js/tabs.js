@@ -382,7 +382,7 @@ function create_vpr_info(vpr, active) {
 
     let vpr_wrapper = document.createElement('div');
     vpr_wrapper.className = "ege-wrapper";
-    vpr_wrapper.innerHTML = "Всероссийские проверочные работы";
+    vpr_wrapper.innerHTML = "ВПР";
 
     tabContent.appendChild(vpr_wrapper);
 
@@ -405,14 +405,19 @@ function create_vpr_info(vpr, active) {
     table_header.className= "table-header";
 
     let vpr_obj = {
-        0: "РУССКИЙ ЯЗЫК",
-        1: "МАТЕМАТИКА"
+	0: "",
+        1: "РУССКИЙ ЯЗЫК",
+        2: "МАТЕМАТИКА"
     }
+
+    
+
 
     for (const [key, value] of Object.entries(vpr_obj)) {
         let table_header__item = document.createElement('th');
         table_header__item.className = "table-header__item table-header__item-group";
-        table_header__item.setAttribute("colspan", 4)
+        let my_colSpan = key != 0 ? 3 : 1
+        table_header__item.setAttribute("colspan", my_colSpan)
         table_header__item.innerHTML = value;
 
         table_header.appendChild(table_header__item);

@@ -1414,7 +1414,7 @@ font-weight: 100;
   font-weight: 100;
 }
 .table-main {
-  height: 50px;
+  height: 35px;
   border-bottom: 1px solid #ebebeb;
 }
 .table-main:last-child {
@@ -1457,4 +1457,8 @@ margin-top: 6px;
 
 .table-header .table-header__item {
   color: #1a1c23;
+}
+
+.table-header__item-group {
+width: 0;
 }
