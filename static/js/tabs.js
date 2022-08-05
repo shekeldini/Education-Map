@@ -374,6 +374,124 @@ function create_text_error(text){
     return tabContent
 }
 
+function create_vpr_info(vpr, active) {
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+
+    tabContent.hidden = !active
+
+    let vpr_wrapper = document.createElement('div');
+    vpr_wrapper.className = "ege-wrapper";
+    vpr_wrapper.innerHTML = "Всероссийские проверочные работы";
+
+    tabContent.appendChild(vpr_wrapper);
+
+    let vpr_wrapper__oo = document.createElement('div');
+    vpr_wrapper__oo.className = "ege-wrapper-oo";
+    vpr_wrapper__oo.innerHTML += vpr.oo_name;
+
+    tabContent.appendChild(vpr_wrapper__oo);
+
+    let vpr_wrapper__district = document.createElement('div');
+    vpr_wrapper__district.className = "ege-wrapper--district";
+    vpr_wrapper__district.innerHTML += vpr.district_name;
+
+    tabContent.appendChild(vpr_wrapper__district);
+
+    let table = document.createElement('table');
+    table.className = "table";
+
+    let table_header = document.createElement('tr');
+    table_header.className= "table-header";
+
+    let vpr_obj = {
+        0: "РУССКИЙ ЯЗЫК",
+        1: "МАТЕМАТИКА"
+    }
+
+    for (const [key, value] of Object.entries(vpr_obj)) {
+        let table_header__item = document.createElement('th');
+        table_header__item.className = "table-header__item table-header__item-group";
+        table_header__item.setAttribute("colspan", 4)
+        table_header__item.innerHTML = value;
+
+        table_header.appendChild(table_header__item);
+    }
+
+    table.appendChild(table_header);
+
+    let table_header_low = document.createElement('tr');
+    table_header_low.className= "table-header";
+
+    let vpr_obj_low = {
+        0: "Ниже<br> базового",
+        1: "Базовый<br> уровень",
+        2: "Выше<br> базового",
+        3: "Ниже<br> базового",
+        4: "Базовый<br> уровень",
+        5: "Выше<br> базового"
+    }
+
+    for (const [key, value] of Object.entries(vpr_obj_low)) {
+        let table_header__item = document.createElement('th');
+        table_header__item.className = "table-header__item table-header__item-group";
+        table_header__item.innerHTML = value;
+
+        table_header_low.appendChild(table_header__item);
+    }
+
+    table.appendChild(table_header);
+    table.appendChild(table_header_low);
+
+    let keys = {
+        "parallel_4": "4 класс",
+        "parallel_5": "5 класс",
+        "parallel_6": "6 класс",
+        "parallel_7": "7 класс",
+        "parallel_8": "8 класс"
+    };
+
+    for (const [parallel, value] of Object.entries(keys)){
+        // subject_name
+        let tr = document.createElement('tr');
+        tr.className = "table-main";
+        let td = document.createElement('td');
+        td.className = "table-main__cell";
+        td.innerHTML = value;
+        tr.appendChild(td);
+
+
+        for (subj of ["rus", "math"]){
+            if(vpr[parallel][subj]){
+                for (grade of ["low", "medium", "high"]){
+                    let td = document.createElement('td');
+                    td.className = "table-main__cell";
+                    td.innerHTML = vpr[parallel][subj][grade];
+                    tr.appendChild(td);
+                };
+            }
+            else{
+                for (grade of ["low", "medium", "high"]){
+                    let td = document.createElement('td');
+                    td.className = "table-main__cell";
+                    td.innerHTML = "-";
+                    tr.appendChild(td);
+                };
+            };
+        };
+        table.appendChild(tr);
+    }
+
+    let info = document.createElement('div');
+    info.className = "info";
+    info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
+
+    tabContent.appendChild(table);
+    tabContent.appendChild(info);
+    return tabContent;
+
+}
+
 function create_text(data, active){
 
     let tabContainer = document.createElement('div')
@@ -416,7 +534,7 @@ function create_text(data, active){
     };
     // vpr
     if (data.vpr){
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("В разработке"));
+        tabContainer.appendChild(create_vpr_info(data.vpr, tabs_active[3]));
     }
     else{
         tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация о результатах ВПР отсутствует"));
