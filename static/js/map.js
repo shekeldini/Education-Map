@@ -597,7 +597,6 @@ table.onclick = function(event) {
                     tree.children[i].children[1].hidden = true
                 }
             }
-            current_filter = "info";
             return
         };
         if(selectedTd){
