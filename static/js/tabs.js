@@ -423,14 +423,15 @@ function create_vpr_info(vpr, active) {
     let table_header_low = document.createElement('tr');
     table_header_low.className= "table-header";
 
-    let vpr_obj_low = {
-        0: "Ниже<br> базового",
-        1: "Базовый<br> уровень",
-        2: "Выше<br> базового",
-        3: "Ниже<br> базового",
-        4: "Базовый<br> уровень",
-        5: "Выше<br> базового"
-    }
+    let vpr_obj_low = [
+        "",
+        "Ниже<br> базового",
+        "Базовый<br> уровень",
+        "Выше<br> базового", 
+        "Ниже<br> базового",
+        "Базовый<br> уровень",
+        "Выше<br> базового"
+    ]
 
     for (const [key, value] of Object.entries(vpr_obj_low)) {
         let table_header__item = document.createElement('th');
