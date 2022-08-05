@@ -357,7 +357,6 @@ function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_oo == id_oo){
-                console.log(map.getPane(layer))
 		        map.getPane(layer)._icon.click()
             }
         };
@@ -482,7 +481,6 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
     });
 
     markers.addLayer(marker);
-    console.log("create");
 };
 
 
