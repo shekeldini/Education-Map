@@ -17,9 +17,8 @@ function createTabHeaderItem(i, active){
 function create_base_info(base_info, active){
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
-    if (active != 0){
-        tabContent.hidden = true
-    }
+
+    tabContent.hidden = !active
 
     let tabcontent_oo = document.createElement('div');
     tabcontent_oo.className = "tabcontent-oo";
@@ -105,9 +104,8 @@ function create_base_info(base_info, active){
 function create_digital_info(digital, active) {
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
-    if (active != 1){
-        tabContent.hidden = true
-    }
+
+    tabContent.hidden = !active
 
     let sreda_wrapper = document.createElement('div');
     sreda_wrapper.className ="sreda-wrapper";
@@ -203,7 +201,8 @@ function showTabContent(tabsContent, tabs, i = 0) {
 function create_text_error(text, active){
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
-    tabContent.hidden = true
+
+    tabContent.hidden = !active
 
     let sreda_wrapper = document.createElement('div');
     sreda_wrapper.className ="sreda-wrapper";
@@ -236,9 +235,9 @@ function decorator(func, active){
 function create_ege_info(ege, active) {
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
-    if (active != 2){
-        tabContent.hidden = true
-    }
+
+    tabContent.hidden = !active
+
     let ege_wrapper = document.createElement('div');
     ege_wrapper.className = "ege-wrapper";
     ege_wrapper.innerHTML = "ЕГЭ";
@@ -399,10 +398,10 @@ function create_text(data, active){
     }
     tabs_active[active] = true
     // base_info
-    tabContainer.appendChild(create_base_info(data.base_info, active));
+    tabContainer.appendChild(create_base_info(data.base_info, tabs_active[0]));
     // digital
     if (data.digital) {
-        tabContainer.appendChild(create_digital_info(data.digital, active));
+        tabContainer.appendChild(create_digital_info(data.digital, tabs_active[1]));
     }
     else{
         tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
@@ -410,16 +409,26 @@ function create_text(data, active){
 
     // ege
     if (data.ege){
-        tabContainer.appendChild(create_ege_info(data.ege, active));
+        tabContainer.appendChild(create_ege_info(data.ege, tabs_active[2]));
     }
     else{
         tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация о результатах ЕГЭ отсутствует"));
+    };
+    // vpr
+    if (data.vpr){
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("В разработке"));
+    }
+    else{
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация о результатах ВПР отсутствует"));
     }
 
-    // vpr
-    tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("В разработке"));
     // growing_point
-    tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация участвует в программе Центров образования  цифрового и гуманитарного профиля «Точка роста» "));
+    if (data.growing_point){
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация участвует в программе Центров образования цифрового и гуманитарного профиля «Точка роста» "));
+    }
+    else{
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация не содержит центр образования цифрового и гуманитарного профилей «Точка роста» "));
+    };
 
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
