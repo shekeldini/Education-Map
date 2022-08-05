@@ -15,8 +15,8 @@ let tabs_routs = {
 
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
-var ege = document.getElementById('ege');
-var vpr = document.getElementById('vpr');
+var ege = document.getElementById('ul_ege');
+var vpr = document.getElementById('ul_vpr');
 var burger = document.getElementById('burger');
 let table = document.getElementById('filter');
 let selectedTd = info.firstChild;
@@ -340,24 +340,6 @@ function get_all_digital_items(){
     });
 };
 
-function create_marker(id_oo, id_region, id_district, coordinates){
-
-    var marker = L.marker(coordinates, {"id_region": id_region, "id_district": id_district, "id_oo": id_oo});
-
-    marker.bindPopup("",{autoClose:false});
-
-    marker.on('click', async function(){
-        if (!marker._popup._content){
-            let info = await getSchoolInfo(id_oo);
-            let text = create_text(info);
-            marker._popup._content = text;
-        }
-        marker.openPopup();
-    });
-
-    markers.addLayer(marker);
-};
-
 function deleteAllMarkers(){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
@@ -380,10 +362,7 @@ function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_oo == id_oo){
-		layer.getPane().firstChild.click()
-            }
-            else{
-                layer.closePopup();
+		        map.getPane(layer)._icon.click()
             }
         };
     })
@@ -479,18 +458,16 @@ function create_marker(id_oo, id_region, id_district, coordinates){
 
     marker.on('click', async function(){
         if (!this._popup._content){
-            let info = await getSchoolInfo(id_oo);
+            let info = await getSchoolInfo(this.options.id_oo);
             let text = create_text(info, 0);
             this._popup._content = text;
         }
         this.openPopup();
-        let popup = marker.getPopup().getPane()
-        console.log(popup)
+        let popup = this.getPopup().getPane()
         popup.onclick = function(){
             let tabheader = this.firstChild.firstChild.firstChild.firstChild.firstChild
             for (let i = 0; i < tabheader.children.length; i++){
                 if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
-                    console.log(this.firstChild.firstChild)
                     this.firstChild.firstChild.setAttribute(
                         'style',
                         `min-width: ${size_popup[i]};`,
@@ -499,7 +476,6 @@ function create_marker(id_oo, id_region, id_district, coordinates){
             }
         }
     });
-
 
     markers.addLayer(marker);
 };
@@ -618,7 +594,6 @@ table.onclick = function(event) {
                     tree.children[i].children[1].hidden = true
                 };
             };
-            console.log(selectedTd)
             selectedTd.parentNode.open = false;
         };
         selectedTd = target;
