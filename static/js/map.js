@@ -352,11 +352,14 @@ function deleteLayersForDistrict(id_district){
         };
     })
 };
-
+let found;
 function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_oo == id_oo){
+
+                setTimeout(function(){}, 200);
+                found = map.getPane(layer)._icon
 		        map.getPane(layer)._icon.click()
             }
         };
@@ -445,7 +448,7 @@ function flyToStartPosition(){
 };
 
 function flyToSchool(latLon){
-    map.flyTo(latLon, 14.5);
+    map.flyTo(latLon, 16.5);
 };
 
 function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
