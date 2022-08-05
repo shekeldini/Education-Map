@@ -1,6 +1,21 @@
 from typing import Optional, List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
+
+
+class VprItem(BaseModel):
+    id_oo: str
+    coordinates: str
+
+    @validator("coordinates")
+    def validate(cls, value):
+        if isinstance(value, str):
+            return tuple(map(float, value.split(";")))
+        return value
+
+
+class ResponseAllVpr(BaseModel):
+    items: List[VprItem]
 
 
 class VprSubjectResult(BaseModel):

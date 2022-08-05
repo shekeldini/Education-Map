@@ -1,13 +1,28 @@
 from typing import Optional, Union, List
 from db.ege import ege
 from models.request.ege import RequestEge
-from models.response.ege import Rus, MathBase, MathProf, ResponseEge, Statistic
+from models.response.ege import Rus, MathBase, MathProf, ResponseEge, Statistic, ResponseAllEge, EgeItem
 from models.others.subject import Subject, OONameDistrictName
 from models.response.oo import ResponseOO
 from .base import BaseRepository
 
 
 class EgeRepository(BaseRepository):
+    async def get_all(self) -> ResponseAllEge:
+        query = """
+        SELECT 
+            oo.id_oo,
+            oo.coordinates
+        FROM oo
+        WHERE oo.id_oo IN (
+            SELECT DISTINCT id_oo FROM ege
+        );
+        """
+        res = await self.database.fetch_all(query)
+        if not res:
+            return ResponseAllEge(items=[])
+        return ResponseAllEge(items=[EgeItem.parse_obj(row) for row in res])
+
     async def get_by_id(self, id_oo: int) -> Optional[ResponseEge]:
         base_info = await self.get_oo_name_and_district_name(id_oo)
         if not base_info:

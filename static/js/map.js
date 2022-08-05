@@ -196,8 +196,6 @@ async function load_regions(){
             });
             regions_layers.addLayer(polygon);
             menu_create_region_item(polygon, tree, "base");
-            menu_create_region_item(polygon, ege, "ege");
-            menu_create_region_item(polygon, vpr, "vpr");
         };
         return
     });
@@ -226,9 +224,6 @@ async function load_districts(){
                    {permanent: false, direction: "center"}
                 ).openTooltip()
                 menu_create_district_item(polygon, 'base');
-                menu_create_district_item(polygon, 'ege');
-                menu_create_district_item(polygon, 'vpr');
-
                 districts_layers.addLayer(polygon);
 
                 polygon.on("mouseover", function() {
@@ -296,18 +291,18 @@ function getBaseSchools(id_district){
 };
 
 
-function getEgeSchools(id_district){
+function getEgeSchools(){
     return $.ajax({
         type : 'GET',
-        url : `ege/get_by_district/${id_district}`
+        url : `ege/get_all`
     });
 };
 
 
-function getVprSchools(id_district){
+function getVprSchools(){
     return $.ajax({
         type : 'GET',
-        url : `vpr/get_by_district/${id_district}`
+        url : `vpr/get_all`
     });
 };
 
@@ -450,16 +445,21 @@ function flyToSchool(latLon){
     map.flyTo(latLon, 16.5);
 };
 
-function create_marker(id_oo, id_region, id_district, coordinates){
+function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
 
-    var marker = L.marker(coordinates, {"id_region": id_region, "id_district": id_district, "id_oo": id_oo});
+    var marker = L.marker(coordinates, {
+        "id_region": id_region,
+        "id_district": id_district,
+        "id_oo": id_oo,
+        "active_tab": active_tab
+    });
 
     marker.bindPopup("", {autoClose:false});
 
     marker.on('click', async function(){
         if (!this._popup._content){
             let info = await getSchoolInfo(this.options.id_oo);
-            let text = create_text(info, 0);
+            let text = create_text(info, active_tab);
             this._popup._content = text;
         }
         this.openPopup();
@@ -487,20 +487,7 @@ async function create_digital_markers(parent){
         current_filter = "digital"
         var digital_items = await get_all_digital_items()
         for (item of digital_items.items){
-
-            var marker = L.marker(item.coordinates, {"id_oo": item.id_oo});
-
-            marker.bindPopup("", {autoClose:false});
-
-            marker.on('click', async function(){
-                if (!this._popup._content){
-                    let info = await getSchoolInfo(this.options.id_oo);
-                    let text = create_text(info, 1);
-                    this._popup._content = text;
-                }
-                this.openPopup();
-            });
-            markers.addLayer(marker);
+            create_marker(item.id_oo, null, null, item.coordinates, 1)
         }
         markers.addTo(map);
     }
@@ -517,18 +504,7 @@ async function create_growing_points_markers(parent){
         current_filter = "growing_point"
         let growing_points = await get_all_growing_points()
         for (item of growing_points.items){
-            var marker = L.marker(item.coordinates, {"id_oo": item.id_oo});
-            marker.bindPopup("", {autoClose:false});
-            marker.on('click', async function(){
-                if (!this._popup._content){
-                    let info = await getSchoolInfo(this.options.id_oo);
-                    let text = create_text(info, 4);
-                    this._popup._content = text;
-                }
-                this.openPopup();
-            });
-
-            markers.addLayer(marker);
+            create_marker(item.id_oo, null, null, item.coordinates, 4)
         }
         markers.addTo(map);
     }
@@ -538,6 +514,39 @@ async function create_growing_points_markers(parent){
 
 };
 
+
+async function create_ege_markers(parent){
+    deleteAllMarkers()
+    if (parent.open == false){
+        current_filter = "ege"
+        let ege_points = await getEgeSchools()
+        for (item of ege_points.items){
+            create_marker(item.id_oo, null, null, item.coordinates, 2)
+        }
+        markers.addTo(map);
+    }
+    else{
+        current_filter = "info"
+    }
+
+};
+
+
+async function create_vpr_markers(parent){
+    deleteAllMarkers()
+    if (parent.open == false){
+        current_filter = "vpr"
+        let vpr_points = await getVprSchools()
+        for (item of vpr_points.items){
+            create_marker(item.id_oo, null, null, item.coordinates, 3)
+        }
+        markers.addTo(map);
+    }
+    else{
+        current_filter = "info"
+    }
+
+};
 
 function close_children(parent){
 

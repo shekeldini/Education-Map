@@ -1,6 +1,21 @@
-from typing import Optional
+from typing import Optional, List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
+
+
+class EgeItem(BaseModel):
+    id_oo: str
+    coordinates: str
+
+    @validator("coordinates")
+    def validate(cls, value):
+        if isinstance(value, str):
+            return tuple(map(float, value.split(";")))
+        return value
+
+
+class ResponseAllEge(BaseModel):
+    items: List[EgeItem]
 
 
 class Rus(BaseModel):
