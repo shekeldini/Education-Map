@@ -245,7 +245,7 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
-//                        info.open = true
+                        info.open = true
 //                        if (!edit){
 //
 //                            this.pm.enable({
@@ -572,7 +572,12 @@ table.onclick = function(event) {
     if (target.className === 'menu-filter__title') {
         flag = true
     }
-    if (target.className.baseVal === 'menu-filter__title-icon'){
+    if (target.className.baseVal === 'menu-filter__title-icon' ){
+        flag = true
+        target = target.parentNode
+    }
+    if (target.className === 'menu-filter__title-description' ){
+
         flag = true
         target = target.parentNode
     }
@@ -581,6 +586,7 @@ table.onclick = function(event) {
         target = target.parentNode.parentNode
     }
     if (flag){
+
         deleteAllMarkers();
         if (target == selectedTd){
             if (target == info_select){
