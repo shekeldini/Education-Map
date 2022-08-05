@@ -981,11 +981,34 @@ summary::-webkit-details-marker {
 }
 
 .menu-filter__title:hover {
-  color: #93c4e3;
+  color: #11c2d6;
 }
 .menu-filter__title:hover .menu-filter__title-icon {
-  fill: #93c4e3;
+  fill: #11c2d6;
 } 
+
+.menu-filter__title-sreda:hover, .menu-filter__title-sreda:hover .menu-filter__title-icon {
+  color: #787bfd;
+fill: #787bfd;
+
+}
+
+.menu-filter__title-ege:hover, .menu-filter__title-ege:hover .menu-filter__title-icon {
+  color: #ffa903;
+fill: #ffa903;
+
+}
+
+.menu-filter__title-vpr:hover, .menu-filter__title-vpr:hover .menu-filter__title-icon {
+  color: #99da67;
+fill: #99da67;
+}
+
+.menu-filter__title-rost:hover, .menu-filter__title-rost:hover .menu-filter__title-icon {
+color: #ed1b24;
+fill: #ed1b24;
+}
+
 
 .menu-filter__title-description {
   font-size: 13px;
