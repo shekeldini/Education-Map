@@ -282,7 +282,7 @@ function create_ege_info(ege, active) {
 
     table.appendChild(table_header);
 
-    let keys = {"rus": "Русский язык", "math_prof": "Профильная математика", "math_base": "Базовая математика"}
+    let keys = {"rus": "Русский язык", "math_prof": "Профильная<br> математика", "math_base": "Базовая<br> математика"}
 
     for (const [key, value] of Object.entries(keys)){
         // subject_name

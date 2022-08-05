@@ -2,8 +2,8 @@ let edit = false
 let size_popup = {
     0: "340px",
     1: "340px",
-    2: "600px",
-    3: "600px",
+    2: "650px",
+    3: "650px",
     4: "340px",
 }
 
