@@ -74,12 +74,12 @@ function menu_create_district_item(district, key){
                     };
                     school_li.appendChild(school_span);
                     ul.appendChild(school_li);
-                    create_marker(school.id_oo, district.options.id_region, district.options.id_district, school.coordinates);
+                    create_marker(school.id_oo, district.options.id_region, district.options.id_district, school.coordinates, 0);
                 };
 	        }
 	        else{
 	            for (school of schools){
-                    create_marker(school.id_oo, district.options.id_region, district.options.id_district, school.coordinates);
+                    create_marker(school.id_oo, district.options.id_region, district.options.id_district, school.coordinates, 0);
                 }
 	        };
             markers.addTo(map);
