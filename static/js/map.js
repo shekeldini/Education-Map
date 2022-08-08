@@ -424,6 +424,7 @@ function createFoundItem(item){
         map.once('moveend', function(){
             create_marker(item.id_oo, null, null, item.coordinates, 0);
             markers.addTo(map);
+            setTimeout(function(){}, 200);
             openSchoolPopUp(item.id_oo)
         });
     }
