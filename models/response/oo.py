@@ -5,6 +5,7 @@ from pydantic import BaseModel, AnyUrl, validator
 class ResponseOO(BaseModel):
     id_oo: int
     id_district: int
+    filial: bool
     oo_name: str
     oo_address: str
     director: str

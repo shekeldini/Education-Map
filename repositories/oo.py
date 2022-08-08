@@ -16,6 +16,7 @@ class OORepository(BaseRepository):
         SELECT 
             oo.id_oo,
             oo.id_district,
+            oo.filial,
             oo.oo_name,
             oo.oo_address,
             oo.director,
@@ -51,6 +52,7 @@ class OORepository(BaseRepository):
         SELECT 
             oo.id_oo,
             oo.id_district,
+            oo.filial,
             oo.oo_name,
             oo.oo_address,
             oo.director,
