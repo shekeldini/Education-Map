@@ -6,7 +6,7 @@ from models.others.ege import Rus, MathBase, MathProf
 from models.others.subject import Subject
 from models.others.vpr import VprStatistic, VprParallelResult, VprSubjectResult
 from models.request.committee import RequestCommittee
-from models.response.committee import BaseCommittee, ResponseCommittee
+from models.response.committee import BaseCommittee, ResponseCommittee, CommitteeCoordinates
 from models.response.ege import Statistic
 from models.response.growing_point import GrowingPointCount
 from .base import BaseRepository
@@ -133,6 +133,7 @@ class CommitteeRepository(BaseRepository):
     async def get_base_info(self, id_district: int) -> Optional[BaseCommittee]:
         query = """
         SELECT 
+            committee.id_district,
             district.district_name,
             committee.name,
             committee.address,
@@ -200,3 +201,16 @@ class CommitteeRepository(BaseRepository):
         values = {**item.dict()}
         query = committee.insert().values(**values)
         return await self.database.execute(query=query)
+
+    async def get_coordinates(self, id_district: int) -> Optional[CommitteeCoordinates]:
+        query = """
+        SELECT
+            id_district,
+            coordinates
+        FROM committee
+        WHERE id_district = :id_district;
+        """
+        res = await self.database.fetch_one(query, values={"id_district": id_district})
+        if not res:
+            return None
+        return CommitteeCoordinates.parse_obj(res)

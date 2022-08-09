@@ -8,6 +8,7 @@ from models.response.growing_point import GrowingPointCount
 
 
 class BaseCommittee(BaseModel):
+    id_district: int
     district_name: str
     name: str
     address: str
@@ -16,6 +17,17 @@ class BaseCommittee(BaseModel):
     phone_number: str
     coordinates: Any
     url: str
+
+    @validator("coordinates")
+    def validate(cls, value):
+        if isinstance(value, str):
+            return tuple(map(float, value.split(";")))
+        return value
+
+
+class CommitteeCoordinates(BaseModel):
+    id_district: int
+    coordinates: Any
 
     @validator("coordinates")
     def validate(cls, value):
