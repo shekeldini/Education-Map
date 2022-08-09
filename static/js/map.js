@@ -377,7 +377,7 @@ function changeBorderWeight(value){
 
 function search(value){
     $("#search_result").empty();
-    if (value.length > 3){
+    if (value.length > 0){
         var data = $.ajax({
             type : 'GET',
             url : "oo/search?oo_name=" + value,
@@ -394,7 +394,7 @@ function search(value){
 function createFoundItem(item){
     let div = document.createElement('div');
     div.className = 'menu-search__wrapper-item'
-    div.innerHTML += "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name + "</div>"
+    div.innerHTML += "<p>" + item.oo_name + "</p>" + "<div>" + item.district_name +', ' + item.oo_address + "</div>"
     div.onclick = async function(){
         deleteAllMarkers();
         flyToSchool(item.coordinates);
