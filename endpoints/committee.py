@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, Response, HTTPException, status
 from models.request.committee import RequestCommittee
-from models.response.committee import ResponseCommittee
+from models.response.committee import ResponseCommittee, CommitteeCoordinates
 from repositories.committee import CommitteeRepository
 from .depends import get_committee_repository
 
@@ -23,6 +23,17 @@ async def get_by_id(
         committee_repository: CommitteeRepository = Depends(get_committee_repository),
 ):
     item = await committee_repository.get_by_id(id_district)
+    if not item:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="id_district not found")
+    return item
+
+
+@router.get("/get_coordinates/{id_district}", response_model=CommitteeCoordinates)
+async def get_by_id(
+        id_district: int,
+        committee_repository: CommitteeRepository = Depends(get_committee_repository),
+):
+    item = await committee_repository.get_coordinates(id_district)
     if not item:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="id_district not found")
     return item

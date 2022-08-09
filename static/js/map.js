@@ -140,7 +140,9 @@ map.on("zoomend", function(){
 })
 
 var markers = L.markerClusterGroup({singleMarkerMode: true})
+var committee_markers = L.markerClusterGroup()
 markers.addTo(map);
+committee_markers.addTo(map);
 
 let regions_layers = L.layerGroup()
 let districts_layers = L.layerGroup()
@@ -324,10 +326,30 @@ function get_all_digital_items(){
     });
 };
 
+function get_committee_info(id_district){
+    return $.ajax({
+        type : 'GET',
+        url : `committee/get_by_id/${id_district}`
+    });
+}
+
+function get_committee_coordinates(id_district){
+    return $.ajax({
+        type : 'GET',
+        url : `committee/get_coordinates/${id_district}`
+    });
+}
+
+
 function deleteAllMarkers(){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             markers.removeLayer(layer);
+        };
+    })
+    committee_markers.eachLayer(function(layer) {
+        if (layer instanceof L.Marker){
+            committee_markers.removeLayer(layer);
         };
     })
 };
@@ -337,6 +359,13 @@ function deleteLayersForDistrict(id_district){
         if (layer instanceof L.Marker){
             if (layer.options.id_district == id_district){
                 markers.removeLayer(layer);
+            }
+        };
+    })
+    committee_markers.eachLayer(function(layer) {
+        if (layer instanceof L.Marker){
+            if (layer.options.id_district == id_district){
+                committee_markers.removeLayer(layer);
             }
         };
     })
@@ -443,6 +472,39 @@ function flyToStartPosition(){
 function flyToSchool(latLon){
     map.flyTo(latLon, 16.5, {animate: true, duration: duration_to_school});
 };
+
+function create_committee_marker(item){
+    var marker = L.marker(item.coordinates, {
+        "id_district": item.id_district,
+        icon: customIcon
+    });
+    marker.bindPopup("", {autoClose:false});
+
+    marker.on('click', async function(){
+        if (!this._popup._content){
+            let info = await get_committee_info(this.options.id_district);
+            //let text = create_text(info, 0);
+            this._popup._content = "test";
+        }
+        this.openPopup();
+        let popup = this.getPopup().getPane()
+        popup.onclick = function(){
+            let tabheader = this.firstChild.firstChild.firstChild.firstChild.firstChild
+            for (let i = 0; i < tabheader.children.length; i++){
+                if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
+                    this.firstChild.firstChild.setAttribute(
+                        'style',
+                        `min-width: ${size_popup[i]};`,
+                    )
+                }
+            }
+        }
+    });
+
+    committee_markers.addLayer(marker);
+
+};
+
 
 function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
 

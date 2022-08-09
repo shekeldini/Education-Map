@@ -56,6 +56,7 @@ function menu_create_district_item(district, key){
         if (span.className == "closed hide"){
             let route = tabs_routs[key]
             let schools = await route(district.options.id_district);
+            let committee = await get_committee_coordinates(district.options.id_district);
 
             if (!ul.childElementCount){
 	            for (school of schools){
@@ -86,6 +87,8 @@ function menu_create_district_item(district, key){
                 }
 	        };
             markers.addTo(map);
+            create_committee_marker(committee);
+            committee_markers.addTo(map);
             span.className = "closed open show active";
         };
     };
