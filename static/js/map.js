@@ -100,6 +100,7 @@ map.on("zoomend", function(){
 
     if (zoom >=9.5 && zoom < 10.5){
         changeOpacity(0.7)
+        duration_to_school = 1.5;
 
     };
     if (zoom >=10.5 && zoom < 12.5) {
@@ -131,6 +132,7 @@ map.on("zoomend", function(){
     if (zoom < 9.5) {
         changeOpacity(0.8)
         duration_to_region = null
+        duration_to_school = 1.25;
     };
 //    if (zoom < 7.5) {
 //        changeBorderWeight(1)
