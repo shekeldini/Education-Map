@@ -528,29 +528,37 @@ function create_text(data, active){
     else{
         tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
     };
-
-    // ege
-    if (data.ege.subject){
+    if (!data.base_info.filial){
+        if (data.ege.subject){
         tabContainer.appendChild(create_ege_info(data.ege, tabs_active[2]));
-    }
-    else{
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация о результатах ЕГЭ отсутствует"));
-    };
-    // vpr
-    if (data.vpr){
-        tabContainer.appendChild(create_vpr_info(data.vpr, tabs_active[3]));
-    }
-    else{
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация о результатах ВПР отсутствует"));
-    }
+        }
+        else{
+            tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация о результатах ЕГЭ отсутствует"));
+        };
+        // vpr
+        if (data.vpr){
+            tabContainer.appendChild(create_vpr_info(data.vpr, tabs_active[3]));
+        }
+        else{
+            tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация о результатах ВПР отсутствует"));
+        }
 
-    // growing_point
-    if (data.growing_point){
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация участвует в программе Центров образования цифрового и гуманитарного профиля «Точка роста» "));
+        // growing_point
+        if (data.growing_point){
+            tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация участвует в программе Центров образования цифрового и гуманитарного профиля «Точка роста» "));
+        }
+        else{
+            tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация не содержит центр образования цифрового и гуманитарного профилей «Точка роста» "));
+        };
     }
     else{
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация не содержит центр образования цифрового и гуманитарного профилей «Точка роста» "));
-    };
+
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация размещена в юридическом лице"));
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация размещена в юридическом лице"));
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Информация размещена в юридическом лице"));
+    }
+    // ege
+
 
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');

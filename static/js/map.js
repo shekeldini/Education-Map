@@ -12,6 +12,8 @@ let tabs_routs = {
     "base": getBaseSchools,
     "vpr": getVprSchools
 }
+let duration_to_region = null;
+let duration_to_school = 1.25;
 
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
@@ -98,9 +100,12 @@ map.on("zoomend", function(){
 
     if (zoom >=9.5 && zoom < 10.5){
         changeOpacity(0.7)
+
     };
     if (zoom >=10.5 && zoom < 12.5) {
         changeOpacity(0.6)
+
+        duration_to_region = 1.5
         if (this_polygon != null){
             this_polygon.setStyle({
                 fillOpacity: 0.3
@@ -110,6 +115,7 @@ map.on("zoomend", function(){
     };
     if (zoom >=12.5 && zoom < 14) {
         changeOpacity(0.4)
+        duration_to_region = 2
         if (this_polygon != null){
             this_polygon.setStyle({
                 fillOpacity: 0
@@ -119,9 +125,12 @@ map.on("zoomend", function(){
     };
     if (zoom >= 14) {
         changeOpacity(0.2)
+        duration_to_school = null;
+        duration_to_region = null
     };
     if (zoom < 9.5) {
         changeOpacity(0.8)
+        duration_to_region = null
     };
 //    if (zoom < 7.5) {
 //        changeBorderWeight(1)
@@ -335,7 +344,6 @@ function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_oo == id_oo){
-
                 setTimeout(function(){}, 200);
                 found = map.getPane(layer)._icon
                 while (!found){
@@ -413,7 +421,7 @@ function createFoundItem(item){
 };
 
 function flyToRegion(point){
-    map.flyTo(point, 8.5)
+    map.flyTo(point, 8.5, {animate: true, duration: duration_to_region})
 }
 
 function flyToRegionById(id_region){
@@ -430,7 +438,7 @@ function flyToStartPosition(){
 };
 
 function flyToSchool(latLon){
-    map.flyTo(latLon, 16.5);
+    map.flyTo(latLon, 16.5, {animate: true, duration: duration_to_school});
 };
 
 function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
