@@ -205,10 +205,13 @@ class CommitteeRepository(BaseRepository):
     async def get_coordinates(self, id_district: int) -> Optional[CommitteeCoordinates]:
         query = """
         SELECT
-            id_district,
-            coordinates
+            committee.id_district,
+            committee.coordinates,
+            district.id_region
         FROM committee
-        WHERE id_district = :id_district;
+            LEFT JOIN district ON
+                committee.id_district = district.id_district
+        WHERE committee.id_district = :id_district;
         """
         res = await self.database.fetch_one(query, values={"id_district": id_district})
         if not res:
