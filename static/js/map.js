@@ -338,7 +338,10 @@ function openSchoolPopUp(id_oo){
 
                 setTimeout(function(){}, 200);
                 found = map.getPane(layer)._icon
-		        map.getPane(layer)._icon.click()
+                while (!found){
+                    found = map.getPane(layer)._icon
+                };
+		        found.click()
             }
         };
     })
