@@ -2,6 +2,8 @@ from typing import Optional, List
 
 from pydantic import BaseModel, validator
 
+from models.others.ege import Rus, MathBase, MathProf
+
 
 class EgeItem(BaseModel):
     id_oo: str
@@ -16,23 +18,6 @@ class EgeItem(BaseModel):
 
 class ResponseAllEge(BaseModel):
     items: List[EgeItem]
-
-
-class Rus(BaseModel):
-    low: float
-    medium: float
-    high: float
-
-
-class MathProf(BaseModel):
-    low: float
-    medium: float
-    high: float
-
-
-class MathBase(BaseModel):
-    low: float
-    medium: float
 
 
 class Statistic(BaseModel):

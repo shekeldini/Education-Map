@@ -1,6 +1,8 @@
-from typing import Optional, List
+from typing import List
 
 from pydantic import BaseModel, validator
+
+from models.others.vpr import VprParallelResult
 
 
 class VprItem(BaseModel):
@@ -16,17 +18,6 @@ class VprItem(BaseModel):
 
 class ResponseAllVpr(BaseModel):
     items: List[VprItem]
-
-
-class VprSubjectResult(BaseModel):
-    low: float
-    medium: float
-    high: float
-
-
-class VprParallelResult(BaseModel):
-    math: Optional[VprSubjectResult]
-    rus: Optional[VprSubjectResult]
 
 
 class ResponseVpr(BaseModel):

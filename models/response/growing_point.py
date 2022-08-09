@@ -17,5 +17,10 @@ class ResponseGrowingPoint(BaseModel):
     items: List[GrowingPointItem]
 
 
+class GrowingPointCount(BaseModel):
+    count_true: int
+    count_false: int
+
+
 class GrowingPointCheck(BaseModel):
     growing_point: bool

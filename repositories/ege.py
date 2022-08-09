@@ -1,7 +1,8 @@
 from typing import Optional, Union, List
 from db.ege import ege
 from models.request.ege import RequestEge
-from models.response.ege import Rus, MathBase, MathProf, ResponseEge, Statistic, ResponseAllEge, EgeItem
+from models.response.ege import ResponseEge, Statistic, ResponseAllEge, EgeItem
+from models.others.ege import Rus, MathBase, MathProf
 from models.others.subject import Subject, OONameDistrictName
 from models.response.oo import ResponseOO
 from .base import BaseRepository

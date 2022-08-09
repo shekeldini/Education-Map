@@ -12,6 +12,7 @@ from repositories.oo_logins import OOLoginsRepository
 from repositories.ege import EgeRepository
 from repositories.growing_points import GrowingPointsRepository
 from repositories.vpr import VprRepository
+from repositories.committee import CommitteeRepository
 
 
 def get_district_repository() -> DistrictRepository:
@@ -48,6 +49,10 @@ def get_growing_points_repository() -> GrowingPointsRepository:
 
 def get_vpr_repository() -> VprRepository:
     return VprRepository(database)
+
+
+def get_committee_repository() -> CommitteeRepository:
+    return CommitteeRepository(database)
 
 
 async def get_current_user(

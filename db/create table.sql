@@ -111,3 +111,17 @@ CONSTRAINT "C8" FOREIGN KEY (id_subject)
 CONSTRAINT "C9" FOREIGN KEY (id_oo)
     REFERENCES oo (id_oo)
 );
+
+CREATE TABLE IF NOT EXISTS committee(
+id_district INTEGER NOT NULL,
+name text NOT NULL,
+address text NOT NULL,
+executive text NOT NULL,
+email text NOT NULL,
+phone_number text NOT NULL,
+coordinates text NOT NULL,
+url text NOT NULL,
+CONSTRAINT "K11" PRIMARY KEY (id_district),
+CONSTRAINT "C10" FOREIGN KEY (id_district)
+    REFERENCES district (id_district)
+);

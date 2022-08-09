@@ -1,7 +1,8 @@
 from typing import Optional, List
 from db.vpr import vpr
+from models.others.vpr import VprSubjectResult
 from models.request.vpr import RequestVpr
-from models.response.vpr import VprSubjectResult, VprParallelResult, ResponseVpr, ResponseAllVpr, VprItem
+from models.response.vpr import VprParallelResult, ResponseVpr, ResponseAllVpr, VprItem
 from models.others.subject import Subject, OONameDistrictName
 from .base import BaseRepository
 

@@ -121,6 +121,7 @@ class OORepository(BaseRepository):
             oo.id_district,
             oo.oo_name,
             oo.coordinates,
+            oo.oo_address,
             district.district_name
         FROM oo
             LEFT JOIN district ON
