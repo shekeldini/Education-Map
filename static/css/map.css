@@ -1466,3 +1466,7 @@ font-size: 12px;
 .leaflet-popup-content { 
      margin: 7px 19px;
 }
+
+.hideFilter {
+  display: none;
+}

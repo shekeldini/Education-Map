@@ -68,7 +68,12 @@ close.addEventListener('click', () => {
 //})
 
 
+const searchFilter = document.querySelector("#info");
+const wrapper = document.querySelector(".menu-wrapper");
 
+searchFilter.onclick = function(){
+	wrapper.classList.toggle("hideFilter");
+}
 
 
 
