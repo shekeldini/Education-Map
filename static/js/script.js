@@ -72,11 +72,51 @@ close.addEventListener('click', () => {
 //})
 
 
-const searchFilter = document.querySelector("#info");
+const committee = document.querySelector("#committee");
 const wrapper = document.querySelector(".menu-wrapper");
 
-searchFilter.onclick = function(){
+info.onclick = function(event){
+	let target = event.target;
+	let flag = false
+    if (target.className === 'menu-filter__title') {
+        flag = true
+    }
+    if (target.className.baseVal === 'menu-filter__title-icon' ){
+        flag = true
+    }
+    if (target.className === 'menu-filter__title-description' ){
+
+        flag = true
+    }
+    if (target.tagName === 'path'){
+        flag = true
+    }
+    if (flag){
 	wrapper.classList.toggle("hideFilter");
+	committee.classList.toggle("hideFilter");
+    }
+}
+
+committee.onclick = function(event){
+        let target = event.target;
+        let flag = false
+    if (target.className === 'menu-filter__title') {
+        flag = true
+    }
+    if (target.className.baseVal === 'menu-filter__title-icon' ){
+        flag = true
+    }
+    if (target.className === 'menu-filter__title-description' ){
+
+        flag = true
+    }
+    if (target.tagName === 'path'){
+        flag = true
+    }
+    if (flag){
+        wrapper.classList.toggle("hideFilter");
+        info.classList.toggle("hideFilter");
+    }
 }
 
 

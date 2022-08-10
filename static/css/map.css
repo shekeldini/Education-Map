@@ -49,14 +49,14 @@ body {
   }
 }
 
-/*@media (max-width: 1280px) {
+@media (max-width: 1280px) {
  .menu {
   overflow-y: auto !important;
  }
  .menu-filter__title-description {
      font-size: 11px !important;
  }
-}*/
+}
 
 
 @media (max-width: 724px) {
@@ -961,8 +961,8 @@ summary::-webkit-details-marker {
   font-family: "Roboto", sans-serif;
   font-size: 18px;
   color: #1a1c23;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   padding-left: 20px;
   display: flex;
     flex-wrap: wrap;
