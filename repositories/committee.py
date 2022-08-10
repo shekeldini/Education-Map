@@ -18,7 +18,7 @@ class CommitteeRepository(BaseRepository):
         if not base:
             return None
         return ResponseCommittee(
-            base=base,
+            base_info=base,
             ege=Statistic(
                 rus=await self.get_ege_for_subject(id_district, Subject.RUS),
                 math_base=await self.get_ege_for_subject(id_district, Subject.MATH_BASE),

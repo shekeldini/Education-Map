@@ -38,7 +38,7 @@ class CommitteeCoordinates(BaseModel):
 
 
 class ResponseCommittee(BaseModel):
-    base: BaseCommittee
+    base_info: BaseCommittee
     ege: Statistic
     vpr: VprStatistic
     digital: Optional[DigitalDistrict]
