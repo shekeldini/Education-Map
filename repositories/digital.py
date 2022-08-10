@@ -11,7 +11,10 @@ class DigitalRepository(BaseRepository):
         query = """
         SELECT 
             digital.id_oo,
-            oo.coordinates
+            oo.coordinates,
+            digital.cos2020,
+            digital.cos2021,
+            digital.cos2022
         FROM digital
             LEFT JOIN oo ON
                 oo.id_oo = digital.id_oo;

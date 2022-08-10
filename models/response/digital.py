@@ -5,6 +5,9 @@ from pydantic import BaseModel, validator
 class AllDigitalItem(BaseModel):
     id_oo: str
     coordinates: str
+    cos2020: bool
+    cos2021: bool
+    cos2022: bool
 
     @validator("coordinates")
     def validate(cls, value):
