@@ -386,13 +386,14 @@ function openSchoolPopUp(id_oo){
     markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_oo == id_oo){
-                setTimeout(function(){}, 200);
-                found = map.getPane(layer)._icon
-                if (!found){
-                    setTimeout(function(){}, 200);
-                    found = map.getPane(layer)._icon
-                }
-                found.click()
+//                setTimeout(function(){}, 200);
+//                found = map.getPane(layer)._icon
+//                if (!found){
+//                    setTimeout(function(){}, 200);
+//                    found = map.getPane(layer)._icon
+//                }
+                layer.fire('click')
+                //found.click()
             }
         };
     })
@@ -402,13 +403,14 @@ function openCommitteePopUp(id_district){
     committee_markers.eachLayer(function(layer) {
         if (layer instanceof L.Marker){
             if (layer.options.id_district == id_district){
-                setTimeout(function(){}, 200);
-                found = map.getPane(layer)._icon
-                if (!found){
-                    setTimeout(function(){}, 200);
-                    found = map.getPane(layer)._icon
-                }
-		        found.click()
+//                setTimeout(function(){}, 200);
+//                found = map.getPane(layer)._icon
+//                if (!found){
+//                    setTimeout(function(){}, 200);
+//                    found = map.getPane(layer)._icon
+//                }
+//		        found.click()
+		        layer.fire('click')
             }
         };
     })
@@ -514,7 +516,6 @@ function create_committee_marker(item){
         icon: customIcon
     });
     marker.bindPopup("", {autoClose:false});
-
     marker.on('click', async function(){
         if (!this._popup._content){
             let info = await get_committee_info(this.options.id_district);
