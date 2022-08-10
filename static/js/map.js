@@ -247,7 +247,7 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
-                          info.firstChild.nextSibling.click()
+                        info.firstChild.nextSibling.click()
 //                        info.open = true
 //                        if (!edit){
 //
@@ -551,27 +551,7 @@ function create_committee_marker(item){
 
 function create_marker(id_oo, id_region, id_district, coordinates, active_tab, item){
     let icon = L.icon(iconOneElement)
-    if (item){
-        if (item.cos2020){
-            icon = L.icon({
-                iconUrl: '/static/images/2020.png',
-                iconSize: [45, 40]
-            });
-        }
-        if (item.cos2021){
-            icon = L.icon({
-                iconUrl: '/static/images/2021.png',
-                iconSize: [45, 40]
-            });
-        }
-        if (item.cos2022){
-            icon = L.icon({
-                iconUrl: '/static/images/2022.png',
-                iconSize: [45, 40]
-            });
-        }
 
-    }
     var marker = L.marker(coordinates, {
         "id_region": id_region,
         "id_district": id_district,
