@@ -56,6 +56,15 @@ body {
  .menu-filter__title-description {
      font-size: 11px !important;
  }
+ .menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #93c4e3 !important;
+ }
+	#map {
+		    width: 61%;
+    left: 70%;
+    transform: translateX(-63%);
+	}
 }
 
 
@@ -152,7 +161,7 @@ overflow-y: hidden;
 
 .menu-search__wrapper::-webkit-scrollbar {
   width: 4px;
-  background-color: #f9f9fd;
+  background-color: #93c4e3;
 }
 
 .menu-search__wrapper::-webkit-scrollbar-thumb {

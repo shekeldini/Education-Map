@@ -247,7 +247,8 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
-                        info.open = true
+                          info.firstChild.nextSibling.click()
+//                        info.open = true
 //                        if (!edit){
 //
 //                            this.pm.enable({
@@ -467,6 +468,10 @@ function search(value){
             },
         });
     }
+    if (value.length == 0){
+        deleteAllMarkers();
+    };
+
 };
 
 
