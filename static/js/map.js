@@ -148,7 +148,7 @@ map.on("zoomend", function(){
 })
 
 var markers = L.markerClusterGroup()
-var committee_markers = L.markerClusterGroup()
+var committee_markers = L.markerClusterGroup({singleMarkerMode: true})
 markers.addTo(map);
 committee_markers.addTo(map);
 
@@ -377,7 +377,6 @@ function deleteLayersForDistrict(id_district){
         if (layer instanceof L.Marker){
             if (layer.options.id_district == id_district){
                 committee_markers.removeLayer(layer);
-                console.log("delete")
             }
         };
     })
@@ -394,7 +393,6 @@ function openSchoolPopUp(id_oo){
 //                    found = map.getPane(layer)._icon
 //                }
                 layer.fire('click')
-                console.log("found")
                 //found.click()
             }
         };
@@ -430,7 +428,6 @@ function deleteLayersForRegion(id_region){
         if (layer instanceof L.Marker){
             if (layer.options.id_region == id_region){
                 committee_markers.removeLayer(layer);
-                console.log("delete")
             }
         };
     })
@@ -515,11 +512,14 @@ function flyToSchool(latLon){
 function create_committee_marker(item){
     var marker = L.marker(item.coordinates, {
         "id_district": item.id_district,
-        "id_region": item.id_region,
-        icon: customIcon
+        "id_region": item.id_region
     });
     marker.bindPopup("", {autoClose:false});
+    marker.openPopup();
+    committee_markers.addLayer(marker);
+
     marker.on('click', async function(){
+    console.log(this)
         if (!this._popup._content){
             let info = await get_committee_info(this.options.id_district);
             let text = create_committee_text(info, 0);
@@ -539,9 +539,7 @@ function create_committee_marker(item){
             }
         }
     });
-
-    committee_markers.addLayer(marker);
-    console.log("create")
+    committee_markers.addTo(map);
 
 };
 
