@@ -377,6 +377,7 @@ function deleteLayersForDistrict(id_district){
         if (layer instanceof L.Marker){
             if (layer.options.id_district == id_district){
                 committee_markers.removeLayer(layer);
+                console.log("delete")
             }
         };
     })
@@ -393,6 +394,7 @@ function openSchoolPopUp(id_oo){
 //                    found = map.getPane(layer)._icon
 //                }
                 layer.fire('click')
+                console.log("found")
                 //found.click()
             }
         };
@@ -428,6 +430,7 @@ function deleteLayersForRegion(id_region){
         if (layer instanceof L.Marker){
             if (layer.options.id_region == id_region){
                 committee_markers.removeLayer(layer);
+                console.log("delete")
             }
         };
     })
@@ -538,6 +541,7 @@ function create_committee_marker(item){
     });
 
     committee_markers.addLayer(marker);
+    console.log("create")
 
 };
 
@@ -560,9 +564,9 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
             let text = create_text(info, active_tab);
             this._popup._content = text;
         }
-
-        let popup = this.getPopup().getPane()
         this.openPopup();
+        let popup = this.getPopup().getPane()
+
         popup.onclick = function(){
             let tabheader = this.firstChild.firstChild.firstChild.firstChild.firstChild
             for (let i = 0; i < tabheader.children.length; i++){
