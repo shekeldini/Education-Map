@@ -24,7 +24,13 @@ function create_base_info(base_info, active){
     tabcontent_oo.className = "tabcontent-oo";
     let tabcontent_oo__title = document.createElement('div');
     tabcontent_oo__title.className = "tabcontent-oo__title";
-    tabcontent_oo__title.innerHTML += base_info.oo_name;
+    if (base_info.oo_name){
+        tabcontent_oo__title.innerHTML += base_info.oo_name;
+    }
+    else{
+        tabcontent_oo__title.innerHTML += base_info.name;
+    };
+
     let tabcontent_oo__descr = document.createElement('div');
     tabcontent_oo__descr.className = "tabcontent-oo__descr";
     tabcontent_oo__descr.innerHTML += base_info.district_name;
@@ -36,16 +42,31 @@ function create_base_info(base_info, active){
     tabcontent_address__title.innerHTML = 'Адрес';
     let tabcontent_address__descr = document.createElement('div');
     tabcontent_address__descr.className = "tabcontent-address__descr";
-    tabcontent_address__descr.innerHTML += base_info.oo_address;
+
+    if (base_info.oo_address){
+        tabcontent_address__descr.innerHTML += base_info.oo_address;
+    }
+    else{
+        tabcontent_address__descr.innerHTML += base_info.address;
+    }
 
     let tabcontent_director = document.createElement('div');
     tabcontent_director.className ="tabcontent-director";
     let tabcontent_director__title = document.createElement('div');
     tabcontent_director__title.className = "tabcontent-director__title";
-    tabcontent_director__title.innerHTML = 'Директор';
+
     let tabcontent_director__descr = document.createElement('div');
     tabcontent_director__descr.className = "tabcontent-director__descr";
-    tabcontent_director__descr.innerHTML += base_info.director;
+
+    if (base_info.director){
+        tabcontent_director__title.innerHTML = 'Директор';
+        tabcontent_director__descr.innerHTML += base_info.director;
+    }
+    else{
+        tabcontent_director__title.innerHTML = 'Руководитель комитета';
+        tabcontent_director__descr.innerHTML += base_info.executive;
+    }
+
 
     let tabcontent_mail = document.createElement('div');
     tabcontent_mail.className = "tabcontent-mail";
@@ -55,7 +76,13 @@ function create_base_info(base_info, active){
     let tabcontent_mail__descr = document.createElement('a');
     tabcontent_mail__descr.className = "tabcontent-mail__descr";
     tabcontent_mail__descr.href = base_info.email_oo;
-    tabcontent_mail__descr.innerHTML = base_info.email_oo;
+    if (base_info.email_oo){
+        tabcontent_mail__descr.innerHTML = base_info.email_oo;
+    }
+    else{
+        tabcontent_mail__descr.innerHTML = base_info.email;
+    }
+
 
     let tabcontent_phone = document.createElement('div');
     tabcontent_phone.className= "tabcontent-phone";
@@ -112,21 +139,25 @@ function create_digital_info(digital, active) {
 
     let sreda_wrapper__district = document.createElement('div');
     sreda_wrapper__district.className = "sreda-wrapper__district";
-    let sreda_wrapper__district_title = document.createElement('div');
-    sreda_wrapper__district_title.className = "sreda-wrapper__district-title";
-    sreda_wrapper__district_title.innerHTML = 'Наименование района';
+
     let sreda_wrapper__district_descr = document.createElement('div');
     sreda_wrapper__district_descr.className = "sreda-wrapper__district-descr";
-    sreda_wrapper__district_descr.innerHTML += digital.district_name;
+    if (digital.oo_name){
+        sreda_wrapper__district_descr.innerHTML += digital.district_name;
+    }
 
     let sreda_wrapper__oo = document.createElement('div');
     sreda_wrapper__oo.className  = "sreda-wrapper__oo";
-    let sreda_wrapper__oo_title = document.createElement('div');
-    sreda_wrapper__oo_title.className = "sreda-wrapper__oo-title";
-    sreda_wrapper__oo_title.innerHTML = 'Наименование ОО';
+
     let sreda_wrapper__oo_descr = document.createElement('div');
     sreda_wrapper__oo_descr.className = "sreda-wrapper__oo-descr";
-    sreda_wrapper__oo_descr.innerHTML += digital.oo_name;
+
+    if (digital.oo_name){
+        sreda_wrapper__oo_descr.innerHTML += digital.oo_name;
+    }
+    else{
+        sreda_wrapper__oo_descr.innerHTML += digital.district_name;
+    };
 
     let sreda_wrapper__ul = document.createElement('ul');
     sreda_wrapper__ul.className =  "sreda-wrapper__ul";
@@ -145,7 +176,14 @@ function create_digital_info(digital, active) {
     }
     let sreda_wrapper__ul_last = document.createElement('ul');
     sreda_wrapper__ul_last.className = "sreda_wrapper__ul-last";
-    let osnash = digital.osnash ? "Да" : "Нет"
+    let osnash;
+    if (digital.osnash !== undefined){
+        osnash = digital.osnash ? "Да" : "Нет"
+    }
+    else{
+        osnash = `${digital.osnash_true} из ${digital.osnash_true + digital.osnash_false}`
+        console.log(osnash)
+    };
     sreda_wrapper__ul_last.innerHTML = '<span>Оснащенность ОО ИТ-инфраструктурой</span>, в том числе беспроводными сетями, в рамках ГП "Информационное общество": '
      + '<span>' + osnash + '</span>';
 
@@ -153,21 +191,25 @@ function create_digital_info(digital, active) {
         sreda_wrapper__ul.innerHTML = 'Информация о поступлении оборудования в 2022 году будет доступна позже';
     }
     else{
-        sreda_wrapper__ul.innerHTML = 'Количество поступившего оборудования:'
-        for (const [key, value] of Object.entries(arr_keys)){
-            if (digital[key]){
-                let sreda_wrapper__ul_li = document.createElement('li')
-                sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
-                sreda_wrapper__ul_li.innerHTML += arr_keys[key] + digital[key];
+        if (digital.i_panel || digital.notebook || digital.mfu || digital.smart_tv || digital.ip_camera || digital.ik || digital.arm_ped || digital.arm_adm || digital.server){
+            sreda_wrapper__ul.innerHTML = 'Количество поступившего оборудования:'
+            for (const [key, value] of Object.entries(arr_keys)){
+                if (digital[key]){
+                    let sreda_wrapper__ul_li = document.createElement('li')
+                    sreda_wrapper__ul_li.className = "sreda_wrapper__ul-li"
+                    sreda_wrapper__ul_li.innerHTML += arr_keys[key] + digital[key];
 
-                sreda_wrapper__ul.appendChild(sreda_wrapper__ul_li);
+                    sreda_wrapper__ul.appendChild(sreda_wrapper__ul_li);
+                };
             };
-        };
+        }
+        else{
+            sreda_wrapper__ul.innerHTML = 'Информация о поступлении оборудования в 2022 году будет доступна позже'
+        }
+
     };
-    sreda_wrapper__district.appendChild(sreda_wrapper__district_title);
     sreda_wrapper__district.appendChild(sreda_wrapper__district_descr);
 
-    sreda_wrapper__oo.appendChild(sreda_wrapper__oo_title);
     sreda_wrapper__oo.appendChild(sreda_wrapper__oo_descr);
 
     //sreda_wrapper.appendChild(sreda_wrapper__district);
@@ -529,8 +571,9 @@ function create_text(data, active){
         tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
     };
     if (!data.base_info.filial){
+        // ege
         if (data.ege.subject){
-        tabContainer.appendChild(create_ege_info(data.ege, tabs_active[2]));
+            tabContainer.appendChild(create_ege_info(data.ege, tabs_active[2]));
         }
         else{
             tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация о результатах ЕГЭ отсутствует"));
@@ -552,13 +595,10 @@ function create_text(data, active){
         };
     }
     else{
-
         tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация размещена в юридическом лице"));
         tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация размещена в юридическом лице"));
         tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Информация размещена в юридическом лице"));
     }
-    // ege
-
 
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
@@ -579,3 +619,52 @@ function create_text(data, active){
     });
     return tabContainer
 }
+
+function create_committee_text(data, active){
+        let tabContainer = document.createElement('div')
+    tabContainer.className = "tabcontainer"
+
+    let tabHeader = document.createElement('div')
+    tabHeader.className = "tabheader"
+
+
+    for (let i = 0; i < 5; i++){
+        tabHeader.appendChild(createTabHeaderItem(i, active));
+    }
+    tabContainer.appendChild(tabHeader)
+
+    let tabs_active = {
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+    }
+    tabs_active[active] = true
+    tabContainer.appendChild(create_base_info(data.base_info, tabs_active[0]));
+    if (data.digital) {
+        tabContainer.appendChild(create_digital_info(data.digital, tabs_active[1]));
+    }
+    else{
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Муниципальный район не получил оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
+    };
+
+    let tabsContent = tabContainer.querySelectorAll('.tabcontent');
+    let tabs = tabHeader.querySelectorAll('.tabheader-item');
+    tabHeader.addEventListener('click', (event) => { //Вещаем событие(а также дилегирование) на табы
+        let target = event.target; //Создаем переменную target, в которую помещаем event.target чтобы потом сочетание event.target прописывать часто, заменяя его просто target
+        if (target && (target.classList.contains('tabheader-item') || target.classList.contains('tabheader-item__icon'))) {
+            if (target.classList.contains('tabheader-item__icon')){
+                target = target.parentNode
+            };
+            tabs.forEach((item, i) => { //В качестве второго аргумента(i) у forEach используется номер перебираемого элемента по порядку, аргумент item сам элемент
+                if (target == item) { //Если элемент(target) в который мы кликнули будет совпадать с элементом, который мы перебираем в цикле forEach, то мы вызываем функции
+                    hideTabContent(tabsContent, tabs); //2 функции нужны для того, чтобы скрывать остальные элементы
+                    showTabContent(tabsContent, tabs, i); //i номер элемента в условии, в котором мы перебираем элементы
+                }
+            });
+        }
+
+    });
+    return tabContainer
+};
