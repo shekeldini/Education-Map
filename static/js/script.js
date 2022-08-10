@@ -67,6 +67,13 @@ close.addEventListener('click', () => {
 //    searchField.classList.remove('show');
 //})
 
+const search = document.querySelector('.search'),
+      hideFields = document.querySelector('.hidden');
+
+hideFields.onClick = function() {
+ search.classList.toggle('test');
+};
+
 
 
 

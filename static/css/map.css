@@ -1,6 +1,7 @@
 
 body {
  margin: 0;
+ overflow: hidden;
 }
 
 
@@ -46,6 +47,15 @@ body {
   .other__wrapper .accordion__wrapper_item {
     width: 202px;
   }
+}
+
+@media (max-width: 1280px) {
+ .menu {
+  overflow-y: auto !important;
+ }
+ .menu-filter__title-description {
+     font-size: 11px !important;
+ }
 }
 
 
@@ -1234,7 +1244,7 @@ display: none;
 }
 .tabcontainer .tabcontent {
   padding-left: 0;
-  padding-top: 20px;
+  padding-top: 5px;
   padding-bottom: 0;
   background: white;
 }
@@ -1245,7 +1255,7 @@ display: none;
   margin-top: 3px;
 }
 .tabcontainer .tabcontent-oo__descr, .tabcontent-mail__title, .tabcontainer, .tabcontainer, .tabcontent-address__title, .tabcontent-phone__title, .tabcontainer, .tabcontainer, .tabcontainer .tabcontent-site__descr, .sreda-wrapper__district-title, .sreda-wrapper__oo-title {
-   font-size: 14px;
+   font-size: 13px;
   color: #707275;
 font-weight: 500;
 }
@@ -1400,7 +1410,6 @@ font-weight: 100;
 }
 .table-header__item {
   width: 25%;
-  padding-top: 5px;
   font-weight: 100;
       text-align: center;
 }
@@ -1408,7 +1417,7 @@ font-weight: 100;
   font-weight: 100;
 }
 .table-main {
-  height: 35px;
+  height: 27px;
   border-bottom: 1px solid #ebebeb;
 }
 .table-main:last-child {
@@ -1434,14 +1443,10 @@ font-weight: 100;
 }
 
 .ege-wrapper, .ege-wrapper-oo {
-      font-size: 16px;
+      font-size: 13px;
     color: #1a1c23;
     font-weight: 600;
 
-}
-
-.ege-wrapper-oo {
-margin-top: 6px;
 }
 
 
@@ -1455,4 +1460,9 @@ margin-top: 6px;
 
 .table-header__item-group {
 width: 0;
+font-size: 12px;
+}
+
+.leaflet-popup-content { 
+     margin: 7px 19px;
 }

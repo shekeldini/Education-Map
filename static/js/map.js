@@ -535,10 +535,6 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
         }
 
         let popup = this.getPopup().getPane()
-        popup.firstChild.firstChild.setAttribute(
-            'style',
-            `max-height: 433px; min-height: 433px;`
-        )
         this.openPopup();
         popup.onclick = function(){
             let tabheader = this.firstChild.firstChild.firstChild.firstChild.firstChild
@@ -546,7 +542,7 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
                 if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
                     this.firstChild.firstChild.setAttribute(
                         'style',
-                        `min-width: ${size_popup[i]}; max-height: 433px; min-height: 433px;`,
+                        `min-width: ${size_popup[i]};`,
                     )
                 }
             }
