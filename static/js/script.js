@@ -77,6 +77,7 @@ const wrapper = document.querySelector(".menu-wrapper");
 
 info.onclick = function(event){
 	let target = event.target;
+	//console.log(target);
 	let flag = false
     if (target.className === 'menu-filter__title') {
         flag = true
@@ -89,6 +90,9 @@ info.onclick = function(event){
         flag = true
     }
     if (target.tagName === 'path'){
+        flag = true
+    }
+    if (target.tagName === 'menu-filter__content'){
         flag = true
     }
     if (flag){
