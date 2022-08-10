@@ -49,14 +49,14 @@ body {
   }
 }
 
-@media (max-width: 1280px) {
+/*@media (max-width: 1280px) {
  .menu {
   overflow-y: auto !important;
  }
  .menu-filter__title-description {
      font-size: 11px !important;
  }
-}
+}*/
 
 
 @media (max-width: 724px) {

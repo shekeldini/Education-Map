@@ -21,6 +21,8 @@ var ege = document.getElementById('ul_ege');
 var vpr = document.getElementById('ul_vpr');
 var burger = document.getElementById('burger');
 let table = document.getElementById('filter');
+let committee_items = document.getElementById('committee_items');
+
 let selectedTd = info.firstChild;
 let info_select;
 let start_position = new L.LatLng(52.526338, 82.466781);
@@ -33,6 +35,12 @@ let iconOptions = {
     iconSize: [50, 50]
 };
 let customIcon = L.icon(iconOptions);
+
+let iconOneElement = {
+    iconUrl: '/static/images/one_element.png',
+    iconSize: [55, 50]
+};
+
 
 let maxBounds = [
     [48.03401915864286,73.828125],
@@ -139,7 +147,7 @@ map.on("zoomend", function(){
 //    };
 })
 
-var markers = L.markerClusterGroup({singleMarkerMode: true})
+var markers = L.markerClusterGroup()
 var committee_markers = L.markerClusterGroup()
 markers.addTo(map);
 committee_markers.addTo(map);
@@ -187,6 +195,7 @@ async function load_regions(){
             });
             regions_layers.addLayer(polygon);
             menu_create_region_item(polygon, tree, "base");
+            menu_create_region_item(polygon, committee_items, "committee");
         };
         return
     });
@@ -215,6 +224,8 @@ async function load_districts(){
                    {permanent: false, direction: "center"}
                 ).openTooltip()
                 menu_create_district_item(polygon, 'base');
+                menu_create_committee_item(polygon, 'committee');
+
                 districts_layers.addLayer(polygon);
 
                 polygon.on("mouseover", function() {
@@ -377,11 +388,27 @@ function openSchoolPopUp(id_oo){
             if (layer.options.id_oo == id_oo){
                 setTimeout(function(){}, 200);
                 found = map.getPane(layer)._icon
-		if (!found){
-		    setTimeout(function(){}, 200);
-		    found = map.getPane(layer)._icon
-		}
-		found.click()
+                if (!found){
+                    setTimeout(function(){}, 200);
+                    found = map.getPane(layer)._icon
+                }
+                found.click()
+            }
+        };
+    })
+};
+
+function openCommitteePopUp(id_district){
+    committee_markers.eachLayer(function(layer) {
+        if (layer instanceof L.Marker){
+            if (layer.options.id_district == id_district){
+                setTimeout(function(){}, 200);
+                found = map.getPane(layer)._icon
+                if (!found){
+                    setTimeout(function(){}, 200);
+                    found = map.getPane(layer)._icon
+                }
+		        found.click()
             }
         };
     })
@@ -399,7 +426,6 @@ function deleteLayersForRegion(id_region){
         if (layer instanceof L.Marker){
             if (layer.options.id_region == id_region){
                 committee_markers.removeLayer(layer);
-                console.log(123)
             }
         };
     })
@@ -521,7 +547,8 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab){
         "id_region": id_region,
         "id_district": id_district,
         "id_oo": id_oo,
-        "active_tab": active_tab
+        "active_tab": active_tab,
+        icon: L.icon(iconOneElement)
     });
 
     marker.bindPopup("", {autoClose:false});
@@ -666,7 +693,16 @@ table.onclick = function(event) {
                     tree.children[i].children[0].className = "closed hide"
                     tree.children[i].children[1].hidden = true
                 }
-            }
+            };
+            if (target.parentNode.id == "committee"){
+                for (let i = 0; i < committee_items.children.length; i++){
+                    close_children(committee_items.children[i])
+
+                    committee_items.children[i].children[0].className = "closed hide"
+                    committee_items.children[i].children[1].hidden = true
+                }
+            };
+            current_filter = "info";
             return
         };
         if(selectedTd){
@@ -677,6 +713,14 @@ table.onclick = function(event) {
                     tree.children[i].children[0].className = "closed hide"
                     tree.children[i].children[1].hidden = true
                 };
+            };
+            if (target.parentNode.id == "committee"){
+                for (let i = 0; i < committee_items.children.length; i++){
+                    close_children(committee_items.children[i])
+
+                    committee_items.children[i].children[0].className = "closed hide"
+                    committee_items.children[i].children[1].hidden = true
+                }
             };
             selectedTd.parentNode.open = false;
         };

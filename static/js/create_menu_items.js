@@ -56,7 +56,6 @@ function menu_create_district_item(district, key){
         if (span.className == "closed hide"){
             let route = tabs_routs[key]
             let schools = await route(district.options.id_district);
-            let committee = await get_committee_coordinates(district.options.id_district);
 
             if (!ul.childElementCount){
 	            for (school of schools){
@@ -87,7 +86,67 @@ function menu_create_district_item(district, key){
                 }
 	        };
             markers.addTo(map);
-            create_committee_marker(committee);
+            span.className = "closed open show active";
+        };
+    };
+    li.appendChild(span);
+    li.appendChild(ul);
+    selected_region.appendChild(li);
+}
+
+function menu_create_committee_item(district, key){
+    var selected_region = document.getElementById(`${key}_id_region=${district.options.id_region}`);
+    let li = document.createElement('li');
+    let span = document.createElement('span');
+    span.innerHTML += district.options.name;
+    span.className = "closed hide";
+    span.id = `${key}_id_district=${district.options.id_district}`;
+    span.onmouseover = function () {
+        district.setStyle({
+            fillOpacity: 0.3
+        });
+        district._path.setAttribute('filter', 'drop-shadow(3px 5px 2px rgb(0 0 0 / 0.8))');
+    };
+    span.onmouseout = function () {
+        district.setStyle({
+            fillOpacity: 0
+        });
+        district._path.removeAttribute('filter');
+    };
+
+    let ul = document.createElement('ul');
+    ul.hidden = true;
+
+    span.onclick = async function () {
+	    deleteLayersForDistrict(district.options.id_district);
+
+        if (span.className == "closed hide"){
+            let committee = await get_committee_coordinates(district.options.id_district);
+
+            if (!ul.childElementCount){
+                    let committee_li = document.createElement('li');
+                    let committee_span = document.createElement('span');
+                    committee_span.className = "list-four";
+                    committee_span.innerHTML+= committee.name;
+                    committee_span.setAttribute('coordinates', committee.coordinates);
+                    committee_span.setAttribute('id_district', committee.id_district);
+                    committee_span.onclick = function(){
+                        let coordinates = this.getAttribute('coordinates')
+                        coordinates = coordinates.split(",").map(str => parseFloat(str));
+                        var latLon = new L.LatLng(coordinates[0], coordinates[1]);
+                        flyToSchool(latLon);
+                        let id_district = this.getAttribute('id_district')
+                        map.once('moveend', function(e){
+                            openCommitteePopUp(id_district)
+                        });
+                    };
+                    committee_li.appendChild(committee_span);
+                    ul.appendChild(committee_li);
+                    create_committee_marker(committee);
+	        }
+	        else{
+                create_committee_marker(committee);
+	        };
             committee_markers.addTo(map);
             span.className = "closed open show active";
         };

@@ -28,6 +28,7 @@ class BaseCommittee(BaseModel):
 class CommitteeCoordinates(BaseModel):
     id_district: int
     id_region: int
+    name: str
     coordinates: Any
 
     @validator("coordinates")

@@ -28,6 +28,10 @@ tree.onclick = function (event) {
     close_open(event);
 };
 
+committee_items.onclick = function (event) {
+    close_open(event);
+};
+
 // const openMenu = document.querySelector('.open-menu'),
 //     menuPanel = document.querySelector('.menu'),
 //menuClosed = document.querySelector('.menu-header__burger');
