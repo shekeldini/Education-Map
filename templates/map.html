@@ -1,188 +1,218 @@
 {% extends 'base.html' %}
 {% block head %}
-	{{ super() }}
+{{ super() }}
 
-	<link
-			rel="stylesheet"
-			href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-			integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-			crossorigin=""
-	/>
-	<script src="{{ url_for('static', path='js/leaflet.edgebuffer.js') }}"></script>
-  	<script
-			src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-			integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-			crossorigin="">
-	</script>
+<link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""
+/>
+<script src="{{ url_for('static', path='js/leaflet.edgebuffer.js') }}"></script>
+<script
+        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="">
+</script>
 
-	<link
-			rel="stylesheet"
-			href="{{ url_for('static', path='css/map.css') }}"
-	/>
+<link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/map.css') }}"
+/>
 
-    <link
-			rel="stylesheet"
-			href="{{ url_for('static', path='css/MarkerCluster.css') }}"
-	/>
+<link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/MarkerCluster.css') }}"
+/>
 
-    <link
-			rel="stylesheet"
-			href="{{ url_for('static', path='css/MarkerCluster.Default.css') }}"
-	/>
-	<script
-			src="{{ url_for('static', path='js/leaflet.markercluster.js') }}">
+<link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/MarkerCluster.Default.css') }}"
+/>
+<script
+        src="{{ url_for('static', path='js/leaflet.markercluster.js') }}">
 
-	</script>
+</script>
 
-	<link
-			rel="stylesheet"
-			href="{{ url_for('static', path='css/leaflet-geoman.css') }}"
-	/>
-	<link
-			rel="stylesheet"
-			href="{{ url_for('static', path='css/Control.Geocoder.css') }}"
-	/>
+<link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/leaflet-geoman.css') }}"
+/>
+<link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/Control.Geocoder.css') }}"
+/>
 
-	<script
-			src="{{ url_for('static', path='js/Control.Geocoder.js') }}">
-	</script>
+<script
+        src="{{ url_for('static', path='js/Control.Geocoder.js') }}">
+</script>
 
-	<script
-			src="https://cdn.rawgit.com/aparshin/leaflet-boundary-canvas/f00b4d35/src/BoundaryCanvas.js">
-	</script>
+<script
+        src="{{ url_for('static', path='js/BoundaryCanvas.js') }}">
+</script>
 
-	<script
-			src="https://api-maps.yandex.ru/2.1/?apikey=23f561e2-c979-4d8f-96e9-b827cb61ae5a&lang=ru_RU" type="text/javascript">
-    </script>
+<script
+        src="https://api-maps.yandex.ru/2.1/?apikey=23f561e2-c979-4d8f-96e9-b827cb61ae5a&lang=ru_RU"
+        type="text/javascript">
+</script>
 
-    <script
-			src="{{ url_for('static', path='js/Yandex.js') }}">
-	</script>
-	<script
-			src="{{ url_for('static', path='js/leaflet-geoman.min.js') }}">
-	</script>
+<script
+        src="{{ url_for('static', path='js/Yandex.js') }}">
+</script>
+<script
+        src="{{ url_for('static', path='js/leaflet-geoman.min.js') }}">
+</script>
 
 {% endblock %}
 
 {% block content -%}
-	{{ super() }}
-    <div class="menu" id="filter">
-       <div class="menu-search">
-            <input class="menu-search__field"  type="search" placeholder="Поиск" oninput="search(this.value)">
-                        <div class='menu-search__wrapper' id="search_result">
+{{ super() }}
+<div class="menu" id="filter">
+    <div class="menu-search">
+        <input class="menu-search__field" type="search" placeholder="Поиск" oninput="search(this.value)">
+        <div class='menu-search__wrapper' id="search_result">
 
-                        </div>
         </div>
+    </div>
 
-        <details class="menu-filter" id="info">
-            <summary class="menu-filter__title">Образовательные учреждения
-				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
-				</svg>
-            </summary>
-            <div class="menu-filter__content">
-                <ul class="list-one" id="tree">
-                    
-                </ul>
+    <details class="menu-filter" id="info">
+        <summary class="menu-filter__title">Образовательные учреждения
+            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+            </svg>
+        </summary>
+        <div class="menu-filter__content">
+            <ul class="list-one" id="tree">
+
+            </ul>
+        </div>
+    </details>
+
+    <details class="menu-filter" id="committee">
+        <summary class="menu-filter__title">Комитеты образования
+            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+            </svg>
+        </summary>
+        <div class="menu-filter__content">
+            <ul class="list-one" id="committee_items">
+
+            </ul>
+        </div>
+    </details>
+
+    <details class="menu-filter hiddenTest" id="digital">
+        <summary class="menu-filter__title menu-filter__title-sreda" onclick="create_digital_markers(this.parentNode)">
+            Цифровая образовательная среда
+            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+            </svg>
+            <div class="menu-filter__title-description">
+                Федеральный проект «Цифровая образовательная среда» направлен на создание и внедрение в образовательных
+                организациях цифровой образовательной среды, а также обеспечение реализации цифровой трансформации
+                системы образования. В рамках проекта ведется работа по оснащению организаций современным оборудованием
+                и развитие цифровых сервисов и контента для образовательной деятельности.
             </div>
-        </details>
+        </summary>
+    </details>
 
-	
-	<details class="menu-filter hiddenTest" id="digital">
-            <summary class="menu-filter__title menu-filter__title-sreda" onclick = "create_digital_markers(this.parentNode)">			
-			Цифровая образовательная среда
-			<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-			 <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
-			</svg>
-			<div class="menu-filter__title-description">
-			 Федеральный проект «Цифровая образовательная среда» направлен на создание и внедрение в образовательных организациях цифровой образовательной среды, а также обеспечение реализации цифровой трансформации системы образования. В рамках проекта ведется работа по оснащению организаций современным оборудованием и развитие цифровых сервисов и контента для образовательной деятельности.
-			</div>
-            </summary>
-        </details>
-	
-	<details class="menu-filter" id="ege">
-            <summary class="menu-filter__title menu-filter__title-ege" onclick = "create_ege_markers(this.parentNode)">ЕГЭ
-				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
-				</svg>
-				<div class="menu-filter__title-description">
-				   Единый государственный экзамен — централизованно проводимый в Российской Федерации экзамен в средних учебных заведениях — школах, лицеях и гимназиях, форма проведения ГИА по образовательным программам среднего общего образования. Служит одновременно выпускным экзаменом из школы и вступительным экзаменом в вузы.
-				</div>
-            </summary>
-        </details>
+    <details class="menu-filter" id="ege">
+        <summary class="menu-filter__title menu-filter__title-ege" onclick="create_ege_markers(this.parentNode)">ЕГЭ
+            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+            </svg>
+            <div class="menu-filter__title-description">
+                Единый государственный экзамен — централизованно проводимый в Российской Федерации экзамен в средних
+                учебных заведениях — школах, лицеях и гимназиях, форма проведения ГИА по образовательным программам
+                среднего общего образования. Служит одновременно выпускным экзаменом из школы и вступительным экзаменом
+                в вузы.
+            </div>
+        </summary>
+    </details>
 
-	<details class="menu-filter" id="vpr">
-            <summary class="menu-filter__title menu-filter__title-vpr" onclick = "create_vpr_markers(this.parentNode)">ВПР
-				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
-				</svg>
-				<div class="menu-filter__title-description">
-				  Всероссийская проверочная работа — вид проверки знаний. Это контрольная работа, проводимая по всей России. Первые ВПР были написаны в 2015 году. С 2016 года регулярно проводятся ВПР. В выпускных классах ВПР пишутся только теми учащимися, которые не сдают соответствующие ОГЭ или ЕГЭ по данному предмету.
-				</div>
-            </summary>
-        </details>
+    <details class="menu-filter" id="vpr">
+        <summary class="menu-filter__title menu-filter__title-vpr" onclick="create_vpr_markers(this.parentNode)">ВПР
+            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+            </svg>
+            <div class="menu-filter__title-description">
+                Всероссийская проверочная работа — вид проверки знаний. Это контрольная работа, проводимая по всей
+                России. Первые ВПР были написаны в 2015 году. С 2016 года регулярно проводятся ВПР. В выпускных классах
+                ВПР пишутся только теми учащимися, которые не сдают соответствующие ОГЭ или ЕГЭ по данному предмету.
+            </div>
+        </summary>
+    </details>
 
-	<details class="menu-filter" id="growing_point">
-            <summary class="menu-filter__title menu-filter__title-rost " onclick = "create_growing_points_markers(this.parentNode)">
-				Центры "Точка роста"
-				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
-				</svg>
-				<div class="menu-filter__title-description">
-				   Центры «Точка роста» — специальные образовательные центры, создаваемые на базе школ в селах и малых городах. Их работа направлена на подготовку детей по цифровому, естественно-научному, техническому и гуманитарному профилям.
-				</div>
-            </summary>
-        </details>
-    </div>
-    <div class="modal-search">
-      <div class="modal-search__back">
-           <svg class="modal-search__back-arrow" width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8462 0C11.8462 0 18.6154 6.4 22 8C18.6154 9.6 11.8462 16 11.8462 16L16.5726 8.8006H0V7.2006H16.5726L11.8462 0Z" fill="#240516"></path>
-           </svg>
-       </div>
-
+    <details class="menu-filter" id="growing_point">
+        <summary class="menu-filter__title menu-filter__title-rost "
+                 onclick="create_growing_points_markers(this.parentNode)">
+            Центры "Точка роста"
+            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+            </svg>
+            <div class="menu-filter__title-description">
+                Центры «Точка роста» — специальные образовательные центры, создаваемые на базе школ в селах и малых
+                городах. Их работа направлена на подготовку детей по цифровому, естественно-научному, техническому и
+                гуманитарному профилям.
+            </div>
+        </summary>
+    </details>
+</div>
+<div class="modal-search">
+    <div class="modal-search__back">
+        <svg class="modal-search__back-arrow" width="22" height="16" viewBox="0 0 22 16"
+             xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M11.8462 0C11.8462 0 18.6154 6.4 22 8C18.6154 9.6 11.8462 16 11.8462 16L16.5726 8.8006H0V7.2006H16.5726L11.8462 0Z"
+                  fill="#240516"></path>
+        </svg>
     </div>
 
-	<div>
-	   <div id="map">
+</div>
 
-	   </div>
-	</div>
-	
-	<div class="overlay">
-	   <form method="POST" name="login_form" id="login_form">
-              <div class="form-close">&times;</div>
-              <div class="form-box">
-                  <input type="text" class="form-box__text" required="required" id="login" name="login" >
-                  <span class="form-box__info">Логин</span>
-              </div>
-              <div class="form-box">
-                  <input class="form-box__text" required="required" id="password" name="password" type="password">
-                  <span class="form-box__info">Пароль</span>
-              </div>
-	      <div class="form-wrapper">
-              <button type="button" class="form-login" onclick="submit_form()"><span>войти</span> 
-		  <svg class="header-wrapper__login-arrow" width="22" height="16" viewBox="0 0 22 16" xmlns="http://www.w3.org/2000/svg">
-                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8462 0C11.8462 0 18.6154 6.4 22 8C18.6154 9.6 11.8462 16 11.8462 16L16.5726 8.8006H0V7.2006H16.5726L11.8462 0Z" fill="#240516"></path>
-                  </svg>
-	      </button>
-	      </div>
-           </form>
-	</div>
+<div>
+    <div id="map">
 
-	<script
-			src="{{ url_for('static', path='js/tabs.js') }}" >
-	</script>
+    </div>
+</div>
 
-	<script
-			src="{{ url_for('static', path='js/create_menu_items.js') }}" >
-	</script>
+<div class="overlay">
+    <form method="POST" name="login_form" id="login_form">
+        <div class="form-close">&times;</div>
+        <div class="form-box">
+            <input type="text" class="form-box__text" required="required" id="login" name="login">
+            <span class="form-box__info">Логин</span>
+        </div>
+        <div class="form-box">
+            <input class="form-box__text" required="required" id="password" name="password" type="password">
+            <span class="form-box__info">Пароль</span>
+        </div>
+        <div class="form-wrapper">
+            <button type="button" class="form-login" onclick="submit_form()"><span>войти</span>
+                <svg class="header-wrapper__login-arrow" width="22" height="16" viewBox="0 0 22 16"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M11.8462 0C11.8462 0 18.6154 6.4 22 8C18.6154 9.6 11.8462 16 11.8462 16L16.5726 8.8006H0V7.2006H16.5726L11.8462 0Z"
+                          fill="#240516"></path>
+                </svg>
+            </button>
+        </div>
+    </form>
+</div>
 
-	<script
-			src="{{ url_for('static', path='js/map.js') }}" >
-	</script>
+<script
+        src="{{ url_for('static', path='js/tabs.js') }}">
+</script>
 
-	<script
-			src="{{ url_for('static', path='js/script.js') }}">
-	</script>
+<script
+        src="{{ url_for('static', path='js/create_menu_items.js') }}">
+</script>
+
+<script
+        src="{{ url_for('static', path='js/map.js') }}">
+</script>
+
+<script
+        src="{{ url_for('static', path='js/script.js') }}">
+</script>
 {% endblock -%}

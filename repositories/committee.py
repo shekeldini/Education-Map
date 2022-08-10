@@ -207,6 +207,7 @@ class CommitteeRepository(BaseRepository):
         SELECT
             committee.id_district,
             committee.coordinates,
+            committee.name,
             district.id_region
         FROM committee
             LEFT JOIN district ON
