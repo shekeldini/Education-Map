@@ -1,3 +1,5 @@
+const zip = (a, b) => a.map((k, i) => [k, b[i]]);
+
 function createTabHeaderItem(i, active){
     let tabheader_item = document.createElement('div');
     if (i === active){
@@ -525,10 +527,15 @@ function create_vpr_info(vpr, active) {
 
         for (subj of ["rus", "math"]){
             if(vpr[parallel][subj]){
-                for (grade of ["low", "medium", "high"]){
+                for (const [grade, count] of zip(["low", "medium", "high"], ["count_low", "count_medium", "count_high"])){
                     let td = document.createElement('td');
                     td.className = "table-main__cell";
-                    td.innerHTML = vpr[parallel][subj][grade];
+                    if (vpr[parallel][subj][grade] > 0){
+                        td.innerHTML = `${vpr[parallel][subj][grade]}% / ${vpr[parallel][subj][count]} чел.`;
+                    }
+                    else{
+                        td.innerHTML = "-";
+                    }
                     tr.appendChild(td);
                 };
             }
@@ -546,7 +553,7 @@ function create_vpr_info(vpr, active) {
 
     let info = document.createElement('div');
     info.className = "info";
-    info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
+    //info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
 
     tabContent.appendChild(table);
     tabContent.appendChild(info);

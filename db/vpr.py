@@ -9,5 +9,8 @@ vpr = Table(
     Column("parallel", INTEGER, nullable=False, unique=True, primary_key=True),
     Column("low", FLOAT, nullable=False),
     Column("medium", FLOAT, nullable=False),
-    Column("high", FLOAT, nullable=False)
+    Column("high", FLOAT, nullable=False),
+    Column("count_low", INTEGER, nullable=False),
+    Column("count_medium", INTEGER, nullable=False),
+    Column("count_high", INTEGER, nullable=False),
 )

@@ -1,10 +1,10 @@
 let edit = false
 let size_popup = {
-    0: "340px",
-    1: "340px",
-    2: "650px",
-    3: "650px",
-    4: "340px",
+    0: {"min_width": "340px"},
+    1: {"min_width": "340px"},
+    2: {"min_width": "650px"},
+    3: {"min_width": "650px"},
+    4: {"min_width": "340px"},
 }
 
 let tabs_routs = {
@@ -546,7 +546,7 @@ function create_committee_marker(item){
                 if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
                     this.firstChild.firstChild.setAttribute(
                         'style',
-                        `min-width: ${size_popup[i]};`
+                        `min-width: ${size_popup[i].min_width};`
                     )
                 }
             }

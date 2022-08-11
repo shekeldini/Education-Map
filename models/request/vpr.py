@@ -8,4 +8,7 @@ class RequestVpr(BaseModel):
     low: float
     medium: float
     high: float
+    count_low: int
+    count_medium: int
+    count_high: int
 

@@ -47,7 +47,10 @@ class VprRepository(BaseRepository):
         SELECT 
             vpr.low,
             vpr.medium,
-            vpr.high
+            vpr.high,
+            vpr.count_low,
+            vpr.count_medium,
+            vpr.count_high
         FROM vpr
         WHERE vpr.id_oo = :id_oo
         AND vpr.parallel = :parallel

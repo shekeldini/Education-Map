@@ -6,6 +6,7 @@ class Rus(BaseModel):
     medium: float
     high: float
 
+
     @validator("low")
     def round_low_value(cls, value: float):
         return round(value, 2)
