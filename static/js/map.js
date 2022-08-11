@@ -477,6 +477,7 @@ function search(value){
     }
     if (value.length == 0){
         deleteAllMarkers();
+        flyToStartPosition();
     };
 
 };
