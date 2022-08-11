@@ -535,7 +535,6 @@ function create_committee_marker(item){
     committee_markers.addLayer(marker);
 
     marker.on('click', async function(){
-    console.log(this)
         if (!this._popup._content){
             let info = await get_committee_info(this.options.id_district);
             let text = create_committee_text(info, 0);

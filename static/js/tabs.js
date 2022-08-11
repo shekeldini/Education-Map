@@ -665,6 +665,14 @@ function create_committee_text(data, active){
         tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Муниципальный район не получил оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
     };
     tabContainer.appendChild(create_committee_ege_info(data, tabs_active[2]));
+    tabContainer.appendChild(create_committee_vpr_info(data, tabs_active[3]));
+    if (data.growing_point.count_true){
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])(`Муниципальный район содержит <span style="font-weight: 600;color: #1a1c23;">${data.growing_point.count_true}</span> центров образования цифрового и гуманитарного профилей «Точка роста»`))
+    }
+    else{
+        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Муниципальный район не содержит центры образования цифрового и гуманитарного профилей «Точка роста»"))
+    }
+
 
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
@@ -804,5 +812,126 @@ function create_committee_ege_info(item, active) {
     tabContent.appendChild(table);
     tabContent.appendChild(info);
     return tabContent
+
+}
+
+function create_committee_vpr_info(item, active) {
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+
+    tabContent.hidden = !active
+
+    let vpr_wrapper = document.createElement('div');
+    vpr_wrapper.className = "ege-wrapper";
+    vpr_wrapper.innerHTML = "ВПР";
+
+    tabContent.appendChild(vpr_wrapper);
+
+    let vpr_wrapper__oo = document.createElement('div');
+    vpr_wrapper__oo.className = "ege-wrapper-oo";
+    vpr_wrapper__oo.innerHTML += item.base_info.name;
+
+    tabContent.appendChild(vpr_wrapper__oo);
+
+    let vpr_wrapper__district = document.createElement('div');
+    vpr_wrapper__district.className = "ege-wrapper--district";
+    vpr_wrapper__district.innerHTML += item.base_info.district_name;
+
+    tabContent.appendChild(vpr_wrapper__district);
+
+    let table = document.createElement('table');
+    table.className = "table";
+
+    let table_header = document.createElement('tr');
+    table_header.className= "table-header";
+
+    let vpr_obj = {
+        0: "",
+        1: "РУССКИЙ ЯЗЫК",
+        2: "МАТЕМАТИКА"
+    }
+
+
+    for (const [key, value] of Object.entries(vpr_obj)) {
+        let table_header__item = document.createElement('th');
+        table_header__item.className = "table-header__item table-header__item-group";
+        let my_colSpan = key != 0 ? 3 : 1
+        table_header__item.setAttribute("colspan", my_colSpan)
+        table_header__item.innerHTML = value;
+
+        table_header.appendChild(table_header__item);
+    }
+
+    table.appendChild(table_header);
+
+    let table_header_low = document.createElement('tr');
+    table_header_low.className= "table-header";
+
+    let vpr_obj_low = [
+        "",
+        "Ниже<br> базового",
+        "Базовый<br> уровень",
+        "Выше<br> базового",
+        "Ниже<br> базового",
+        "Базовый<br> уровень",
+        "Выше<br> базового"
+    ]
+
+    for (const [key, value] of Object.entries(vpr_obj_low)) {
+        let table_header__item = document.createElement('th');
+        table_header__item.className = "table-header__item table-header__item-group";
+        table_header__item.innerHTML = value;
+
+        table_header_low.appendChild(table_header__item);
+    }
+
+    table.appendChild(table_header);
+    table.appendChild(table_header_low);
+
+    let keys = {
+        "parallel_4": "4 класс",
+        "parallel_5": "5 класс",
+        "parallel_6": "6 класс",
+        "parallel_7": "7 класс",
+        "parallel_8": "8 класс"
+    };
+
+    for (const [parallel, value] of Object.entries(keys)){
+        // subject_name
+        let tr = document.createElement('tr');
+        tr.className = "table-main";
+        let td = document.createElement('td');
+        td.className = "table-main__cell";
+        td.innerHTML = value;
+        tr.appendChild(td);
+
+        for (subj of ["rus", "math"]){
+            if(item.vpr[parallel][subj]){
+                for (grade of ["low", "medium", "high"]){
+                    let td = document.createElement('td');
+                    td.className = "table-main__cell";
+                    td.innerHTML = item.vpr[parallel][subj][grade];
+                    tr.appendChild(td);
+                };
+            }
+            else{
+                for (grade of ["low", "medium", "high"]){
+                    let td = document.createElement('td');
+                    td.className = "table-main__cell";
+                    td.innerHTML = "-";
+                    tr.appendChild(td);
+                };
+            };
+        };
+        table.appendChild(tr);
+    }
+
+    let info = document.createElement('div');
+    info.className = "info";
+    info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
+
+    tabContent.appendChild(table);
+    tabContent.appendChild(info);
+    return tabContent;
 
 }
