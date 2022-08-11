@@ -13,7 +13,7 @@ let tabs_routs = {
     "vpr": getVprSchools
 }
 let duration_to_region = null;
-let duration_to_school = 1.25;
+let duration_to_school = null;
 
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
@@ -111,13 +111,13 @@ map.on("zoomend", function(){
 
     if (zoom >=9.5 && zoom < 10.5){
         changeOpacity(0.7)
-        duration_to_school = 1.5;
+        //duration_to_school = 1.5;
 
     };
     if (zoom >=10.5 && zoom < 12.5) {
         changeOpacity(0.6)
 
-        duration_to_region = 1.5
+        //duration_to_region = 1.5
         if (this_polygon != null){
             this_polygon.setStyle({
                 fillOpacity: 0.3
@@ -127,7 +127,7 @@ map.on("zoomend", function(){
     };
     if (zoom >=12.5 && zoom < 14) {
         changeOpacity(0.4)
-        duration_to_region = 2
+        //duration_to_region = 2
         if (this_polygon != null){
             this_polygon.setStyle({
                 fillOpacity: 0
@@ -143,7 +143,7 @@ map.on("zoomend", function(){
     if (zoom < 9.5) {
         changeOpacity(0.8)
         duration_to_region = null
-        duration_to_school = 1.25;
+        //duration_to_school = 1.25;
     };
 //    if (zoom < 7.5) {
 //        changeBorderWeight(1)
@@ -250,7 +250,7 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
-                        info.firstChild.nextSibling.click()
+
 //                        info.open = true
 //                        if (!edit){
 //
@@ -265,7 +265,9 @@ async function load_districts(){
                         var menu_region_item = document.getElementById("span_base:id_region=" + this.options.id_region);
                         selectedTd = info_select
                         if (menu_region_item.className != "closed active open show"){
+                            info.firstChild.nextSibling.click()
                             menu_region_item.click()
+                            
                         }
                         var menu_district_item = document.getElementById("base_id_district=" + this.options.id_district);
                         menu_district_item.click();
@@ -497,7 +499,7 @@ function createFoundItem(item){
 };
 
 function flyToRegion(point){
-    map.flyTo(point, 8.5, {animate: true, duration: duration_to_region})
+    map.flyTo(point, 8.5, {animate: false, duration: duration_to_region})
 }
 
 function flyToRegionById(id_region){
