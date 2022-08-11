@@ -62,6 +62,7 @@ if (window_width <= 1580) {
 
 if (window_width == 768) {
     start_zoom = 5.8;
+    zoom_epsilon = 1
     region_weight = 2;
 }
 
@@ -514,6 +515,7 @@ function flyToRegionById(id_region){
         };
     })
 };
+
 
 function flyToStartPosition(){
     map.flyTo(start_position, start_zoom, {animate: false});

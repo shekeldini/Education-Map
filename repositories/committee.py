@@ -98,9 +98,9 @@ class CommitteeRepository(BaseRepository):
         SELECT 
             district.district_name,
             COUNT(ege.low),
-            SUM(ege.low) / COUNT(ege.low) as low,
-            SUM(ege.medium) / COUNT(ege.medium) as medium,
-            SUM(ege.high) / COUNT(ege.high) as high
+            SUM(ege.low) / COUNT(ege.id_oo) as low,
+            SUM(ege.medium) / COUNT(ege.id_oo) as medium,
+            SUM(ege.high) / COUNT(ege.id_oo) as high
         FROM ege
             LEFT JOIN oo ON 
                 ege.id_oo = oo.id_oo

@@ -664,6 +664,7 @@ function create_committee_text(data, active){
     else{
         tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Муниципальный район не получил оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
     };
+    tabContainer.appendChild(create_committee_ege_info(data, tabs_active[2]));
 
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
     let tabs = tabHeader.querySelectorAll('.tabheader-item');
@@ -684,3 +685,124 @@ function create_committee_text(data, active){
     });
     return tabContainer
 };
+
+function create_committee_ege_info(item, active) {
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+
+    tabContent.hidden = !active
+
+    let ege_wrapper = document.createElement('div');
+    ege_wrapper.className = "ege-wrapper";
+    ege_wrapper.innerHTML = "ЕГЭ";
+
+    tabContent.appendChild(ege_wrapper);
+
+    let ege_wrapper__oo = document.createElement('div');
+    ege_wrapper__oo.className = "ege-wrapper-oo";
+    ege_wrapper__oo.innerHTML += item.base_info.name;
+
+    tabContent.appendChild(ege_wrapper__oo);
+
+    let ege_wrapper__district = document.createElement('div');
+    ege_wrapper__district.className = "ege-wrapper--district";
+    ege_wrapper__district.innerHTML += item.base_info.district_name;
+
+    tabContent.appendChild(ege_wrapper__district);
+
+    let table = document.createElement('table');
+    table.className = "table";
+
+
+
+    let table_header = document.createElement('tr');
+    table_header.className= "table-header";
+
+    let th_arr = {
+        0: "ПРЕДМЕТ",
+        1: "Ниже<br> базового",
+        2: "Базовый<br> уровень",
+        3: "Выше<br> базового"
+    }
+
+    for (const [key, value] of Object.entries(th_arr)) {
+        let table_header__item = document.createElement('th');
+        table_header__item.className = "table-header__item";
+        table_header__item.innerHTML += th_arr[key];
+
+        table_header.appendChild(table_header__item);
+    }
+
+    table.appendChild(table_header);
+
+    let keys = {"rus": "Русский язык", "math_prof": "Профильная<br> математика", "math_base": "Базовая<br> математика"}
+
+    for (const [key, value] of Object.entries(keys)){
+        // subject_name
+        let tr = document.createElement('tr');
+        tr.className = "table-main"
+        let td = document.createElement('td');
+        td.className = "table-main__cell"
+        td.innerHTML = value;
+        tr.appendChild(td);
+
+        if (item.ege[key]){
+            //low
+            let td_low = document.createElement('td');
+            td_low.className = "table-main__cell"
+            td_low.innerHTML = item.ege[key].low
+            tr.appendChild(td_low);
+
+            // medium
+            let td_medium = document.createElement('td');
+            td_medium.className = "table-main__cell";
+            td_medium.innerHTML = item.ege[key].medium
+            tr.appendChild(td_medium);
+
+            // high
+            if (key == "math_base"){
+                let td_high = document.createElement('td');
+                td_high.className = "table-main__cell";
+                td_high.innerHTML = "-"
+                tr.appendChild(td_high);
+            }
+            else{
+                td_high = document.createElement('td');
+                td_high.className = "table-main__cell";
+                td_high.innerHTML = item.ege[key].high
+                tr.appendChild(td_high);
+            }
+            table.appendChild(tr);
+        }
+        else{
+            //low
+            let td_low = document.createElement('td');
+            td_low.className = "table-main__cell"
+            td_low.innerHTML = "-"
+            tr.appendChild(td_low);
+
+            // medium
+            let td_medium = document.createElement('td');
+            td_medium.className = "table-main__cell";
+            td_medium.innerHTML = "-"
+            tr.appendChild(td_medium);
+
+            // high
+            let td_high = document.createElement('td');
+            td_high.className = "table-main__cell";
+            td_high.innerHTML = "-"
+            tr.appendChild(td_high);
+
+            table.appendChild(tr);
+        }
+    }
+
+    let info = document.createElement('div');
+    info.className = "info";
+    info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
+
+    tabContent.appendChild(table);
+    tabContent.appendChild(info);
+    return tabContent
+
+}
