@@ -75,6 +75,19 @@
         </div>
     </div>
 
+
+    <details class="menu-filter" id="committee">
+        <summary class="menu-filter__title menu-filter__title-com">Комитеты образования
+            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
+            </svg>
+        </summary>
+        <div class="menu-filter__content">
+            <ul class="list-one" id="committee_items">
+
+            </ul>
+        </div>
+    </details>
     <details class="menu-filter" id="info">
         <summary class="menu-filter__title">Образовательные учреждения
             <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -83,19 +96,6 @@
         </summary>
         <div class="menu-filter__content">
             <ul class="list-one" id="tree">
-
-            </ul>
-        </div>
-    </details>
-
-    <details class="menu-filter" id="committee">
-        <summary class="menu-filter__title">Комитеты образования
-            <svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
-            </svg>
-        </summary>
-        <div class="menu-filter__content">
-            <ul class="list-one" id="committee_items">
 
             </ul>
         </div>
@@ -111,28 +111,67 @@
 			</svg>
 			<div class="menu-filter__title-description">
 				Оснащение организаций современным оборудованием и развитие цифровых сервисов
+				<div class="menu-filter__title-description-wrapper">
+				<div class="menu-filter__title-description-wrapper-item">
+                                                        <div class="menu-filter__title-description-wrapper-item-current">444</div>
+                                                        <div class="menu-filter__title-description-wrapper-item-text">компьютерных классов</div>
+                                                </div>
+                                                <div class="menu-filter__title-description-wrapper-item">
+                                                        <div class="menu-filter__title-description-wrapper-item-current">1200</div>
+                                                        <div class="menu-filter__title-description-wrapper-item-text">классов SMART TV</div>
+                                                </div>
+                                                <div class="menu-filter__title-description-wrapper-item">
+                                                        <div class="menu-filter__title-description-wrapper-item-current">90</div>
+                                                        <div class="menu-filter__title-description-wrapper-item-text">классов<br> на базе интерактивного комплекса</div>
+                                                </div>
+                                                <div class="menu-filter__title-description-wrapper-item">
+                                                        <div class="menu-filter__title-description-wrapper-item-current">170</div>
+                                                        <div class="menu-filter__title-description-wrapper-item-text">серверов</div>
+                                                </div>
+				</div>
+
 			</div>
             </summary>
         </details>
 	
 	<details class="menu-filter" id="ege">
-            <summary class="menu-filter__title menu-filter__title-ege" onclick = "create_ege_markers(this.parentNode)">ЕГЭ
+            <summary class="menu-filter__title menu-filter__title-ege" onclick = "create_ege_markers(this.parentNode)">Единый государственный экзамен
 				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
 				</svg>
 				<div class="menu-filter__title-description">
-					Выпускной экзамен из школы и вступительный экзамен в ВУЗ
+					Централизованно проводимый в Российской Федерации экзамен в средних учебных заведениях
+					<div class="menu-filter__title-description-wrapper">
+        					<div class="menu-filter__title-description-wrapper-item">
+					            <div class="menu-filter__title-description-wrapper-item-current-ege">10318</div>
+					            <div class="menu-filter__title-description-wrapper-item-text">учеников</div>
+					        </div>
+					        <div class="menu-filter__title-description-wrapper-item">
+					            <div class="menu-filter__title-description-wrapper-item-current-ege">573</div>
+					            <div class="menu-filter__title-description-wrapper-item-text">образовательных учреждения</div>
+					        </div>
+				        </div>
 				</div>
             </summary>
         </details>
 
 	<details class="menu-filter" id="vpr">
-            <summary class="menu-filter__title menu-filter__title-vpr" onclick = "create_vpr_markers(this.parentNode)">ВПР
+            <summary class="menu-filter__title menu-filter__title-vpr" onclick = "create_vpr_markers(this.parentNode)">Всероссийская проверочная работа
 				<svg class="menu-filter__title-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 					<path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/>
 				</svg>
 				<div class="menu-filter__title-description">
-					Контрольная работа, проводимая по всей стране
+					Итоговые контрольные работы с едиными стандартизированными заданиями
+					<div class="menu-filter__title-description-wrapper">
+        					<div class="menu-filter__title-description-wrapper-item">
+						            <div class="menu-filter__title-description-wrapper-item-current-vpr">112397</div>
+						            <div class="menu-filter__title-description-wrapper-item-text">учеников</div>
+					        </div>
+					        <div class="menu-filter__title-description-wrapper-item">
+						            <div class="menu-filter__title-description-wrapper-item-current-vpr">643</div>
+						            <div class="menu-filter__title-description-wrapper-item-text">образовательных учреждений</div>
+					        </div>
+				        </div>
 				</div>
             </summary>
         </details>
@@ -145,6 +184,12 @@
 				</svg>
 				<div class="menu-filter__title-description">
 					Центры, направленные на подготовку детей по цифровому, естественно-научному, техническому и гуманитарному профилям
+					<div class="menu-filter__title-description-wrapper">
+        					<div class="menu-filter__title-description-wrapper-item">
+					            <div class="menu-filter__title-description-wrapper-item-current-rost">142</div>
+					            <div class="menu-filter__title-description-wrapper-item-text">центра<br> "Точки роста"</div>
+				        </div>
+    </div>
 				</div>
             </summary>
         </details>
