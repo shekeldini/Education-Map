@@ -14,7 +14,7 @@ let tabs_routs = {
 }
 let duration_to_region = null;
 let duration_to_school = null;
-
+let zoom_epsilon = 0;
 let info = document.getElementById('info');
 var tree = document.getElementById('tree');
 var ege = document.getElementById('ul_ege');
@@ -56,6 +56,7 @@ window_width = $(window).width();
 
 if (window_width <= 1580) {
     start_zoom = 6.75;
+    zoom_epsilon = 1
     region_weight = 3;
 }
 
@@ -502,7 +503,7 @@ function createFoundItem(item){
 };
 
 function flyToRegion(point){
-    map.flyTo(point, 8.5, {animate: false, duration: duration_to_region})
+    map.flyTo(point, 8.5 - zoom_epsilon, {animate: false, duration: duration_to_region})
 }
 
 function flyToRegionById(id_region){
@@ -515,11 +516,11 @@ function flyToRegionById(id_region){
 };
 
 function flyToStartPosition(){
-    map.flyTo(start_position, start_zoom);
+    map.flyTo(start_position, start_zoom, {animate: false});
 };
 
 function flyToSchool(latLon){
-    map.flyTo(latLon, 16.5, {animate: true, duration: duration_to_school});
+    map.flyTo(latLon, 16.5 - zoom_epsilon, {animate: true, duration: duration_to_school});
 };
 
 function create_committee_marker(item){
@@ -700,7 +701,7 @@ table.onclick = function(event) {
         target = target.parentNode.parentNode
     }
     if (flag){
-
+        flyToStartPosition()
         deleteAllMarkers();
         if (target == selectedTd){
             if (target == info_select){
