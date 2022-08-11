@@ -262,12 +262,15 @@ async function load_districts(){
 //                            })
 //                        }
 //                        edit = true
+                        if (info.open == false){
+                            info.firstChild.nextSibling.click()
+                        }
                         var menu_region_item = document.getElementById("span_base:id_region=" + this.options.id_region);
                         selectedTd = info_select
                         if (menu_region_item.className != "closed active open show"){
-                            info.firstChild.nextSibling.click()
+
                             menu_region_item.click()
-                            
+
                         }
                         var menu_district_item = document.getElementById("base_id_district=" + this.options.id_district);
                         menu_district_item.click();
