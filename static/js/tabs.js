@@ -193,7 +193,7 @@ function create_digital_info(digital, active) {
         osnash = digital.osnash ? "Да" : "Нет"
     }
     else{
-        osnash = `${digital.osnash_true} из ${digital.osnash_true + digital.osnash_false}`
+        osnash = `${digital.osnash_true} из ${digital.count_all}`
     };
     sreda_wrapper__ul_last.innerHTML = '<span>Оснащенность ОО ИТ-инфраструктурой</span>, в том числе беспроводными сетями, в рамках ГП "Информационное общество": '
      + '<span>' + osnash + '</span>';

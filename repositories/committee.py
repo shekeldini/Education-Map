@@ -160,7 +160,7 @@ class CommitteeRepository(BaseRepository):
         SELECT 
             district.district_name,
             COUNT(1) filter (where digital.osnash IS True) as osnash_true,
-            COUNT(1) filter (where digital.osnash IS False) as osnash_false,
+            count_oo.count as count_all,
             SUM(digital.arm_ped) as arm_ped,
             SUM(digital.arm_adm) as arm_adm,
             SUM(digital.i_panel) as i_panel,
@@ -175,8 +175,9 @@ class CommitteeRepository(BaseRepository):
                 oo.id_oo = digital.id_oo
             LEFT JOIN district ON
                 oo.id_district = district.id_district
+            CROSS JOIN (SELECT count(*) FROM oo WHERE id_district = :id_district) as count_oo
         WHERE oo.id_district = :id_district
-        GROUP BY district.district_name;
+        GROUP BY district.district_name, count_oo.count;
         """
         res = await self.database.fetch_one(query=query, values={"id_district": id_district})
         if not res:

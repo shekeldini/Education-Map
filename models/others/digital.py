@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class DigitalDistrict(BaseModel):
     district_name: str
     osnash_true: int
-    osnash_false: int
+    count_all: int
     arm_ped: int
     arm_adm: int
     i_panel: int
