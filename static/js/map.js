@@ -252,18 +252,6 @@ async function load_districts(){
 
                 polygon.on('click', async function () {
                     if (current_filter == "info"){
-
-//                        info.open = true
-//                        if (!edit){
-//
-//                            this.pm.enable({
-//                            allowSelfIntersection: true,
-//                            });
-//                            this.on('pm:edit', ({ layer }) => {
-//                                console.log(layer.toGeoJSON().geometry.coordinates);
-//                            })
-//                        }
-//                        edit = true
                         if (info.open == false){
                             info.firstChild.nextSibling.click()
                         }
@@ -277,6 +265,15 @@ async function load_districts(){
                         var menu_district_item = document.getElementById("base_id_district=" + this.options.id_district);
                         menu_district_item.click();
                     };
+                    if (current_filter == "committee"){
+                        var menu_region_item = document.getElementById("span_committee:id_region=" + this.options.id_region);
+                        if (menu_region_item.className != "closed active open show"){
+
+                            menu_region_item.click()
+                        }
+                        var menu_district_item = document.getElementById("committee_id_district=" + this.options.id_district);
+                        menu_district_item.click();
+                    }
                 });
             };
         };
@@ -706,14 +703,21 @@ table.onclick = function(event) {
         deleteAllMarkers();
         if (target == selectedTd){
             if (target == info_select){
+                current_filter = "info"
                 for (let i = 0; i < tree.children.length; i++){
                     close_children(tree.children[i])
-
                     tree.children[i].children[0].className = "closed hide"
                     tree.children[i].children[1].hidden = true
                 }
+
             };
             if (target.parentNode.id == "committee"){
+                if (!target.parentNode.open){
+                    current_filter = "committee"
+                }
+                else{
+                    current_filter = "info"
+                }
                 for (let i = 0; i < committee_items.children.length; i++){
                     close_children(committee_items.children[i])
 
@@ -721,7 +725,7 @@ table.onclick = function(event) {
                     committee_items.children[i].children[1].hidden = true
                 }
             };
-            current_filter = "info";
+
             return
         };
         if(selectedTd){
@@ -744,6 +748,7 @@ table.onclick = function(event) {
             selectedTd.parentNode.open = false;
         };
         selectedTd = target;
+
         current_filter = target.parentNode.id;
     }
 };
