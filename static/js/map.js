@@ -67,12 +67,15 @@ if (window_width == 768) {
 
 var map = L.map('map', {
     zoomSnap: 0.25,
-    zoomAnimation: true,
     minZoom: start_zoom,
     maxBounds: maxBounds,
     zoomControl: false,
     edgeBufferTiles: 5,
-    maxZoom: 17
+    maxZoom: 17,
+    fadeAnimation: true,
+    zoomAnimation: false,
+    zoomAnimationThreshold: false,
+    markerZoomAnimation: false,
 });
 
 
