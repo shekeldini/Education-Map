@@ -4,7 +4,7 @@ from pydantic import BaseModel, validator
 from models.others.digital import DigitalDistrict
 from models.others.vpr import VprStatistic
 from models.response.ege import Statistic
-from models.response.growing_point import GrowingPointCount
+from models.response.growing_point import GrowingPointSchools
 
 
 class BaseCommittee(BaseModel):
@@ -43,4 +43,4 @@ class ResponseCommittee(BaseModel):
     ege: Statistic
     vpr: VprStatistic
     digital: Optional[DigitalDistrict]
-    growing_point: Optional[GrowingPointCount]
+    growing_point: GrowingPointSchools
