@@ -725,6 +725,10 @@ table.onclick = function(event) {
         flag = true
         target = target.parentNode
     }
+    if (target.className === 'menu-filter__title-description-wrapper'){
+        flag = true
+        target = target.parentNode.parentNode
+    };
     if (target.className === 'menu-filter__title-description' ){
 
         flag = true
