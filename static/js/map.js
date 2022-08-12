@@ -585,7 +585,7 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab, i
                 if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
                     this.firstChild.firstChild.setAttribute(
                         'style',
-                        `min-width: ${size_popup[i]};`,
+                        `min-width: ${size_popup[i].min_width};`,
                     )
                 }
             }
