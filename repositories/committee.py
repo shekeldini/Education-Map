@@ -62,7 +62,10 @@ class CommitteeRepository(BaseRepository):
             COUNT(vpr.low),
             SUM(vpr.low) / COUNT(vpr.low) as low,
             SUM(vpr.medium) / COUNT(vpr.medium) as medium,
-            SUM(vpr.high) / COUNT(vpr.high) as high
+            SUM(vpr.high) / COUNT(vpr.high) as high,
+            SUM(vpr.count_low) as count_low,
+            SUM(vpr.count_medium) as count_medium,
+            SUM(vpr.count_high) as count_high
         FROM vpr
             LEFT JOIN oo ON
                 vpr.id_oo = oo.id_oo
@@ -100,7 +103,10 @@ class CommitteeRepository(BaseRepository):
             COUNT(ege.low),
             SUM(ege.low) / COUNT(ege.id_oo) as low,
             SUM(ege.medium) / COUNT(ege.id_oo) as medium,
-            SUM(ege.high) / COUNT(ege.id_oo) as high
+            SUM(ege.high) / COUNT(ege.id_oo) as high,
+            SUM(ege.count_low) as count_low,
+            SUM(ege.count_medium) as count_medium,
+            SUM(ege.count_high) as count_high
         FROM ege
             LEFT JOIN oo ON 
                 ege.id_oo = oo.id_oo

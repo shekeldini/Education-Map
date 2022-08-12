@@ -680,10 +680,11 @@ function close_children(parent){
 
 
 info_select = info.querySelector('summary')
+
 table.onclick = function(event) {
     let target = event.target;
     let flag = false
-    if (target.className === 'menu-filter__title') {
+    if (target.className === 'menu-filter__title' || target.className === 'menu-filter__title menu-filter__title-com' ) {
         flag = true
     }
     if (target.className.baseVal === 'menu-filter__title-icon' ){
@@ -700,6 +701,7 @@ table.onclick = function(event) {
         target = target.parentNode.parentNode
     }
     if (flag){
+        console.log(target)
         flyToStartPosition()
         deleteAllMarkers();
         if (target == selectedTd){
@@ -751,5 +753,6 @@ table.onclick = function(event) {
         selectedTd = target;
 
         current_filter = target.parentNode.id;
+
     }
 };
