@@ -1,10 +1,10 @@
 let edit = false
 let size_popup = {
-    0: {"min_width": "340px"},
-    1: {"min_width": "340px"},
-    2: {"min_width": "500px"},
-    3: {"min_width": "650px"},
-    4: {"min_width": "340px"},
+    0: {"width": 340},
+    1: {"width": 340},
+    2: {"width": 500},
+    3: {"width": 710},
+    4: {"width": 340},
 }
 
 let tabs_routs = {
@@ -540,14 +540,31 @@ function create_committee_marker(item){
         }
         this.openPopup();
         let popup = this.getPopup().getPane()
-        popup.onclick = function(){
+        popup.firstChild.firstChild.setAttribute(
+            'style',
+            `width: ${size_popup[0].width}px;`,
+        )
+        popup.onclick = function(event){
+            let target = event.target
+            if (target.className != "tabheader-item__icon" && target.className != "tabheader-item tabheader-item__active"){
+                return
+            }
             let tabheader = this.firstChild.firstChild.firstChild.firstChild.firstChild
             for (let i = 0; i < tabheader.children.length; i++){
                 if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
+
+                    let old_width = this.firstChild.firstChild.style.width
+                    old_width = parseInt(old_width.replace("px", ""))
+                    let old_left = this.firstChild.style.left;
+                    old_left = parseInt(old_left.replace("px", ""))
+                    let new_left = old_left + (old_width - size_popup[i].width) / 2
+
                     this.firstChild.firstChild.setAttribute(
                         'style',
-                        `min-width: ${size_popup[i].min_width};`
+                        `width: ${size_popup[i].width}px;`,
                     )
+
+                    this.firstChild.style.left = `${new_left}px`
                 }
             }
         }
@@ -578,15 +595,32 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab, i
         }
         this.openPopup();
         let popup = this.getPopup().getPane()
-
-        popup.onclick = function(){
+        popup.firstChild.firstChild.setAttribute(
+            'style',
+            `width: ${size_popup[active_tab].width}px;`,
+        )
+        popup.onclick = function(event){
+            let target = event.target
+            if (target.className != "tabheader-item__icon" && target.className != "tabheader-item tabheader-item__active"){
+                console.log(target.className)
+                return
+            }
             let tabheader = this.firstChild.firstChild.firstChild.firstChild.firstChild
             for (let i = 0; i < tabheader.children.length; i++){
                 if (tabheader.children[i].className == "tabheader-item tabheader-item__active"){
+
+                    let old_width = this.firstChild.firstChild.style.width
+                    old_width = parseInt(old_width.replace("px", ""))
+                    let old_left = this.firstChild.style.left;
+                    old_left = parseInt(old_left.replace("px", ""))
+                    let new_left = old_left + (old_width - size_popup[i].width) / 2
+
                     this.firstChild.firstChild.setAttribute(
                         'style',
-                        `min-width: ${size_popup[i].min_width};`,
+                        `width: ${size_popup[i].width}px;`,
                     )
+
+                    this.firstChild.style.left = `${new_left}px`
                 }
             }
         }
@@ -701,7 +735,6 @@ table.onclick = function(event) {
         target = target.parentNode.parentNode
     }
     if (flag){
-        console.log(target)
         flyToStartPosition()
         deleteAllMarkers();
         if (target == selectedTd){
