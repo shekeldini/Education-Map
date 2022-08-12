@@ -317,7 +317,7 @@ function create_ege_info(ege, active) {
     tabContent.appendChild(ege_wrapper__district);
 
     let table = document.createElement('table');
-    table.className = "table";
+    table.className = "table table-ege";
 
 
 
