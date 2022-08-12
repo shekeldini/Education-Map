@@ -9,4 +9,9 @@ class RequestEge(BaseModel):
     low: float
     medium: float
     high: Optional[float] = None
+    count_low: int
+    count_medium: int
+    count_high: Optional[int] = None
+    count_student: int
+
 

@@ -49,7 +49,10 @@ class EgeRepository(BaseRepository):
         SELECT 
             ege.low,
             ege.medium,
-            ege.high
+            ege.high,
+            ege.count_low,
+            ege.count_medium,
+            ege.count_high
         FROM ege
         WHERE ege.id_oo = :id_oo
         AND ege.id_subject IN (

@@ -88,9 +88,13 @@ CONSTRAINT "K8" PRIMARY KEY (id)
 CREATE TABLE IF NOT EXISTS ege(
 id_oo INTEGER NOT NULL,
 id_subject INTEGER NOT NULL,
+count_student INTEGER NOT NULL,
 low FLOAT,
 medium FLOAT,
 high FLOAT,
+count_low INTEGER,
+count_medium INTEGER,
+count_high INTEGER,
 CONSTRAINT "K9" PRIMARY KEY (id_oo, id_subject),
 CONSTRAINT "C6" FOREIGN KEY (id_subject)
     REFERENCES subject (id),

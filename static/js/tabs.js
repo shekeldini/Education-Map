@@ -356,13 +356,25 @@ function create_ege_info(ege, active) {
             //low
             let td_low = document.createElement('td');
             td_low.className = "table-main__cell"
-            td_low.innerHTML = ege.subject[key].low
+            if (ege.subject[key].low > 0){
+                td_low.innerHTML = `${ege.subject[key].low}% / ${ege.subject[key].count_low} чел.`
+            }
+            else{
+                td_low.innerHTML = "-"
+            }
             tr.appendChild(td_low);
 
             // medium
             let td_medium = document.createElement('td');
             td_medium.className = "table-main__cell";
-            td_medium.innerHTML = ege.subject[key].medium
+
+            if (ege.subject[key].medium > 0){
+                td_medium.innerHTML = `${ege.subject[key].medium}% / ${ege.subject[key].count_medium} чел.`
+            }
+            else{
+                td_medium.innerHTML = "-"
+            }
+
             tr.appendChild(td_medium);
 
             // high
@@ -375,7 +387,12 @@ function create_ege_info(ege, active) {
             else{
                 td_high = document.createElement('td');
                 td_high.className = "table-main__cell";
-                td_high.innerHTML = ege.subject[key].high
+                if (ege.subject[key].high > 0){
+                    td_high.innerHTML = `${ege.subject[key].high}% / ${ege.subject[key].count_high} чел.`
+                }
+                else{
+                    td_high.innerHTML = "-"
+                }
                 tr.appendChild(td_high);
             }
             table.appendChild(tr);

@@ -5,7 +5,9 @@ class Rus(BaseModel):
     low: float
     medium: float
     high: float
-
+    count_low: int
+    count_medium: int
+    count_high: int
 
     @validator("low")
     def round_low_value(cls, value: float):
@@ -24,6 +26,9 @@ class MathProf(BaseModel):
     low: float
     medium: float
     high: float
+    count_low: int
+    count_medium: int
+    count_high: int
 
     @validator("low")
     def round_low_value(cls, value: float):
@@ -41,6 +46,8 @@ class MathProf(BaseModel):
 class MathBase(BaseModel):
     low: float
     medium: float
+    count_low: int
+    count_medium: int
 
     @validator("low")
     def round_low_value(cls, value: float):
