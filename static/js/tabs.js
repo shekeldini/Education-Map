@@ -743,7 +743,7 @@ function create_committee_ege_info(item, active) {
     tabContent.appendChild(ege_wrapper__district);
 
     let table = document.createElement('table');
-    table.className = "table";
+    table.className = "table table-ege";
 
 
 
