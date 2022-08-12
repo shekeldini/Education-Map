@@ -1,14 +1,15 @@
-from typing import Optional, Union
+from typing import Optional, Union, List
 
 from db.committee import committee
 from models.others.digital import DigitalDistrict
 from models.others.ege import Rus, MathBase, MathProf
 from models.others.subject import Subject
 from models.others.vpr import VprStatistic, VprParallelResult, VprSubjectResult
+from models.others.oo import OOName
 from models.request.committee import RequestCommittee
 from models.response.committee import BaseCommittee, ResponseCommittee, CommitteeCoordinates
 from models.response.ege import Statistic
-from models.response.growing_point import GrowingPointCount
+from models.response.growing_point import GrowingPointSchools
 from .base import BaseRepository
 
 
@@ -190,19 +191,20 @@ class CommitteeRepository(BaseRepository):
             return None
         return DigitalDistrict.parse_obj(res)
 
-    async def get_growing_point_info(self, id_district: int) -> Optional[GrowingPointCount]:
+    async def get_growing_point_info(self, id_district: int) -> GrowingPointSchools:
         query = """
         SELECT 
-            count(1) filter (where oo.growing_point IS True) as count_true,
-            count(1) filter (where oo.growing_point IS False) as count_false
+            oo.oo_name
         FROM oo
-        WHERE oo.id_district = :id_district;
+        WHERE oo.id_district = :id_district
+        AND oo.growing_point IS True
+        ORDER BY oo.oo_name;
         """
 
-        res = await self.database.fetch_one(query, values={"id_district": id_district})
+        res = await self.database.fetch_all(query, values={"id_district": id_district})
         if not res:
-            return None
-        return GrowingPointCount.parse_obj(res)
+            return GrowingPointSchools(items=[])
+        return GrowingPointSchools(items=[OOName.parse_obj(row) for row in res])
 
     async def create(self, item: RequestCommittee):
         values = {**item.dict()}

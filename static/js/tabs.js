@@ -690,8 +690,9 @@ function create_committee_text(data, active){
     };
     tabContainer.appendChild(create_committee_ege_info(data, tabs_active[2]));
     tabContainer.appendChild(create_committee_vpr_info(data, tabs_active[3]));
-    if (data.growing_point.count_true){
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])(`Муниципальный район содержит <span style="font-weight: 600;color: #1a1c23;">${data.growing_point.count_true}</span> центров образования цифрового и гуманитарного профилей «Точка роста»`))
+    // growing_point
+    if (data.growing_point.items){
+        tabContainer.appendChild(create_committee_growing_point_info(data.growing_point, tabs_active[4]))
     }
     else{
         tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Муниципальный район не содержит центры образования цифрового и гуманитарного профилей «Точка роста»"))
@@ -958,4 +959,38 @@ function create_committee_vpr_info(item, active) {
     tabContent.appendChild(info);
     return tabContent;
 
+}
+
+function create_committee_growing_point_info(growing_point, active){
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+
+    tabContent.hidden = !active
+
+    let sreda_wrapper = document.createElement('div');
+    sreda_wrapper.className ="sreda-wrapper";
+
+    let sreda_wrapper__district = document.createElement('div');
+    sreda_wrapper__district.className = "sreda-wrapper__district";
+
+    let title = document.createElement('div');
+    title.className = "growing_point_title"
+    title.innerHTML = 'Центры «Точка роста» в Муниципальном районе:'
+
+    let schools_list = document.createElement('div');
+    schools_list.className = 'schools_list'
+    for (item of growing_point.items){
+        let school = document.createElement('div');
+        school.className = 'growing_point_school'
+        school.innerHTML = item.oo_name
+        schools_list.appendChild(school)
+    }
+
+    sreda_wrapper__district.appendChild(schools_list);
+    sreda_wrapper__district.appendChild(title);
+
+    sreda_wrapper.appendChild(sreda_wrapper__district);
+
+    tabContent.appendChild(sreda_wrapper);
+    return tabContent
 }
