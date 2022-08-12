@@ -104,7 +104,7 @@ info.onclick = function(event){
 committee.onclick = function(event){
         let target = event.target;
         let flag = false
-    if (target.className === 'menu-filter__title') {
+    if (target.className === 'menu-filter__title' || target.className === 'menu-filter__title menu-filter__title-com') {
         flag = true
     }
     if (target.className.baseVal === 'menu-filter__title-icon' ){

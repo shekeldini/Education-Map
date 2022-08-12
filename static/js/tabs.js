@@ -77,7 +77,7 @@ function create_base_info(base_info, active){
     tabcontent_mail__title.innerHTML = "Почта";
     let tabcontent_mail__descr = document.createElement('a');
     tabcontent_mail__descr.className = "tabcontent-mail__descr";
-    tabcontent_mail__descr.href = "mailto:+base_info.email_oo";
+    tabcontent_mail__descr.href = `mailto: ${base_info.email_oo}`;
     if (base_info.email_oo){
         tabcontent_mail__descr.innerHTML = base_info.email_oo;
     }
@@ -93,7 +93,7 @@ function create_base_info(base_info, active){
     tabcontent_phone__title.innerHTML = "Телефон";
     let tabcontent_phone__descr = document.createElement('a');
     tabcontent_phone__descr.className ="tabcontent-phone__descr";
-    tabcontent_phone__descr.href = "tel:+base_info.phone_number";
+    tabcontent_phone__descr.href = `tel:${base_info.phone_number}`;
     tabcontent_phone__descr.innerHTML = base_info.phone_number;
 
     let tabcontent_site = document.createElement('div');
