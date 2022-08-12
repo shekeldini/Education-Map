@@ -152,7 +152,7 @@ map.on("zoomend", function(){
 //    };
 })
 
-var markers = L.markerClusterGroup()
+var markers = L.markerClusterGroup({singleMarkerMode: true})
 var committee_markers = L.markerClusterGroup({singleMarkerMode: true})
 markers.addTo(map);
 committee_markers.addTo(map);
