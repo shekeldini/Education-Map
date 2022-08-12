@@ -2,7 +2,7 @@ let edit = false
 let size_popup = {
     0: {"min_width": "340px"},
     1: {"min_width": "340px"},
-    2: {"min_width": "650px"},
+    2: {"min_width": "500px"},
     3: {"min_width": "650px"},
     4: {"min_width": "340px"},
 }
