@@ -190,7 +190,8 @@ map.on('pm:create', (e) => {
 
 async function load_regions(){
     return $.getJSON("static/files/okruga.json", function(json) {
-        for(region of json){
+        let data = sortByKey(json, "name")
+        for(region of data){
             var name = region.name
             var coordinates = region.coordinates
             var color = "#0e4677"
@@ -216,7 +217,8 @@ async function load_regions(){
 
 async function load_districts(){
     return $.getJSON("static/files/districts.json", function(json) {
-        for(district of json){
+        let data = sortByKey(json, "name")
+        for(district of data){
             var name = district.name
             var coordinates = district.coordinates
             var id_district = district.id
@@ -800,3 +802,10 @@ table.onclick = function(event) {
 
     }
 };
+
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
