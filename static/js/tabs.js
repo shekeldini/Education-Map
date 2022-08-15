@@ -783,13 +783,23 @@ function create_committee_ege_info(item, active) {
             //low
             let td_low = document.createElement('td');
             td_low.className = "table-main__cell"
-            td_low.innerHTML = item.ege[key].low
+            if (item.ege[key].low > 0){
+                td_low.innerHTML = `${item.ege[key].low}% / ${item.ege[key].count_low} чел.`
+            }
+            else{
+                td_low.innerHTML = "-"
+            }
             tr.appendChild(td_low);
 
             // medium
             let td_medium = document.createElement('td');
             td_medium.className = "table-main__cell";
-            td_medium.innerHTML = item.ege[key].medium
+            if (item.ege[key].medium > 0){
+                td_medium.innerHTML = `${item.ege[key].medium}% / ${item.ege[key].count_medium} чел.`
+            }
+            else{
+                td_medium.innerHTML = "-"
+            }
             tr.appendChild(td_medium);
 
             // high
@@ -802,7 +812,12 @@ function create_committee_ege_info(item, active) {
             else{
                 td_high = document.createElement('td');
                 td_high.className = "table-main__cell";
-                td_high.innerHTML = item.ege[key].high
+                if (item.ege[key].high > 0){
+                    td_high.innerHTML = `${item.ege[key].high}% / ${item.ege[key].count_high} чел.`
+                }
+                else{
+                    td_high.innerHTML = "-"
+                }
                 tr.appendChild(td_high);
             }
             table.appendChild(tr);
@@ -832,7 +847,7 @@ function create_committee_ege_info(item, active) {
 
     let info = document.createElement('div');
     info.className = "info";
-    info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
+    //info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
 
     tabContent.appendChild(table);
     tabContent.appendChild(info);
@@ -932,10 +947,15 @@ function create_committee_vpr_info(item, active) {
 
         for (subj of ["rus", "math"]){
             if(item.vpr[parallel][subj]){
-                for (grade of ["low", "medium", "high"]){
+                for (const [grade, count] of zip(["low", "medium", "high"], ["count_low", "count_medium", "count_high"])){
                     let td = document.createElement('td');
                     td.className = "table-main__cell";
-                    td.innerHTML = item.vpr[parallel][subj][grade];
+                    if (item.vpr[parallel][subj][grade] > 0){
+                        td.innerHTML = `${item.vpr[parallel][subj][grade]}% / ${item.vpr[parallel][subj][count]} чел.`;
+                    }
+                    else{
+                        td.innerHTML = "-";
+                    }
                     tr.appendChild(td);
                 };
             }
@@ -953,7 +973,7 @@ function create_committee_vpr_info(item, active) {
 
     let info = document.createElement('div');
     info.className = "info";
-    info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
+    // info.innerHTML = "*В таблице приведены сведения об обучающихся демонстрирующие уровень знаний в процентах";
 
     tabContent.appendChild(table);
     tabContent.appendChild(info);

@@ -74,6 +74,12 @@ body {
 	}
 }
 
+@media (max-width: 768px){
+    width: 65%;
+    left: 65%;
+    transform: translateX(-43%);
+}
+
 
 @media (max-width: 724px) {
   .wrapper__left {
