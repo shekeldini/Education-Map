@@ -548,10 +548,12 @@ function create_committee_marker(item){
         }
         this.openPopup();
         let popup = this.getPopup().getPane()
-        popup.firstChild.firstChild.setAttribute(
-            'style',
-            `width: ${size_popup[0].width}px;`,
-        )
+        if (!popup.firstChild.firstChild.style.width){
+            popup.firstChild.firstChild.setAttribute(
+                'style',
+                `width: ${size_popup[active_tab].width}px;`,
+            )
+        }
         popup.onclick = function(event){
             let target = event.target
             if (target.className != "tabheader-item__icon" && target.className != "tabheader-item tabheader-item__active"){
@@ -603,10 +605,14 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab, i
         }
         this.openPopup();
         let popup = this.getPopup().getPane()
-        popup.firstChild.firstChild.setAttribute(
-            'style',
-            `width: ${size_popup[active_tab].width}px;`,
-        )
+
+        if (!popup.firstChild.firstChild.style.width){
+            popup.firstChild.firstChild.setAttribute(
+                'style',
+                `width: ${size_popup[active_tab].width}px;`,
+            )
+        }
+
         popup.onclick = function(event){
             let target = event.target
             if (target.className != "tabheader-item__icon" && target.className != "tabheader-item tabheader-item__active"){
