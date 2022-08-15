@@ -54,8 +54,15 @@ let maxBounds = [
 window_height = $(window).height();
 window_width = $(window).width();
 
+
 if (window_width <= 1580) {
     start_zoom = 6.75;
+    zoom_epsilon = 1
+    region_weight = 3;
+}
+
+if (window_width <= 1250) {
+    start_zoom = 6.6;
     zoom_epsilon = 1
     region_weight = 3;
 }

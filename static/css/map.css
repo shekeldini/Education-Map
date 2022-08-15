@@ -40,6 +40,12 @@ body {
 
 */
 
+@media (max-width: 1533px) {
+   .header-wrapper__right {
+	    width: 0 !important;
+ }
+}
+
 @media (max-width: 1440px) {
   .wrapper__left {
     width: 250px;
@@ -1577,4 +1583,26 @@ color: #ed1b24;
 
 #filter-two {
   height: 66px;
+}
+
+#filter-two .menu-filter__title-icon {
+  top: 20px;
+}
+
+.growing_point_school {
+     margin-top: 5px;
+    border-left: 2px solid red;
+    padding-left: 5px;
+    background: #f7f7f7;
+	color: #1a1c23;
+} 
+
+.growing_point_school:hover {
+  background: #f5f2f2;
+}
+
+.growing_point_title {
+      font-size: 13px;
+    font-weight: 600;
+    color: #1a1c23;
 }
