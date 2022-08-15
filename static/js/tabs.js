@@ -447,6 +447,7 @@ function create_text_error(text){
 
     sreda_wrapper.appendChild(sreda_wrapper__district);
 
+
     tabContent.appendChild(sreda_wrapper);
     return tabContent
 }
@@ -632,6 +633,7 @@ function create_text(data, active){
         }
         else{
             tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация не содержит центр образования цифрового и гуманитарного профилей «Точка роста» "));
+            
         };
     }
     else{

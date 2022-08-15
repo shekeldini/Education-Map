@@ -918,7 +918,7 @@ display: flex;
 }
 
 .header-wrapper__login-img {
-      width: 20%;
+      width: 130%;
     margin-right: 30px;
 }
 
@@ -1611,4 +1611,8 @@ color: #ed1b24;
       font-size: 13px;
     font-weight: 600;
     color: #1a1c23;
+}
+
+.header-logo__icon {
+  display: block;
 }
