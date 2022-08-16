@@ -175,7 +175,7 @@ overflow-x: hidden;
 
 .menu-search__wrapper::-webkit-scrollbar {
   width: 4px;
-  background-color: #93c4e3;
+  background-color: #f9f9fd;
 }
 
 .menu-search__wrapper::-webkit-scrollbar-thumb {
@@ -888,7 +888,8 @@ display: flex;
 }
 
 .header-logo__img {
-  width: 24%;
+  width: 90%;
+  margin-left: 30px;
 }
 
 .filter2 {
@@ -918,12 +919,12 @@ display: flex;
 }
 
 .header-wrapper__login-img {
-      width: 20%;
+      width: 70%;
     margin-right: 30px;
 }
 
 .header-wrapper__login-img-middle {
-       width: 30%;
+       width: 134%;
        margin-right: 30px;
 }
 
@@ -1407,7 +1408,7 @@ sreda-wrapper__district, .sreda-wrapper__oo {
 }
 
 .sreda-wrapper__district-title, .sreda-wrapper__oo-title {
-     font-size: 14px;
+     font-size: 12px;
     font-weight: 500;
 }
 
@@ -1439,7 +1440,7 @@ font-size: 14px;
 
 .sreda-wrapper__district-descr {
   color: #707275;
-font-size: 14px;
+font-size: 12px;
 font-weight: 100;
 
 } 
@@ -1611,4 +1612,18 @@ color: #ed1b24;
       font-size: 13px;
     font-weight: 600;
     color: #1a1c23;
+}
+
+.header-logo__icon {
+  display: block;
+      width: 80px;
+    margin-left: 20px;
+}
+
+.header-logo__icon:first-child {
+margin-right: -20px;
+}
+
+.esreda-wrapper__district-descr{
+ margin-bottom: 5px;
 }
