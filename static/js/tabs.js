@@ -430,28 +430,6 @@ function create_ege_info(ege, active) {
 
 }
 
-function create_text_error(text){
-    let tabContent = document.createElement('div')
-    tabContent.className = "tabcontent"
-
-    let sreda_wrapper = document.createElement('div');
-    sreda_wrapper.className ="sreda-wrapper";
-
-    let sreda_wrapper__district = document.createElement('div');
-    sreda_wrapper__district.className = "sreda-wrapper__district";
-    let sreda_wrapper__district_title = document.createElement('div');
-    sreda_wrapper__district_title.className = "sreda-wrapper__district-title-error";
-    sreda_wrapper__district_title.innerHTML = text;
-
-    sreda_wrapper__district.appendChild(sreda_wrapper__district_title);
-
-    sreda_wrapper.appendChild(sreda_wrapper__district);
-
-
-    tabContent.appendChild(sreda_wrapper);
-    return tabContent
-}
-
 function create_vpr_info(vpr, active) {
     let tabContent = document.createElement('div')
     tabContent.className = "tabcontent"
@@ -609,7 +587,7 @@ function create_text(data, active){
         tabContainer.appendChild(create_digital_info(data.digital, tabs_active[1]));
     }
     else{
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[1])("Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
+        tabContainer.appendChild(create_school_no_info(data, tabs_active[1], "Образовательная организация не получила оборудование в рамках Федерального проекта «Цифровая образовательная среда»"))
     };
     if (!data.base_info.filial){
         // ege
@@ -617,24 +595,18 @@ function create_text(data, active){
             tabContainer.appendChild(create_ege_info(data.ege, tabs_active[2]));
         }
         else{
-            tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация о результатах ЕГЭ отсутствует"));
+            tabContainer.appendChild(create_school_no_info(data, tabs_active[2], "Информация о результатах ЕГЭ отсутствует"))
         };
         // vpr
         if (data.vpr){
             tabContainer.appendChild(create_vpr_info(data.vpr, tabs_active[3]));
         }
         else{
-            tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация о результатах ВПР отсутствует"));
+            tabContainer.appendChild(create_school_no_info(data, tabs_active[3], "Информация о результатах ВПР отсутствует"))
         }
 
         // growing_point
-        if (data.growing_point){
-            tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация участвует в программе Центров образования цифрового и гуманитарного профиля «Точка роста» "));
-        }
-        else{
-            tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Образовательная организация не содержит центр образования цифрового и гуманитарного профилей «Точка роста» "));
-            
-        };
+        tabContainer.appendChild(create_school_growing_point_info(data, tabs_active[4]));
     }
     else{
         tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация размещена в юридическом лице"));
@@ -1009,6 +981,84 @@ function create_committee_growing_point_info(growing_point, active){
     }
 
     sreda_wrapper__district.appendChild(schools_list);
+    sreda_wrapper__district.appendChild(title);
+
+    sreda_wrapper.appendChild(sreda_wrapper__district);
+
+    tabContent.appendChild(sreda_wrapper);
+    return tabContent
+}
+
+function create_school_growing_point_info(item, active){
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+
+    tabContent.hidden = !active
+
+    let sreda_wrapper = document.createElement('div');
+    sreda_wrapper.className ="sreda-wrapper";
+
+    let sreda_wrapper__district = document.createElement('div');
+    sreda_wrapper__district.className = "sreda-wrapper__district";
+
+    let vpr_wrapper__oo = document.createElement('div');
+    vpr_wrapper__oo.className = "sreda-wrapper__oo-descr";
+    vpr_wrapper__oo.innerHTML += item.base_info.oo_name;
+
+    tabContent.appendChild(vpr_wrapper__oo);
+
+    let vpr_wrapper__district = document.createElement('div');
+    vpr_wrapper__district.className = "esreda-wrapper__district-descr";
+    vpr_wrapper__district.innerHTML += item.base_info.district_name;
+
+    tabContent.appendChild(vpr_wrapper__district);
+
+    let title = document.createElement('div');
+    title.className = "need_padding"
+    if (item.growing_point){
+        title.innerHTML = "Образовательная организация участвует в программе Центров образования цифрового и гуманитарного профиля «Точка роста» "
+    }
+    else{
+         title.innerHTML = "Образовательная организация не содержит центр образования цифрового и гуманитарного профилей «Точка роста» "
+    }
+
+    sreda_wrapper__district.appendChild(title);
+
+    sreda_wrapper.appendChild(sreda_wrapper__district);
+
+    tabContent.appendChild(sreda_wrapper);
+    return tabContent
+}
+
+function create_school_no_info(item, active, text){
+    let tabContent = document.createElement('div')
+    tabContent.className = "tabcontent"
+
+    tabContent.hidden = !active
+
+    let sreda_wrapper = document.createElement('div');
+    sreda_wrapper.className ="sreda-wrapper";
+
+    let sreda_wrapper__district = document.createElement('div');
+    sreda_wrapper__district.className = "sreda-wrapper__district";
+
+    let vpr_wrapper__oo = document.createElement('div');
+    vpr_wrapper__oo.className = "sreda-wrapper__oo-descr";
+    vpr_wrapper__oo.innerHTML += item.base_info.oo_name;
+
+    tabContent.appendChild(vpr_wrapper__oo);
+
+    let vpr_wrapper__district = document.createElement('div');
+    vpr_wrapper__district.className = "esreda-wrapper__district-descr";
+    vpr_wrapper__district.innerHTML += item.base_info.district_name;
+
+    tabContent.appendChild(vpr_wrapper__district);
+
+    let title = document.createElement('div');
+    title.className = "need_padding"
+    title.innerHTML = text
+
+
     sreda_wrapper__district.appendChild(title);
 
     sreda_wrapper.appendChild(sreda_wrapper__district);
