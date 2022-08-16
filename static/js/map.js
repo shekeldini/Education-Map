@@ -554,6 +554,7 @@ function create_committee_marker(item){
                 `width: ${size_popup[active_tab].width}px;`,
             )
         }
+        local_marker = this
         popup.onclick = function(event){
             let target = event.target
             if (target.className != "tabheader-item__icon" && target.className != "tabheader-item tabheader-item__active"){
@@ -575,6 +576,8 @@ function create_committee_marker(item){
                     )
 
                     this.firstChild.style.left = `${new_left}px`
+                    local_marker.closePopup()
+                    local_marker.openPopup()
                 }
             }
         }
@@ -612,7 +615,7 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab, i
                 `width: ${size_popup[active_tab].width}px;`,
             )
         }
-
+        local_marker = this
         popup.onclick = function(event){
             let target = event.target
             if (target.className != "tabheader-item__icon" && target.className != "tabheader-item tabheader-item__active"){
@@ -635,6 +638,8 @@ function create_marker(id_oo, id_region, id_district, coordinates, active_tab, i
                     )
 
                     this.firstChild.style.left = `${new_left}px`
+                    local_marker.closePopup()
+                    local_marker.openPopup()
                 }
             }
         }
