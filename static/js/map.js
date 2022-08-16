@@ -1,4 +1,5 @@
 let edit = false
+let onSearch = false;
 let size_popup = {
     0: {"width": 340},
     1: {"width": 340},
@@ -268,7 +269,7 @@ async function load_districts(){
 //                          console.log(this.toGeoJSON().geometry.coordinates);
 //                        });
 //                    };
-                    if (current_filter == "info"){
+                    if (current_filter == "info" && !onSearch){
                         if (info.open == false){
                             info.firstChild.nextSibling.click()
                         }
@@ -282,7 +283,7 @@ async function load_districts(){
                         var menu_district_item = document.getElementById("base_id_district=" + this.options.id_district);
                         menu_district_item.click();
                     };
-                    if (current_filter == "committee"){
+                    if (current_filter == "committee" && !onSearch){
                         var menu_region_item = document.getElementById("span_committee:id_region=" + this.options.id_region);
                         if (menu_region_item.className != "closed active open show"){
 
@@ -482,7 +483,7 @@ function changeBorderWeight(value){
 function search(value){
     $("#search_result").empty();
     if (value.length > 0){
-        //current_filter = 'search';
+        onSearch = true;
         var data = $.ajax({
             type : 'GET',
             url : "oo/search?oo_name=" + value,
@@ -496,7 +497,7 @@ function search(value){
     if (value.length == 0){
         deleteAllMarkers();
         flyToStartPosition();
-        //current_filter = 'info';
+        onSearch = false;
     };
 
 };
