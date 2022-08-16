@@ -15,29 +15,35 @@ router = APIRouter()
 async def read_oo(
         oo: OORepository = Depends(get_oo_repository),
         limit: int = 100,
-        skip: int = 0):
+        skip: int = 0
+):
     return await oo.get_all(limit=limit, skip=skip)
 
 
 @router.get("/get_by_district/{id_district}", response_model=List[ResponseOO])
 async def read_oo_by_district(
         id_district: int = Path(...),
-        oo: OORepository = Depends(get_oo_repository)):
+        oo: OORepository = Depends(get_oo_repository)
+):
     return await oo.get_by_district(id_district)
 
 
 @router.get("/search", response_model=ResponseSearch)
 async def search_oo_name(
         model: RequestSearch = Depends(),
-        oo: OORepository = Depends(get_oo_repository)):
+        oo: OORepository = Depends(get_oo_repository)
+):
     return await oo.search(model.oo_name)
 
 
 @router.post("/")
 async def import_oo(
         items: List[RequestOO],
-        oo: OORepository = Depends(get_oo_repository)
+        oo: OORepository = Depends(get_oo_repository),
+        current_user: ResponseUsers = Depends(get_current_user)
 ):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await oo.import_oo(items)
 
 
@@ -50,6 +56,7 @@ async def delete_district(
     if not current_user.is_admin():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await oo.delete(id_oo)
+
 
 @router.put("/")
 async def update_district(

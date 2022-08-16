@@ -9,7 +9,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from core.security import verify_password
 from db.base import database, redis
-from endpoints import district, roles, users, auth, oo_logins, oo, digital, info, ege, growing_point, vpr, committee
+from endpoints import district, roles, users, auth, oo, digital, info, ege, growing_point, vpr, committee
 from endpoints.depends import get_users_repository, get_user
 from repositories.users import UsersRepository
 
@@ -30,7 +30,6 @@ app.include_router(auth.router, prefix='/auth', tags=["auth"])
 app.include_router(users.router, prefix='/user', tags=["users"])
 app.include_router(roles.router, prefix='/roles', tags=["roles"])
 app.include_router(district.router, prefix='/district', tags=["district"])
-app.include_router(oo_logins.router, prefix='/oo_logins', tags=["oo_logins"])
 app.include_router(oo.router, prefix='/oo', tags=["oo"])
 app.include_router(digital.router, prefix='/digital', tags=["digital"])
 app.include_router(info.router, prefix='/info', tags=["info"])
@@ -73,7 +72,7 @@ async def get_current_username(
 
 
 @app.get("/docs", include_in_schema=False)
-async def get_swagger_documentation():
+async def get_swagger_documentation(username: str = Depends(get_current_username)):
     return get_swagger_ui_html(openapi_url="/openapi.json", title="docs")
 
 
@@ -83,7 +82,7 @@ async def get_redoc_documentation(username: str = Depends(get_current_username))
 
 
 @app.get("/openapi.json", include_in_schema=False)
-async def openapi():
+async def openapi(username: str = Depends(get_current_username)):
     return get_openapi(title=app.title, version=app.version, routes=app.routes)
 
 
@@ -101,21 +100,10 @@ async def index(request: Request, refresh_token: Optional[str] = Cookie(None)):
 
 @app.get("/size", response_class=HTMLResponse)
 async def index(request: Request):
-
     return templates.TemplateResponse("size.html", {
         "request": request,
         "title": "Размер экрана",
     })
-
-
-@app.get("/login", response_class=HTMLResponse)
-async def login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request, "title": "Авторизация"})
-
-
-@app.get("/private", response_class=HTMLResponse)
-async def private(request: Request):
-    return templates.TemplateResponse("protected.html", {"request": request, "title": "Приватно"})
 
 
 if __name__ == "__main__":

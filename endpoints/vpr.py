@@ -1,9 +1,10 @@
 from typing import List
-from fastapi import APIRouter, Depends, Response, Path
+from fastapi import APIRouter, Depends, Response, Path, HTTPException, status
 from models.request.vpr import RequestVpr
+from models.response.users import ResponseUsers
 from models.response.vpr import ResponseVpr, ResponseAllVpr
 from repositories.vpr import VprRepository
-from .depends import get_vpr_repository
+from .depends import get_vpr_repository, get_current_user
 
 router = APIRouter()
 
@@ -11,8 +12,11 @@ router = APIRouter()
 @router.post("/import", response_class=Response)
 async def import_digital_items(
         model: List[RequestVpr],
-        vpr_repository: VprRepository = Depends(get_vpr_repository)
+        vpr_repository: VprRepository = Depends(get_vpr_repository),
+        current_user: ResponseUsers = Depends(get_current_user)
 ):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     for item in model:
         await vpr_repository.create(item)
 

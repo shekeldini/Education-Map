@@ -46,8 +46,11 @@ async def create_district(
 @router.post("/import", response_model=ResponseDistrict)
 async def import_district(
         items: List[RequestDistrict],
-        district: DistrictRepository = Depends(get_district_repository)
+        district: DistrictRepository = Depends(get_district_repository),
+        current_user: ResponseUsers = Depends(get_current_user)
 ):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await district.import_district(items)
 
 

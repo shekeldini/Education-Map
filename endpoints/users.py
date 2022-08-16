@@ -25,14 +25,22 @@ async def read_users(
 @router.get("/get_by_id", response_model=ResponseUsers)
 async def read_user_by_id(
         id_user: int,
-        users: UsersRepository = Depends(get_users_repository)):
+        users: UsersRepository = Depends(get_users_repository),
+        current_user: ResponseUsers = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await users.get_by_id(id_user)
 
 
 @router.get("/get_by_login", response_model=ResponseUsers)
 async def read_user_by_login(
         login: str,
-        users: UsersRepository = Depends(get_users_repository)):
+        users: UsersRepository = Depends(get_users_repository),
+        current_user: ResponseUsers = Depends(get_current_user)
+):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     return await users.get_by_login(login)
 
 

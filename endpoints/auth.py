@@ -14,12 +14,12 @@ router = APIRouter()
 
 @router.post("/", response_model=ResponseToken)
 async def login(
-        login: RequestAuth,
+        model: RequestAuth,
         response: Response,
         users: UsersRepository = Depends(get_users_repository)
 ):
-    user = await users.get_by_login(login.login)
-    if user is None or not verify_password(login.password, user.password):
+    user = await users.get_by_login(model.login)
+    if user is None or not verify_password(model.password, user.password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password")
     token = ResponseToken(
         access_token=create_access_token({"sub": user.login}),
@@ -33,7 +33,10 @@ async def login(
 
 
 @router.post('/refresh', response_model=ResponseAccessToken)
-async def refresh(response: Response, refresh_token: Optional[str] = Cookie(None)):
+async def refresh(
+        response: Response,
+        refresh_token: Optional[str] = Cookie(None)
+):
     current_user = await get_current_user(users=get_users_repository(), token=refresh_token)
     if await redis.get(refresh_token):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Credentials are not valid")
@@ -52,7 +55,11 @@ async def refresh(response: Response, refresh_token: Optional[str] = Cookie(None
 
 
 @router.get("/logout")
-async def logout(request: Request, response: Response, refresh_token: Optional[str] = Cookie(None)):
+async def logout(
+        request: Request,
+        response: Response,
+        refresh_token: Optional[str] = Cookie(None)
+):
     if refresh_token:
         await redis.set(refresh_token, "Blacklisted", expire=REFRESH_TOKEN_EXPIRE_MINUTES)
     response = RedirectResponse(request.base_url, status_code=302)

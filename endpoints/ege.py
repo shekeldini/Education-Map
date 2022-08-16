@@ -1,10 +1,11 @@
 from typing import List
-from fastapi import APIRouter, Depends, Response, Path
+from fastapi import APIRouter, Depends, Response, Path, HTTPException, status
 from models.request.ege import RequestEge
 from models.response.ege import ResponseEge, ResponseAllEge
+from models.response.users import ResponseUsers
 
 from repositories.ege import EgeRepository
-from .depends import get_ege_repository
+from .depends import get_ege_repository, get_current_user
 
 router = APIRouter()
 
@@ -12,8 +13,11 @@ router = APIRouter()
 @router.post("/import", response_class=Response)
 async def import_digital_items(
         model: List[RequestEge],
-        ege_repository: EgeRepository = Depends(get_ege_repository)
+        ege_repository: EgeRepository = Depends(get_ege_repository),
+        current_user: ResponseUsers = Depends(get_current_user)
 ):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     for item in model:
         await ege_repository.create(item)
 

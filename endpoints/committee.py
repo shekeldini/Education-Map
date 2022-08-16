@@ -2,8 +2,9 @@ from typing import List
 from fastapi import APIRouter, Depends, Response, HTTPException, status
 from models.request.committee import RequestCommittee
 from models.response.committee import ResponseCommittee, CommitteeCoordinates
+from models.response.users import ResponseUsers
 from repositories.committee import CommitteeRepository
-from .depends import get_committee_repository
+from .depends import get_committee_repository, get_current_user
 
 router = APIRouter()
 
@@ -12,7 +13,10 @@ router = APIRouter()
 async def import_committee_items(
         model: List[RequestCommittee],
         committee_repository: CommitteeRepository = Depends(get_committee_repository),
+        current_user: ResponseUsers = Depends(get_current_user)
 ):
+    if not current_user.is_admin():
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Access Denied")
     for item in model:
         await committee_repository.create(item)
 
