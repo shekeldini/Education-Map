@@ -482,6 +482,7 @@ function changeBorderWeight(value){
 function search(value){
     $("#search_result").empty();
     if (value.length > 0){
+        //current_filter = 'search';
         var data = $.ajax({
             type : 'GET',
             url : "oo/search?oo_name=" + value,
@@ -495,9 +496,12 @@ function search(value){
     if (value.length == 0){
         deleteAllMarkers();
         flyToStartPosition();
+        //current_filter = 'info';
     };
 
 };
+
+
 
 
 function createFoundItem(item){
@@ -564,7 +568,7 @@ function create_committee_marker(item){
         if (!popup.firstChild.firstChild.style.width){
             popup.firstChild.firstChild.setAttribute(
                 'style',
-                `width: ${size_popup[active_tab].width}px;`,
+                `width: ${size_popup[0].width}px;`,
             )
         }
         local_marker = this
