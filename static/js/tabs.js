@@ -609,9 +609,9 @@ function create_text(data, active){
         tabContainer.appendChild(create_school_growing_point_info(data, tabs_active[4]));
     }
     else{
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[2])("Информация размещена в юридическом лице"));
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[3])("Информация размещена в юридическом лице"));
-        tabContainer.appendChild(decorator(create_text_error, tabs_active[4])("Информация размещена в юридическом лице"));
+        tabContainer.appendChild(create_school_no_info(data, tabs_active[2], "Информация размещена в юридическом лице"))
+        tabContainer.appendChild(create_school_no_info(data, tabs_active[3], "Информация размещена в юридическом лице"))
+        tabContainer.appendChild(create_school_no_info(data, tabs_active[4], "Информация размещена в юридическом лице"))
     }
 
     let tabsContent = tabContainer.querySelectorAll('.tabcontent');
