@@ -730,9 +730,18 @@ function close_children(parent){
 info_select = info.querySelector('summary')
 
 table.onclick = function(event) {
+
     let target = event.target;
     let flag = false
-    if (target.className === 'menu-filter__title' || target.className === 'menu-filter__title menu-filter__title-com' ) {
+    let titleClassList = [
+        "menu-filter__title",
+        "menu-filter__title menu-filter__title-com",
+        "menu-filter__title menu-filter__title-sreda",
+        "menu-filter__title menu-filter__title-ege",
+        "menu-filter__title menu-filter__title-vpr",
+        "menu-filter__title menu-filter__title-rost ",
+    ]
+    if (titleClassList.includes(target.className)) {
         flag = true
     }
     if (target.className.baseVal === 'menu-filter__title-icon' ){
@@ -742,6 +751,21 @@ table.onclick = function(event) {
     if (target.className === 'menu-filter__title-description-wrapper'){
         flag = true
         target = target.parentNode.parentNode
+    };
+    if (target.className === 'menu-filter__title-description-wrapper-item'){
+        flag = true
+        target = target.parentNode.parentNode.parentNode
+    };
+    let description_items = [
+        "menu-filter__title-description-wrapper-item-current-vpr",
+        "menu-filter__title-description-wrapper-item-text",
+        "menu-filter__title-description-wrapper-item-current",
+        "menu-filter__title-description-wrapper-item-current-ege",
+        "menu-filter__title-description-wrapper-item-current-rost",
+    ]
+    if (description_items.includes(target.className)){
+        flag = true
+        target = target.parentNode.parentNode.parentNode.parentNode
     };
     if (target.className === 'menu-filter__title-description' ){
 
