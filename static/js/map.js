@@ -259,6 +259,15 @@ async function load_districts(){
                 });
 
                 polygon.on('click', async function () {
+//                    if (!edit){
+//                        edit = true
+//                        this.pm.enable({
+//                          allowSelfIntersection: true,
+//                        });
+//                        this.on('pm:edit', (e) => {
+//                          console.log(this.toGeoJSON().geometry.coordinates);
+//                        });
+//                    };
                     if (current_filter == "info"){
                         if (info.open == false){
                             info.firstChild.nextSibling.click()
@@ -510,7 +519,11 @@ function createFoundItem(item){
 };
 
 function flyToRegion(point){
-    map.flyTo(point, 8.5 - zoom_epsilon, {animate: false, duration: duration_to_region})
+    map.flyTo(point, 8.5 - zoom_epsilon, {animate: false})
+}
+
+function flyToDistrict(point){
+    map.flyTo(point, 10.5 - zoom_epsilon, {animate: false})
 }
 
 function flyToRegionById(id_region){
